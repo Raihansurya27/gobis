@@ -16,13 +16,18 @@ class LoginController extends Controller
 
     public function authenticate(Request $request){
         $credentials = $request->validate([
-
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended('home');
+            if(auth()->user()->role->nama_role == 'admin'){
+                return redirect()->intended('dashboard');
+            }else{
+                return redirect()->intended('/home');
+            }
         }
 
         // // return back()->withErrors([
@@ -47,23 +52,15 @@ class LoginController extends Controller
     }
 
     public function registerStore(Request $request){
-        // $validatedData=$request->validate([
-        //     'name'=>'required',
-        //     'email'=>'required|unique:users|email',
-        //     'password'=>'required|min:8',
-        //     'picture'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
-        // ]);
-        // if(!empty($request->picture)){
-        //     $foto = $request->name.'.'.$request->picture->extension();
-        //     $request->picture->move(public_path('img/profil'),$foto);
-        //     $validatedData['picture'] = $foto;
-        // }else{
-        //     $validatedData['picture'] = null;
-        // }
-        // $validatedData['email_verified_at'] = now();
-        // $validatedData['remember_token'] = Str::random(10);
-        // $validatedData['password'] = Hash::make($request->password);
-        // User::create($validatedData);
+        $validatedData=$request->validate([
+            'nama'=>'required',
+            'email'=>'required|unique:users|email',
+            'password'=>'required|min:8',
+            'alamat'=>'required'
+        ]);
+        $validatedData['remember_token'] = Str::random(10);
+        $validatedData['password'] = Hash::make($request->password);
+        User::create($validatedData);
         return redirect('/login')->with('daftar','Daftar berhasil, silahkan login');
     }
 }
