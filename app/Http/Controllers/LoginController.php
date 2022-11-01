@@ -56,7 +56,11 @@ class LoginController extends Controller
             'nama'=>'required',
             'email'=>'required|unique:users|email',
             'password'=>'required|min:8',
-            'alamat'=>'required'
+            'alamat'=>'required',
+            'provinsi_id'=>'required',
+            'kabupaten_id'=>'required',
+            'kecamatan_id'=>'required',
+            'kelurahan_id'=>'required',
         ]);
         $validatedData['remember_token'] = Str::random(10);
         $validatedData['password'] = Hash::make($request->password);

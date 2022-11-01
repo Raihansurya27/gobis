@@ -14,7 +14,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
+        return view('',['kelas'=>Kelas::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        return view('');
     }
 
     /**
@@ -35,7 +35,11 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'nama_kelas'=>'required|unique:kelas',
+        ]);
+        Kelas::create($validatedData);
+        return redirect('/')->with('pesan','Data kelas bus baru berhasil ditambah');
     }
 
     /**
@@ -57,7 +61,7 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        //
+        return view('',['kelas'=>$kelas]);
     }
 
     /**
@@ -69,7 +73,11 @@ class KelasController extends Controller
      */
     public function update(Request $request, Kelas $kelas)
     {
-        //
+        $validatedData=$request->validate([
+            'nama_kelas'=>'required|unique:kelas',
+        ]);
+        Kelas::where('id',$kelas->id)->update($validatedData);
+        return redirect('/')->with('pesan','Data kelas bus berhasil diupdate');
     }
 
     /**
@@ -80,6 +88,7 @@ class KelasController extends Controller
      */
     public function destroy(Kelas $kelas)
     {
-        //
+        Kelas::destroy($kelas->id);
+        return redirect('/')->with('pesan','Data kelas bus berhasil dihapus');
     }
 }

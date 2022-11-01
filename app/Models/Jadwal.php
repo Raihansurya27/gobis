@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function rute(){
+        return $this->belongsTo(Rute::class);
+    }
 }

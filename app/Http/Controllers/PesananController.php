@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
+use App\Models\User;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -14,7 +16,7 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //
+        return view('',['pesanans'=>Pesanan::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +26,7 @@ class PesananController extends Controller
      */
     public function create()
     {
-        //
+        return view('',['jadwals'=>Jadwal::all()]);
     }
 
     /**
@@ -35,7 +37,14 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'jadwal_id'=>'required',
+            'tanggal_pesan'=>'required',
+            'jumlah'=>'required',
+        ]);
+        $validatedData['user_id'] = Auth::user()->id;
+        Pesanan::create($validatedData);
+        return redirect('/')->with('pesan','Data pesanan baru berhasil ditambah');
     }
 
     /**
@@ -57,7 +66,7 @@ class PesananController extends Controller
      */
     public function edit(Pesanan $pesanan)
     {
-        //
+        return view('',['pesanan'=>$pesanan,'jadwals'=>Jadwal::all()]);
     }
 
     /**
@@ -69,7 +78,14 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
-        //
+        $validatedData=$request->validate([
+            'jadwal_id'=>'required',
+            'tanggal_pesan'=>'required',
+            'jumlah'=>'required',
+        ]);
+        $validatedData['user_id'] = Auth::user()->id;
+        Pesanan::where('id',$pesanan->id)->update($validatedData);
+        return redirect('/')->with('pesan','Data pesanan berhasil diupdate');
     }
 
     /**
@@ -80,6 +96,7 @@ class PesananController extends Controller
      */
     public function destroy(Pesanan $pesanan)
     {
-        //
+        Pesanan::destroy($pesanan->id);
+        return redirect('/')->with('pesan','Data pesanan berhasil dihapus');
     }
 }

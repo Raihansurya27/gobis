@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Kecamatan extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function kabupaten(){
+        return $this->belongsTo(Kabupaten::class);
+    }
 }

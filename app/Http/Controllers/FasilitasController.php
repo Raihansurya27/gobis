@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Provinsi;
+use App\Models\Fasilitas;
 use Illuminate\Http\Request;
 
-class ProvinsiController extends Controller
+class FasilitasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ProvinsiController extends Controller
      */
     public function index()
     {
-        return view('',['provinsi'=>Provinsi::latest()->paginate(8)]);
+        return view('',[''=>Fasilitas::latest()->paginate(8)]);
     }
 
     /**
@@ -36,59 +36,59 @@ class ProvinsiController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:tipes',
+            'nama'=>'required|unique:fasilitas',
         ]);
-        Jabatan::create($validatedData);
-        return redirect('/')->with('pesan','Data provinsi berhasil ditambah');
+        Fasilitas::create($validatedData);
+        return redirect('/')->with('pesan','Data fasilitas bus berhasil ditambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Provinsi  $provinsi
+     * @param  \App\Models\Fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function show(Provinsi $provinsi)
+    public function show(Fasilitas $fasilitas)
     {
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Provinsi  $provinsi
+     * @param  \App\Models\Fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Provinsi $provinsi)
+    public function edit(Fasilitas $fasilitas)
     {
-        return view('',['provinsi'=>$provinsi]);
+        return view('',['fasilitas'=>$fasilitas]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Provinsi  $provinsi
+     * @param  \App\Models\Fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provinsi $provinsi)
+    public function update(Request $request, Fasilitas $fasilitas)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:provinsi',
+            'nama'=>'required|unique:fasilitas',
         ]);
-        Provinsi::where('id',$provinsi->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data provinsi berhasil diupdate');
+        Fasilitas::where('id',$fasilitas->id)->update($validatedData);
+        return redirect('/')->with('pesan','Data fasilitas bus berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Provinsi  $provinsi
+     * @param  \App\Models\Fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provinsi $provinsi)
+    public function destroy(Fasilitas $fasilitas)
     {
-        Provinsi::destroy($provinsi->id);
-        return redirect('/')->with('pesan','Data provinsi berhasil dihapus');
+        Fasilitas::destroy($fasilitas->id);
+        return redirect('/')->with('pesan','Data fasilitas bus berhasil dihapus');
     }
 }

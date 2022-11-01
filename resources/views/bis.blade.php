@@ -1,5 +1,6 @@
 @extends('layout.main')
 @section('container')
+    <link rel="stylesheet" href="{{ asset('css/style_login.css') }}">
     <div class="grid-container">
         <div class="title">
             <h2>Bis</h2>

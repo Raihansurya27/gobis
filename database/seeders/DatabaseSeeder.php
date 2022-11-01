@@ -7,6 +7,10 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Role;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,6 +43,39 @@ class DatabaseSeeder extends Seeder
 
         Role::create([
             'nama_role' => 'pelanggan',
+        ]);
+
+        Provinsi::create([
+            'nama' => 'sumatera barat',
+        ]);
+
+        Provinsi::create([
+            'nama' => 'riau',
+        ]);
+
+        Kabupaten::create([
+            'nama' => 'padang',
+            'provinsi_id' => 1,
+        ]);
+
+        Kabupaten::create([
+            'nama' => 'Pekanbaru',
+            'provinsi_id' => 2,
+        ]);
+
+        Kecamatan::create([
+            'nama' => 'pauh',
+            'kabupaten_id' => 1,
+        ]);
+
+        Kecamatan::create([
+            'nama' => 'padang utara',
+            'kabupaten_id' => 1,
+        ]);
+
+        Kecamatan::create([
+            'nama' => 'panam',
+            'kabupaten_id' => 2,
         ]);
 
     }

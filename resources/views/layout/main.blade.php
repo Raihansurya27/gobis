@@ -6,11 +6,18 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>GO-BIS</title>
 </head>
 
 <body>
     <div class="navbar">
+        <input type="checkbox" name="" value="" id="check">
+        <label for="check">
+            <i class="material-icons" id="dehaze">dehaze</i>
+            <i class="material-icons" id="close">close</i>
+        </label>
         <div class="logo">
             <h2>Go-Bis</h2>
         </div>

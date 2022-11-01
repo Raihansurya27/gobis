@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kecamatan;
+use App\Models\Kabupaten;
 use Illuminate\Http\Request;
 
 class KecamatanController extends Controller
@@ -14,7 +15,7 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        //
+        return view('',['kecamatans'=>Kecamatan::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +25,7 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('',['kabupatens'=>Kabupaten::all()]);
     }
 
     /**
@@ -35,7 +36,12 @@ class KecamatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'required|unique:kecamatans',
+            'kabupaten_id'=>'required',
+        ]);
+        Kecamatan::create($validatedData);
+        return redirect('/')->with('pesan','Data kecamatan baru berhasil ditambah');
     }
 
     /**
@@ -57,7 +63,7 @@ class KecamatanController extends Controller
      */
     public function edit(Kecamatan $kecamatan)
     {
-        //
+        return view('',['kecamatans'=>$kecamatan,'kabupatens'=>Kabupaten::all()]);
     }
 
     /**
@@ -69,7 +75,12 @@ class KecamatanController extends Controller
      */
     public function update(Request $request, Kecamatan $kecamatan)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'required|unique:kecamatans',
+            'kabupaten_id'=>'required'
+        ]);
+        Kecamatan::where('id',$kecamatan->id)->update($validatedData);
+        return redirect('/')->with('pesan','Data kecamatan berhasil diupdate');
     }
 
     /**
@@ -80,6 +91,7 @@ class KecamatanController extends Controller
      */
     public function destroy(Kecamatan $kecamatan)
     {
-        //
+        Kecamatan::destroy($kecamatan->id);
+        return redirect('/')->with('pesan','Data kecamatan berhasil dihapus');
     }
 }

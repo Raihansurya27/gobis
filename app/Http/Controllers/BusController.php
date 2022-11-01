@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bus;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
@@ -14,7 +15,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        //
+        return view('',['buses'=>Bus::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +25,7 @@ class BusController extends Controller
      */
     public function create()
     {
-        //
+        return view('',['kelas'=>Kelas::all()]);
     }
 
     /**
@@ -35,7 +36,21 @@ class BusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'required',
+            'kelas_id'=>'required',
+            'deskripsi'=>'required',
+            'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
+        ]);
+        if(!empty($request->foto)){
+            $foto = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('img/bus'),$foto);
+            $validatedData['foto'] = $foto;
+        }else{
+            $validatedData['foto'] = null;
+        }
+        Bus::create($validatedData);
+        return redirect('/')->with('pesan','Data bus baru berhasil ditambah');
     }
 
     /**
@@ -57,7 +72,7 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        //
+        return view('',['buses'=>$bus, 'kelas'=>Kelas::all()]);
     }
 
     /**
@@ -69,7 +84,21 @@ class BusController extends Controller
      */
     public function update(Request $request, Bus $bus)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'required',
+            'kelas_id'=>'required',
+            'deskripsi'=>'required',
+            'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
+        ]);
+        if(!empty($request->foto)){
+            $foto = $request->nama.'.'.$request->foto->extension();
+            $request->foto->move(public_path('img/bus'),$foto);
+            $validatedData['foto'] = $foto;
+        }else{
+            $validatedData['foto'] = null;
+        }
+        Bus::where('id',$bus->id)->update($validatedData);
+        return redirect('/')->with('pesan','Data bus berhasil diupdate');
     }
 
     /**
@@ -80,6 +109,7 @@ class BusController extends Controller
      */
     public function destroy(Bus $bus)
     {
-        //
+        Bus::destroy($bus->id);
+        return redirect('/')->with('pesan','Data bus berhasil dihapus');
     }
 }

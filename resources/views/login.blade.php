@@ -20,16 +20,22 @@
             <form action="{{ url('/login') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="kontent">
-                    <div class="text">
+                    <div class="col-25">
                         <p>Username</p>
-                        <p>Password</p>
                     </div>
-                    <div class="input">
+                    <div class="col-75">
                         <input class="@error('email')is-invalid @enderror" type="email" name="email"
                             value="{{ old('email') }}" placeholder="E-mail">
                         @error('email')
                             {{ $message }}
                         @enderror
+                    </div>
+                </div>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Password</p>
+                    </div>
+                    <div class="col-75">
                         <input class="@error('password')is-invalid @enderror" type="password" name="password"
                             value="{{ old('password') }}" placeholder="Password">
                         @error('password')
@@ -37,13 +43,13 @@
                         @enderror
                     </div>
                 </div>
-                {{-- <div class="forgot-password">
-                    <a href="#">Forgot your password ?</a>
-                </div> --}}
                 <div class="daftar">
                     <button type="submit" name="button">Login</button>
                 </div>
-            </form>
         </div>
+        </form>
+        {{-- <div class="forgot-password">
+                    <a href="#">Forgot your password ?</a>
+                </div> --}}
     </div>
 @endsection

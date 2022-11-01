@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pesanan extends Model
+class FasilitasBus extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function fasilitas(){
+        return $this->belongsTo(Fasilitas::class);
     }
 
-    public function jadwal(){
-        return $this->belongsTo(Jadwal::class);
+    public function bus(){
+        return $this->belongsTo(Bus::class);
     }
+
 }

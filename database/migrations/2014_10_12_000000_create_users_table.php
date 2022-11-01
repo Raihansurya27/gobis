@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->ForeignId('role_id')->default(2);
-            // $table->ForeignId('provinsi_id');
-            // $table->ForeignId('kabupaten_id');
-            // $table->ForeignId('kecamatan_id');
-            // $table->ForeignId('kelurahan_id');
+            $table->ForeignId('provinsi_id');
+            $table->ForeignId('kabupaten_id');
+            $table->ForeignId('kecamatan_id');
+            $table->ForeignId('kelurahan_id');
             $table->longText('alamat');
             $table->rememberToken();
             $table->timestamps();

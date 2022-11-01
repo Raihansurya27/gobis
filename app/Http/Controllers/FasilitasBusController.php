@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\FasilitasBus;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class FasilitasBusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('',['role'=>Role::latest()->paginate(8)]);
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('');
+        //
     }
 
     /**
@@ -35,20 +35,16 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData=$request->validate([
-            'nama_role'=>'required|unique:roles',
-        ]);
-        Role::create($validatedData);
-        return redirect('/')->with('pesan','Data peran baru berhasil ditambah');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\FasilitasBus  $fasilitasBus
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(FasilitasBus $fasilitasBus)
     {
         //
     }
@@ -56,39 +52,34 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\FasilitasBus  $fasilitasBus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(FasilitasBus $fasilitasBus)
     {
-        return view('',['roles'=>$role]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\FasilitasBus  $fasilitasBus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, FasilitasBus $fasilitasBus)
     {
-        $validatedData=$request->validate([
-            'nama_role'=>'required|unique:roles',
-        ]);
-        Role::where('id',$role->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data peran berhasil diupdate');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\FasilitasBus  $fasilitasBus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(FasilitasBus $fasilitasBus)
     {
-        Role::destroy($role->id);
-        return redirect('/')->with('pesan','Data peran berhasil dihapus');
+        //
     }
 }

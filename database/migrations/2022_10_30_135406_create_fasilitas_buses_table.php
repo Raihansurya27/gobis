@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tikets', function (Blueprint $table) {
-            $table->id();
-            $table->ForeingId('pesanan_id');
+        Schema::create('fasilitas_buses', function (Blueprint $table) {
+            $table->ForeignId('bus_id');
+            $table->ForeignId('fasilitas_id');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tikets');
+        Schema::dropIfExists('fasilitas_buses');
     }
 };

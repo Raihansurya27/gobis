@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('terminals', function (Blueprint $table) {
+        Schema::create('fasilitas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->ForeignId('provinsi_id');
-            $table->ForeignId('kabupaten_id');
-            $table->ForeignId('kecamatan_id');
-            $table->ForeignId('kelurahan_id');
-            $table->longText('alamat');
-            $table->longText('deskripsi')->nullable();
+            $table->string('nama');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terminals');
+        Schema::dropIfExists('fasilitas');
     }
 };
