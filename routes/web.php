@@ -18,23 +18,23 @@ Route::get('/', function () {
 });
 
 Route::get('/login',function(){
-    return view('login');
+    return view('login1');
 });
 
 Route::get('/register',function(){
-    return view('register');
+    return view('register1');
 });
 
 Route::get('/home',function(){
-    return view('home');
+    return view('home1');
 });
 
 Route::get('/bis',function(){
-    return view('bis');
+    return view('bis1');
 });
 
 Route::get('/about',function(){
-    return view('about');
+    return view('about1');
 });
 
 Route::get('/loginbaru',function(){
