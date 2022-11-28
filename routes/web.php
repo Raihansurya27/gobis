@@ -41,6 +41,11 @@ Route::get('/loginbaru',function(){
     return view('loginbaru');
 });
 
+Route::get('/caribus',function(){
+    return view('caribus');
+});
+
+
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/register',[LoginController::class,'registerStore']);
 Route::get('/login',[LoginController::class,'login'])->name('login')->middleware('guest');

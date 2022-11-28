@@ -76,7 +76,7 @@
                         <input type="number" name="" value="">
                     </div>
                     <div class="col-5">
-                        <button type="submit" name="button">Cari</button>
+                        <a href="{{url('caribus')}}"> <button type="submit" name="button">Cari</button></a>
                     </div>
                 </div>
             </div>
