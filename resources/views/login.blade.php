@@ -21,7 +21,7 @@
                 @csrf
                 <div class="kontent">
                     <div class="col-25">
-                        <p>Username</p>
+                        <p>Email</p>
                     </div>
                     <div class="col-75">
                         <input class="@error('email')is-invalid @enderror" type="email" name="email"

@@ -24,7 +24,7 @@
           @enderror
         </div>
         <div class="col-25">
-          <p>Username</p>
+          <p>Email</p>
         </div>
         <div class="col-75">
           <input type="email" class="@error('email')is-invalid @enderror" name="email" value="{{ old('email') }}"
