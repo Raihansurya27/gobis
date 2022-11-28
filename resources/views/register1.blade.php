@@ -38,7 +38,7 @@
                     <button>Logout</button>
                 </form>
             @else
-                <li> <a href="{{ url('register') }}" class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
+                <li> <a href="{{ url('register1') }}" class="{{ Request::is('register1') ? 'active' : '' }}">Register</a>
                 </li>
                 <li> <a href="{{ url('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
             @endauth
