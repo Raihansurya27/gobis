@@ -22,7 +22,7 @@ Route::get('/login',function(){
 });
 
 Route::get('/register',function(){
-    return view('register1');
+    return view('register');
 });
 
 Route::get('/home',function(){
@@ -40,6 +40,11 @@ Route::get('/about',function(){
 Route::get('/loginbaru',function(){
     return view('loginbaru');
 });
+
+Route::get('/caribus',function(){
+    return view('caribus');
+});
+
 
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/register',[LoginController::class,'registerStore']);
