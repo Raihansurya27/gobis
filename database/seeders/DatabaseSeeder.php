@@ -11,6 +11,7 @@ use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Fasilitas;
 
 class DatabaseSeeder extends Seeder
 {
@@ -76,6 +77,14 @@ class DatabaseSeeder extends Seeder
         Kecamatan::create([
             'nama' => 'panam',
             'kabupaten_id' => 2,
+        ]);
+
+        Fasilitas::create([
+            'nama' => 'Full AC'
+        ]);
+
+        Fasilitas::create([
+            'nama' => 'WiFi'
         ]);
 
     }
