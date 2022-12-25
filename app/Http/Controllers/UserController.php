@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('dashboard.user.index', ['users'=>User::all()]);
+        return view('dashboard.user.index', ['users'=>User::latest()->paginate(8)]);
     }
 
     /**
@@ -58,13 +58,13 @@ class UserController extends Controller
         $validatedData['remember_token'] = Str::random(10);
         $validatedData['password'] = Hash::make($request->password);
         User::create($validatedData);
-        return redirect('/user/index')->with('pesan','Data pengguna berhasil diupdate');
+        return redirect('/user')->with('pesan','Data pengguna berhasil diupdate');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -75,12 +75,17 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        return view('dashboard.user.update',['user' => Users::where('id',$id)]);
+        return view('dashboard.user.update',['user' => $user,
+            'roles' => Role::all(),
+            'provinsis' => Provinsi::all(),
+            'kabupatens' => Kabupaten::all(),
+            'kecamatans' => Kecamatan::all(),
+            'kelurahans' => Kelurahan::all()]);
     }
 
     /**
@@ -92,17 +97,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'required',
+            'email'=>'required|email',
+            'password'=>'min:8|required',
+            'role_id'=>'required',
+            'kelurahan_id'=>'required',
+            'alamat'=>'required',
+        ]);
+        $validatedData['remember_token'] = Str::random(10);
+        $validatedData['password'] = Hash::make($request->password);
+        User::where('id',$id)->update($validatedData);
+        return redirect('/user')->with('pesan','Data pengguna berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+        return redirect('/user')->with('pesan','Data pengguna berhasil dihapus');
     }
 }

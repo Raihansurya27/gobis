@@ -13,7 +13,7 @@
                     <input type="text" class="form-control @error('nama')is-invalid
                     @enderror"
                         id="nama" placeholder="Contoh: Muhammad Raihan Surya" name="nama"
-                        value="{{ old('name') }}">
+                        value="{{ old('nama') }}">
                     @error('nama')
                         {{ $message }}
                     @enderror
@@ -41,7 +41,11 @@
                     <label for="role_id" class="form-label">Peran Akun\Role</label> <br>
                     <select class="form-select" aria-label="Default select example" name="role_id" id="role_id">
                         @forelse ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
+                            @if (old('role_id') == $role->id)
+                                <option value="{{ $role->id }}" selected>{{ $role->nama_role }}</option>
+                            @else
+                                <option value="{{ $role->id }}" selected>{{ $role->nama_role }}</option>
+                            @endif
                         @empty
                             <option>Tidak ada data Peran</option>
                         @endforelse
@@ -54,7 +58,11 @@
                         onchange="kabupaten()">
                         <option value="pilih" selected>Pilih Provinsi</option>
                         @forelse ($provinsis as $provinsi)
-                            <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
+                            @if (old('provinsi_id') == $provinsi->id)
+                                <option value="{{ $provinsi->id }}" selected>{{ $provinsi->nama }}</option>
+                            @else
+                                <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
+                            @endif
                         @empty
                             <option>Tidak ada data Provinsi</option>
                         @endforelse
@@ -63,11 +71,17 @@
 
                 <div class="mb-3" id="bag-kab" hidden="true">
                     <label for="kabupaten_id" class="form-label">Kabupaten</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="kabupaten_id" id="kabupaten_id" onchange="kecamatan()">
+                    <select class="form-select" aria-label="Default select example" name="kabupaten_id" id="kabupaten_id"
+                        onchange="kecamatan()">
                         <option value="pilih" selected>Pilih Kabupaten</option>
                         @forelse ($kabupatens as $kabupaten)
-                            <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}">
-                                {{ $kabupaten->nama }}</option>
+                            @if (old('kabupaten_id') == $kabupaten->id)
+                                <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}" selected>
+                                    {{ $kabupaten->nama }}</option>
+                            @else
+                                <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}">
+                                    {{ $kabupaten->nama }}</option>
+                            @endif
                         @empty
                             <option>Tidak ada data Kabupaten</option>
                         @endforelse
@@ -76,11 +90,17 @@
 
                 <div class="mb-3" id="bag-kec" hidden="true">
                     <label for="kecamatan_id" class="form-label">Kecamatan</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="kecamatan_id" id="kecamatan_id" onchange="kelurahan()">
+                    <select class="form-select" aria-label="Default select example" name="kecamatan_id" id="kecamatan_id"
+                        onchange="kelurahan()">
                         <option value="pilih" selected>Pilih Kecamatan</option>
                         @forelse ($kecamatans as $kecamatan)
-                            <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}"">
-                                {{ $kecamatan->nama }}</option>
+                            @if (old('kecamatan_id') == $kecamatan->id)
+                                <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}" selected>
+                                    {{ $kecamatan->nama }}</option>
+                            @else
+                                <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}">
+                                    {{ $kecamatan->nama }}</option>
+                            @endif
                         @empty
                             <option>Tidak ada data Kecamatan</option>
                         @endforelse
@@ -92,8 +112,13 @@
                     <select class="form-select" aria-label="Default select example" name="kelurahan_id" id="kelurahan_id">
                         <option value="pilih" selected>Pilih Kelurahan</option>
                         @forelse ($kelurahans as $kelurahan)
-                            <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}"">
-                                {{ $kelurahan->nama }}</option>
+                            @if (old('kelurahan_id') == $kelurahan->id)
+                                <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}" selected>
+                                    {{ $kelurahan->nama }}</option>
+                            @else
+                                <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}">
+                                    {{ $kelurahan->nama }}</option>
+                            @endif
                         @empty
                             <option>Tidak ada data Kelurahan</option>
                         @endforelse
@@ -103,8 +128,8 @@
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Alamat</label>
                     <textarea class="form-control @error('deskripsi')is-invalid
-                    @enderror" id="alamat" rows="3"
-                        name="alamat">{{ old('alamat') }}</textarea>
+                    @enderror" id="alamat"
+                        rows="3" name="alamat">{{ old('alamat') }}</textarea>
                     @error('alamat')
                         {{ $message }}
                     @enderror
@@ -180,5 +205,4 @@
             div_kel.hidden = true;
         }
     }
-
 </script>

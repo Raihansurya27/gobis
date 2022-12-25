@@ -6,7 +6,7 @@
     <title>Dashboard Template · Bootstrap v5.1</title>
 
     <!-- Bootstrap core CSS -->
-<link href="{{asset('/css/dashboard/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/dashboard/bootstrap.min.css')}}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {

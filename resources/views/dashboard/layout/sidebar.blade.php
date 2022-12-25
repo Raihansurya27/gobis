@@ -7,7 +7,7 @@
             Dashboard
           </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link {{Request::is('bus-dashboard') ? 'active' : ''}}" href="{{url('bus-dashboard')}}">
             <span data-feather="layers"></span>
             Bus
@@ -22,22 +22,23 @@
         <li class="nav-item">
           <a class="nav-link {{Request::is('acara') ? 'active' : ''}}" href="{{url('acara')}}">
             <span data-feather="file"></span>
+            Provinsi
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{Request::is('jabatan') ? 'active' : ''}}" href="{{url('jabatan')}}">
             <span data-feather="layers"></span>
-            Jabatan
+            kabupaten
           </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{Request::is('karyawan') ? 'active' : ''}}" href="{{url('karyawan')}}">
               <span data-feather="users"></span>
-              Karyawan
+              Kecamatan
             </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('user/index') ? 'active' : ''}}" href="{{url('user/index')}}">
+            <a class="nav-link {{Request::is('user/index') ? 'active' : ''}}" href="{{url('user')}}">
               <span data-feather="user"></span>
               User
             </a>
@@ -48,24 +49,42 @@
               Peran
             </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link {{Request::is('komentar') ? 'active' : ''}}" href="{{url('komentar')}}">
               <span data-feather="file"></span>
-              Komentar
+              Kelurahan
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{Request::is('booking') ? 'active' : ''}}" href="{{url('booking')}}">
               <span data-feather="file"></span>
-              Booking
+              Jadwal
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
               <span data-feather="home"></span>
-              Home
+              Terminal
             </a>
-        </li> --}}
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+              <span data-feather="home"></span>
+              Pesanan
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+              <span data-feather="home"></span>
+              Tiket
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+              <span data-feather="home"></span>
+              Fasilitas Bus
+            </a>
+        </li>
       </ul>
     </div>
   </nav>
