@@ -10,7 +10,11 @@ class Rute extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function terminal(){
+    public function awal(){
+        return $this->belongsTo(Terminal::class);
+    }
+
+    public function tujuan(){
         return $this->belongsTo(Terminal::class);
     }
 }

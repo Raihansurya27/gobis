@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->ForeignId('rute_id');
             $table->timestamps('keberangkatan');
+            $table->double('harga');
             $table->timestamps();
         });
     }

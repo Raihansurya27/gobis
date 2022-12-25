@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('',['role'=>Role::latest()->paginate(8)]);
+        return view('dashboard.role.index',['roles'=>Role::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('dashboard.role.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class RoleController extends Controller
             'nama_role'=>'required|unique:roles',
         ]);
         Role::create($validatedData);
-        return redirect('/')->with('pesan','Data peran baru berhasil ditambah');
+        return redirect('/role')->with('pesan','Data peran baru berhasil ditambah');
     }
 
     /**
@@ -61,7 +61,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('',['roles'=>$role]);
+        return view('dashboard.role.update',['roles'=>$role]);
     }
 
     /**
@@ -77,7 +77,7 @@ class RoleController extends Controller
             'nama_role'=>'required|unique:roles',
         ]);
         Role::where('id',$role->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data peran berhasil diupdate');
+        return redirect('/role')->with('pesan','Data peran berhasil diupdate');
     }
 
     /**
@@ -89,6 +89,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         Role::destroy($role->id);
-        return redirect('/')->with('pesan','Data peran berhasil dihapus');
+        return redirect('/role')->with('pesan','Data peran berhasil dihapus');
     }
 }

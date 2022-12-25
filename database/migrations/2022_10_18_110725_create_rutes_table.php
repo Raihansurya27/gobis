@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('rutes', function (Blueprint $table) {
             $table->id();
-            $table->ForeignId('awal');
-            $table->ForeignId('tujuan');
+            $table->ForeignId('awal_id');
+            $table->ForeignId('tujuan_id');
             $table->ForeignId('bus_id');
-            $table->double('harga');
+            // $table->double('harga');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/login',function(){
     return view('login1');
 });
@@ -30,7 +32,7 @@ Route::get('/home',function(){
 });
 
 Route::get('/bis',function(){
-    return view('bis1');
+    return view('caribus');
 });
 
 Route::get('/about',function(){
@@ -51,3 +53,13 @@ Route::post('/register',[LoginController::class,'registerStore']);
 Route::get('/login',[LoginController::class,'login'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
+
+
+//dashboard
+Route::get('/', function () {
+    return view('dashboard.index');
+});
+
+//role
+Route::resource('/role', RoleController::class);
+
