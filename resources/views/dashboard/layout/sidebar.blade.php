@@ -7,7 +7,7 @@
             Dashboard
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{Request::is('bus-dashboard') ? 'active' : ''}}" href="{{url('bus-dashboard')}}">
             <span data-feather="layers"></span>
             Bus
@@ -22,7 +22,6 @@
         <li class="nav-item">
           <a class="nav-link {{Request::is('acara') ? 'active' : ''}}" href="{{url('acara')}}">
             <span data-feather="file"></span>
-
           </a>
         </li>
         <li class="nav-item">
@@ -36,9 +35,9 @@
               <span data-feather="users"></span>
               Karyawan
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
-            <a class="nav-link {{Request::is('user') ? 'active' : ''}}" href="{{url('user')}}">
+            <a class="nav-link {{Request::is('user/index') ? 'active' : ''}}" href="{{url('user/index')}}">
               <span data-feather="user"></span>
               User
             </a>

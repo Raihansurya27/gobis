@@ -4,11 +4,11 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Data User</h1>
 </div>
-    @if (session()->has('pesan'))
+    {{-- @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
             {{session('pesan')}}
         </div>
-    @endif
+    @endif --}}
 
     <p>
         <a href="{{url('/user/create')}}" class=" btn btn-primary">Tambah User Baru</a>
@@ -21,22 +21,23 @@
                 <th>Email</th>
                 <th>Password</th>
                 <th>Peran</th>
-                <th>Foto</th>
+                <th>Alamat</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         @forelse ($users as $user)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$user->name}}</td>
+                <td>{{$user->nama}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{ Str::limit($user->password, 50)}}</td>
-                <td>{{$user->peran->nama}}</td>
-                @empty($user->picture)
+                <td>{{ Str::limit($user->password, 20)}}</td>
+                <td>{{$user->role->nama_role}}</td>
+                {{-- @empty($user->picture)
                 <td><img src="{{asset('img/noprofile.png')}}" alt="{{$user->name}}" style="width: 125px; height: 100px;"></td>
                 @else
                 <td><img src="{{asset('img/profil/'.$user->picture)}}" alt="{{$user->name}}" style="width: 125px; height: 100px;"></td>
-                @endempty
+                @endempty --}}
+                <td>{{$user->alamat}}, {{$user->kelurahan->nama}}, {{$user->kelurahan->kecamatan->nama}}, {{$user->kelurahan->kecamatan->kabupaten->nama}}, {{$user->kelurahan->kecamatan->kabupaten->provinsi->nama}}</td>
                 <td>
                     <a href="{{url('/user/'.$user->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{url('/user/'.$user->id)}}" class="d-inline" method="POST">
@@ -50,5 +51,5 @@
 
         @endforelse
     </table>
-    {{$users->links('pagination::bootstrap-5')}}
+    {{-- {{$users->links('pagination::bootstrap-5')}} --}}
 @endsection

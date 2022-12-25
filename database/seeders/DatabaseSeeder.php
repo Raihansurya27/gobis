@@ -79,6 +79,16 @@ class DatabaseSeeder extends Seeder
             'kabupaten_id' => 2,
         ]);
 
+        Kelurahan::create([
+            'nama' => fake()->name(),
+            'kecamatan_id' => 1,
+        ]);
+
+        Kelurahan::create([
+            'nama' => fake()->name(),
+            'kecamatan_id' => 2,
+        ]);
+
         Fasilitas::create([
             'nama' => 'Full AC'
         ]);

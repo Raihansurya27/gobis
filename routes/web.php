@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,7 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -63,3 +64,10 @@ Route::get('/', function () {
 //role
 Route::resource('/role', RoleController::class);
 
+//user
+Route::get('user/index', [UserController::class,'index']);
+Route::get('user/create', [UserController::class,'create']);
+Route::post('user', [UserController::class,'store']);
+Route::delete('user/delete', [UserController::class,'destroy']);
+Route::get('user/{user}/edit', [UserController::class,'edit']);
+Route::put('user/{user}', [UserController::class,'update']);
