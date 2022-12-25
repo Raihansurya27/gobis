@@ -1,63 +1,252 @@
-@extends('layout.main')
-@section('container')
-<!-- register -->
-<link rel="stylesheet" href="{{ asset('css/style_register.css') }}">
-<div class="grid-container">
-  <div class="title">
-    <h2>Register</h2>
-  </div>
-  <div class="col-1">
-    <img src="{{ asset('img/bus.jpg') }}" alt="">
-  </div>
-  <div class="col-2">
-    <form action="{{ url('/register') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      <div class="kontent">
-        <div class="col-25">
-          <p>Nama Lengkap</p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('css/style_register.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>GO-BIS</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <input type="checkbox" name="" value="" id="check">
+        <label for="check">
+            <i class="material-icons" id="dehaze">dehaze</i>
+            <i class="material-icons" id="close">close</i>
+        </label>
+        <div class="logo">
+            <h2>Go-Bis</h2>
         </div>
-        <div class="col-75">
-          <input type="text" class="@error('nama')is-invalid @enderror" name="nama" value="{{ old('nama') }}"
-          placeholder="Nama Lengkap">
-          @error('nama')
-          {{ $message }}
-          @enderror
+        <div class="nav">
+            <ul>
+                <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">Home</a></li>
+                <li> <a href="{{ url('bis') }}" class="{{ Request::is('bis') ? 'active' : '' }}">Bis</a></li>
+                <li> <a href="#">Kontak</a></li>
+                <li> <a href="{{ url('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">Tentang Kami</a>
+                </li>
+                @auth
+                    <li>Hai, Rehan</li>
+                    {{-- @empty(auth()->user()->picture)
+                <img src="{{asset('img/noprofile.png')}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
+                @else
+                <img src="{{asset('img/profil/'.auth()->user()->picture)}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
+                @endempty --}}
+                    <form action="{{ url('/logout') }}" method="POST">
+                        @csrf
+                        <button>Logout</button>
+                    </form>
+                @else
+                    <li> <a href="{{ url('register') }}" class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
+                    </li>
+                    <li> <a href="{{ url('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
+                @endauth
+            </ul>
         </div>
-        <div class="col-25">
-          <p>Username</p>
+    </div>
+    <!-- register -->
+    <div class="grid-container">
+        <div class="title">
+            <h2>Register</h2>
         </div>
-        <div class="col-75">
-          <input type="email" class="@error('email')is-invalid @enderror" name="email" value="{{ old('email') }}"
-          placeholder="Email">
-          @error('email')
-          {{ $message }}
-          @enderror
+        <div class="col-1">
+            <img src="{{ asset('img/bus.jpg') }}" alt="">
         </div>
-        <div class="col-25">
-          <p>Password</p>
+        <div class="col-2">
+            <form action="{{ url('/register') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <h3>Identitas Diri</h3>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Nama Lengkap</p>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama Lengkap">
+                    </div>
+                </div>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Email Anda</p>
+                    </div>
+                    <div class="col-75">
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+                    </div>
+                </div>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Password</p>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                    </div>
+                </div>
+                <h3>Alamat</h3>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Provinsi</p>
+                    </div>
+                    <div class="col-75">
+                        <select name="provinsi_id" id="provinsi_id" onchange="kabupaten()">
+                            <option value="pilih" selected>Pilih Provinsi</option>
+                            @forelse ($provinsis as $provinsi)
+                                @if (old('provinsi_id') == $provinsi->id)
+                                    <option value="{{ $provinsi->id }}" selected>{{ $provinsi->nama }}</option>
+                                @else
+                                    <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
+                                @endif
+                            @empty
+                                <option>Tidak ada data Provinsi</option>
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="kontent" id="bag-kab" hidden="true">
+                    <div class="col-25">
+                        <p>Kabupaten</p>
+                    </div>
+                    <div class="col-75">
+                        <select name="kabupaten_id" id="kabupaten_id" onchange="kecamatan()">
+                            <option value="pilih" selected>Pilih Kabupaten</option>
+                            @forelse ($kabupatens as $kabupaten)
+                                @if (old('kabupaten_id') == $kabupaten->id)
+                                    <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}" selected>
+                                        {{ $kabupaten->nama }}</option>
+                                @else
+                                    <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}">
+                                        {{ $kabupaten->nama }}</option>
+                                @endif
+                            @empty
+                                <option>Tidak ada data Kabupaten</option>
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="kontent" id="bag-kec" hidden="true">
+                    <div class="col-25">
+                        <p>Kecamatan</p>
+                    </div>
+                    <div class="col-75">
+                        <select name="kecamatan_id" id="kecamatan_id" onchange="kelurahan()">
+                            <option value="pilih" selected>Pilih Kelurahan</option>
+                            @forelse ($kecamatans as $kecamatan)
+                                @if (old('kecamatan_id') == $kecamatan->id)
+                                    <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}"
+                                        selected>
+                                        {{ $kecamatan->nama }}</option>
+                                @else
+                                    <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}">
+                                        {{ $kecamatan->nama }}</option>
+                                @endif
+                            @empty
+                                <option>Tidak ada data Kecamatan</option>
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="kontent" id="bag-kel" hidden="true">
+                    <div class="col-25">
+                        <p>Kelurahan</p>
+                    </div>
+                    <div class="col-75">
+                        <select name="kelurahan_id" id="kelurahan_id">
+                            <option value="pilih" selected>Pilih Kelurahan</option>
+                            @forelse ($kelurahans as $kelurahan)
+                                @if (old('kelurahan_id') == $kelurahan->id)
+                                    <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}"
+                                        selected>
+                                        {{ $kelurahan->nama }}</option>
+                                @else
+                                    <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}">
+                                        {{ $kelurahan->nama }}</option>
+                                @endif
+                            @empty
+                                <option>Tidak ada data Kelurahan</option>
+                            @endforelse
+                        </select>
+                    </div>
+                </div>
+                <div class="kontent">
+                    <div class="col-25">
+                        <p>Alamat</p>
+                    </div>
+                    <div class="col-75">
+                        <textarea class="@error('deskripsi')is-invalid @enderror" id="alamat" rows="3" name="alamat">{{ old('alamat') }}</textarea>
+                    </div>
+                </div>
+                <div class="daftar">
+                    <button type="submit" name="button">Registrasi</button>
+                </div>
+            </form>
         </div>
-        <div class="col-75">
-          <input type="password" class="@error('password')is-invalid @enderror" name="password" value="{{ old('password') }}"
-          placeholder="Password minimal 8 karakter">
-          @error('password')
-          {{ $message }}
-          @enderror
-        </div>
-        <div class="col-25">
-          <p>Alamat</p>
-        </div>
-        <div class="col-75">
-          {{-- <input type="text" class="@error('nohp')is-invalid @enderror" name="nohp" value="" placeholder="No Hp"> --}}
-          <textarea name="alamat" class="@error('email')is-invalid @enderror" rows="2" cols="" placeholder="Alamat">{{ old('password') }}</textarea>
-          @error('alamat')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
-      <div class="daftar">
-        <button type="submit" name="button">Daftar</button>
-      </div>
-    </form>
-  </div>
-</div>
-@endsection
+    </div>
+</body>
+
+<script type="text/javascript">
+    function kabupaten() {
+        var provinsi = document.getElementById("provinsi_id");
+        var kabupaten = document.getElementById("kabupaten_id");
+        var hasil_prov = provinsi.value;
+        var hasil_kab = kabupaten.options;
+        var div_kab = document.getElementById("bag-kab");
+        if (hasil_prov !== "pilih") {
+            div_kab.hidden = false;
+            for (i = 1; i < hasil_kab.length; i++) {
+                if (parseInt(hasil_prov) != parseInt(hasil_kab[i].id)) {
+                    hasil_kab[i].hidden = true;
+                } else {
+                    hasil_kab[i].hidden = false;
+                    hasil_kab[0].selected = true;
+                }
+            }
+        } else {
+            div_kab.hidden = true;
+        }
+    }
+
+    function kecamatan() {
+        var kabupaten = document.getElementById("kabupaten_id");
+        var kecamatan = document.getElementById("kecamatan_id");
+        var hasil_kab = kabupaten.value;
+        var hasil_kec = kecamatan.options;
+        var div_kec = document.getElementById("bag-kec");
+        if (hasil_kab !== "pilih") {
+            div_kec.hidden = false;
+            for (i = 1; i < hasil_kec.length; i++) {
+                if (parseInt(hasil_kab) != parseInt(hasil_kec[i].id)) {
+                    hasil_kec[i].hidden = true;
+                } else {
+                    hasil_kec[i].hidden = false;
+                    hasil_kec[0].selected = true;
+                }
+            }
+        } else {
+            div_kec.hidden = true;
+        }
+    }
+
+    function kelurahan() {
+        var kecamatan = document.getElementById("kecamatan_id");
+        var kelurahan = document.getElementById("kelurahan_id");
+        var hasil_kec = kecamatan.value;
+        var hasil_kel = kelurahan.options;
+        var div_kel = document.getElementById("bag-kel");
+        if (hasil_kec !== "pilih") {
+            div_kel.hidden = false;
+            for (i = 1; i < hasil_kel.length; i++) {
+                if (parseInt(hasil_kec) != parseInt(hasil_kel[i].id)) {
+                    hasil_kel[i].hidden = true;
+                } else {
+                    hasil_kel[i].hidden = false;
+                    hasil_kel[0].selected = true;
+                }
+            }
+        } else {
+            div_kel.hidden = true;
+        }
+    }
+</script>
+
+</html>

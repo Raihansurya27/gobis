@@ -21,7 +21,7 @@ Route::get('/welcome', function () {
 
 
 Route::get('/login',function(){
-    return view('login1');
+    return view('login');
 });
 
 Route::get('/register',function(){
@@ -29,7 +29,7 @@ Route::get('/register',function(){
 });
 
 Route::get('/home',function(){
-    return view('home1');
+    return view('home');
 });
 
 Route::get('/bis',function(){
@@ -37,7 +37,7 @@ Route::get('/bis',function(){
 });
 
 Route::get('/about',function(){
-    return view('about1');
+    return view('about');
 });
 
 Route::get('/loginbaru',function(){
