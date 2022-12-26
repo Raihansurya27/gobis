@@ -8,31 +8,31 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{Request::is('bus-dashboard') ? 'active' : ''}}" href="{{url('bus-dashboard')}}">
+          <a class="nav-link {{Request::is('bus') ? 'active' : ''}}" href="{{url('bus')}}">
             <span data-feather="layers"></span>
             Bus
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('rute-dashboard') ? 'active' : ''}}" href="{{url('rute-dashboard')}}">
+            <a class="nav-link {{Request::is('rute') ? 'active' : ''}}" href="{{url('rute')}}">
               <span data-feather="file"></span>
               Rute
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{Request::is('acara') ? 'active' : ''}}" href="{{url('acara')}}">
+          <a class="nav-link {{Request::is('provinsi') ? 'active' : ''}}" href="{{url('provinsi')}}">
             <span data-feather="file"></span>
             Provinsi
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{Request::is('jabatan') ? 'active' : ''}}" href="{{url('jabatan')}}">
+          <a class="nav-link {{Request::is('kabupaten') ? 'active' : ''}}" href="{{url('kabupaten')}}">
             <span data-feather="layers"></span>
-            kabupaten
+            Kabupaten
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('karyawan') ? 'active' : ''}}" href="{{url('karyawan')}}">
+            <a class="nav-link {{Request::is('kecamatan') ? 'active' : ''}}" href="{{url('kecamatan')}}">
               <span data-feather="users"></span>
               Kecamatan
             </a>
@@ -50,39 +50,45 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('komentar') ? 'active' : ''}}" href="{{url('komentar')}}">
+            <a class="nav-link {{Request::is('kelurahan') ? 'active' : ''}}" href="{{url('kelurahan')}}">
               <span data-feather="file"></span>
               Kelurahan
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('booking') ? 'active' : ''}}" href="{{url('booking')}}">
+            <a class="nav-link {{Request::is('jadwal') ? 'active' : ''}}" href="{{url('booking')}}">
               <span data-feather="file"></span>
               Jadwal
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+            <a class="nav-link {{Request::is('terminal') ? 'active' : ''}}" href="{{url('terminal')}}">
               <span data-feather="home"></span>
               Terminal
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+            <a class="nav-link {{Request::is('pesanan') ? 'active' : ''}}" href="{{url('pesanan')}}">
               <span data-feather="home"></span>
               Pesanan
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+            <a class="nav-link {{Request::is('tiket') ? 'active' : ''}}" href="{{url('tiket')}}">
               <span data-feather="home"></span>
               Tiket
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('home') ? 'active' : ''}}" href="{{url('home')}}">
+            <a class="nav-link {{Request::is('fasilitas') ? 'active' : ''}}" href="{{url('fasilitas')}}">
               <span data-feather="home"></span>
               Fasilitas Bus
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{Request::is('kelas') ? 'active' : ''}}" href="{{url('kelas')}}">
+              <span data-feather="home"></span>
+              Kelas Bus
             </a>
         </li>
       </ul>

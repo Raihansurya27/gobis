@@ -14,7 +14,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('',['kelas'=>Kelas::latest()->paginate(8)]);
+        return view('dashboard.kelas.index',['kelases'=>Kelas::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('dashboard.kelas.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class KelasController extends Controller
             'nama_kelas'=>'required|unique:kelas',
         ]);
         Kelas::create($validatedData);
-        return redirect('/')->with('pesan','Data kelas bus baru berhasil ditambah');
+        return redirect('/kelas')->with('pesan','Data kelas bus baru berhasil ditambah');
     }
 
     /**
@@ -61,7 +61,7 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        return view('',['kelas'=>$kelas]);
+        return view('dashboard.kelas.update',['kelas'=>$kelas]);
     }
 
     /**
@@ -77,7 +77,7 @@ class KelasController extends Controller
             'nama_kelas'=>'required|unique:kelas',
         ]);
         Kelas::where('id',$kelas->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data kelas bus berhasil diupdate');
+        return redirect('/kelas')->with('pesan','Data kelas bus berhasil diupdate');
     }
 
     /**
@@ -89,6 +89,6 @@ class KelasController extends Controller
     public function destroy(Kelas $kelas)
     {
         Kelas::destroy($kelas->id);
-        return redirect('/')->with('pesan','Data kelas bus berhasil dihapus');
+        return redirect('/kelas')->with('pesan','Data kelas bus berhasil dihapus');
     }
 }

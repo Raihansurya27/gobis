@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Data Jabatan</h1>
+    <h1 class="h2">Data Rute Provinsi</h1>
 </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
@@ -11,23 +11,23 @@
     @endif
 
     <p>
-        <a href="{{url('/jabatan/create')}}" class=" btn btn-primary">Tambah Jabatan Baru</a>
+        <a href="{{url('/provinsi/create')}}" class=" btn btn-primary">Tambah Rute Provinsi Baru</a>
     </p>
     <table class=" table table-borderless">
-        <thead class=" table-dark">
+        <thead class="table-dark">
             <tr>
                 <th>No.</th>
-                <th>Nama Jabatan</th>
+                <th>Nama Provinsi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-        @forelse ($jabatans as $jabatan)
+        @forelse ($provinsis as $provinsi)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$jabatan->nama}}</td>
+                <td>{{ucwords($provinsi->nama)}}</td>
                 <td>
-                    <a href="{{url('/jabatan/'.$jabatan->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{url('/jabatan/'.$jabatan->id)}}" class="d-inline" method="POST">
+                    <a href="{{url('/provinsi/'.$provinsi->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{url('/provinsi/'.$provinsi->id)}}" class="d-inline" method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data ?')">Delete</button>
@@ -38,5 +38,5 @@
 
         @endforelse
     </table>
-    {{$jabatans->links('pagination::bootstrap-5')}}
+    {{$provinsis->links('pagination::bootstrap-5')}}
 @endsection

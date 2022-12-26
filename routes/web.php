@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProvinsiController;
+use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\FasilitasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +61,12 @@ Route::get('/login',[LoginController::class,'login'])->name('login')->middleware
 Route::post('/login',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
+Route::resource('provinsi', ProvinsiController::class);
+Route::resource('kabupaten', KabupatenController::class);
+Route::resource('kecamatan', KecamatanController::class);
+Route::resource('kelurahan', KelurahanController::class);
+Route::resource('kelas', KelasController::class);
+Route::resource('fasilitas', FasilitasController::class);
 
 //dashboard
 Route::get('/', function () {

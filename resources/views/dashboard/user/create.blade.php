@@ -53,7 +53,7 @@
                 </div>
                 <h3>Alamat</h3>
                 <div class="mb-3">
-                    <label for="provinsi" class="form-label">Provinsi</label> <br>
+                    <label for="provinsi_id" class="form-label">Provinsi</label> <br>
                     <select class="form-select" aria-label="Default select example" name="provinsi_id" id="provinsi_id"
                         onchange="kabupaten()">
                         <option value="pilih" selected>Pilih Provinsi</option>

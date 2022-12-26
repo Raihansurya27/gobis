@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelurahan;
 use App\Models\Kecamatan;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
 class KelurahanController extends Controller
@@ -15,7 +17,7 @@ class KelurahanController extends Controller
      */
     public function index()
     {
-        return view('',['kelurahans'=>Kelurahan::latest()->paginate(8)]);
+        return view('dashboard.kelurahan.index',['kelurahans'=>Kelurahan::latest()->paginate(8)]);
     }
 
     /**
@@ -25,7 +27,7 @@ class KelurahanController extends Controller
      */
     public function create()
     {
-        return view('',['kecamatans'=>Kecamatan::all()]);
+        return view('dashboard.kelurahan.create',['kecamatans'=>Kecamatan::all(),'kabupatens'=>Kabupaten::all(),'provinsis'=>Provinsi::all()]);
     }
 
     /**
@@ -41,7 +43,7 @@ class KelurahanController extends Controller
             'kecamatan_id'=>'required',
         ]);
         Kelurahan::create($validatedData);
-        return redirect('/')->with('pesan','Data kelurahan baru berhasil ditambah');
+        return redirect('/kelurahan')->with('pesan','Data kelurahan baru berhasil ditambah');
     }
 
     /**
@@ -63,7 +65,7 @@ class KelurahanController extends Controller
      */
     public function edit(Kelurahan $kelurahan)
     {
-        return view('',['kelurahans'=>$kelurahan,'kecamatans'=>Kecamatan::all()]);
+        return view('dashboard.kelurahan.update',['kelurahan'=>$kelurahan,'kecamatans'=>Kecamatan::all(),'kabupatens'=>Kabupaten::all(),'provinsis'=>Provinsi::all()]);
     }
 
     /**
@@ -80,7 +82,7 @@ class KelurahanController extends Controller
             'kecamatan_id'=>'required'
         ]);
         Kelurahan::where('id',$kelurahan->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data kelurahan berhasil diupdate');
+        return redirect('/kelurahan')->with('pesan','Data kelurahan berhasil diupdate');
     }
 
     /**
@@ -92,6 +94,6 @@ class KelurahanController extends Controller
     public function destroy(Kelurahan $kelurahan)
     {
         Kelurahan::destroy($kelurahan->id);
-        return redirect('/')->with('pesan','Data kelurahan berhasil dihapus');
+        return redirect('/kelurahan')->with('pesan','Data kelurahan berhasil dihapus');
     }
 }
