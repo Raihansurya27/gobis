@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data User</h1>
+        <h1 class="h2">Data Terminal Bus</h1>
     </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
@@ -11,44 +11,41 @@
     @endif
 
     <p>
-        <a href="{{ url('/user/create') }}" class=" btn btn-primary">Tambah User Baru</a>
+        <a href="{{ url('/terminal/create') }}" class=" btn btn-primary">Tambah Terminal Bus Baru</a>
     </p>
     <table class=" table table-borderless">
         <thead class=" table-dark">
             <tr>
                 <th>No.</th>
-                <th>Nama User</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Peran</th>
+                <th>Nama Terminal</th>
                 <th>Alamat</th>
+                <th>Deskripsi</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-        @forelse ($users as $user)
+        @forelse ($terminals as $terminal)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ ucwords($user->nama) }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ Str::limit($user->password, 5) }} </td>
-                <td>{{ ucwords($user->role->nama_role) }}</td>
+                <td>{{ ucwords($terminal->nama) }}</td>
                 <td id="pendek-{{ $loop->iteration }}">
-                    {{ ucwords(Str::limit(implode(', ', [$user->alamat, $user->kelurahan->nama, $user->kelurahan->kecamatan->nama, $user->kelurahan->kecamatan->kabupaten->nama, $user->kelurahan->kecamatan->kabupaten->provinsi->nama]), 5)) }}<button
-                        onclick="tampilkan({{ $loop->iteration }})"><span data-feather="arrow-down-right"></span>
+                    {{ ucwords(Str::limit(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama]), 40)) }}
+                    <button onclick="tampilkan({{ $loop->iteration }})"> <span data-feather="arrow-down-right"></span>
                     </button>
                 </td>
-                <td id="panjang-{{ $loop->iteration }}" hidden="true">ucwords(implode(', ', [$user->alamat,
-                    $user->kelurahan->nama, $user->kelurahan->kecamatan->nama, $user->kelurahan->kecamatan->kabupaten->nama,
-                    $user->kelurahan->kecamatan->kabupaten->provinsi->nama]))<button
-                        onclick="sembunyikan({{ $loop->iteration }})"><span data-feather="arrow-up-left"></span></button>
+                <td id="panjang-{{ $loop->iteration }}" hidden="true">
+                    {{ ucwords(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama])) }}
+                    <button onclick="sembunyikan({{ $loop->iteration }})"> <span data-feather="arrow-up-left"></span>
+                    </button>
                 </td>
+                <td>{{ Str::ucfirst($terminal->deskripsi) }}</td>
                 <td>
                     <div class="row">
                         <div class="col-lg-4">
-                            <a href="{{ url('/user/' . $user->id . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ url('/terminal/' . $terminal->id . '/edit') }}"
+                                class="btn btn-warning btn-sm">Edit</a>
                         </div>
                         <div class="col-lg-4">
-                            <form action="{{ url('/user/' . $user->id) }}" class="d-inline" method="POST">
+                            <form action="{{ url('/terminal/' . $terminal->id) }}" class="d-inline" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm"
@@ -61,7 +58,7 @@
         @empty
         @endforelse
     </table>
-    {{ $users->links('pagination::bootstrap-5') }}
+    {{ $terminals->links('pagination::bootstrap-5') }}
 @endsection
 
 <script type="text/javascript">

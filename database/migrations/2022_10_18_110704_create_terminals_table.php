@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('terminals', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nama');
             $table->ForeignId('kelurahan_id');
             $table->longText('alamat');
             $table->longText('deskripsi')->nullable();

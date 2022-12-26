@@ -2,54 +2,20 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Entri Data User baru</h1>
+        <h1 class="h2">Entri Data Terminal Bus Baru</h1>
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="{{ url('/user') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/terminal') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
+                    <label for="nama" class="form-label">Nama Terminal Bus</label>
                     <input type="text" class="form-control @error('nama')is-invalid
                     @enderror"
-                        id="nama" placeholder="Contoh: Muhammad Raihan Surya" name="nama"
-                        value="{{ ucwords(old('nama')) }}">
+                        id="nama" placeholder="Contoh: Makanan Pembuka" name="nama" value="{{ ucwords(old('nama')) }}">
                     @error('nama')
                         {{ $message }}
                     @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Anda</label>
-                    <input type="email" class="form-control @error('email')is-invalid
-                    @enderror"
-                        id="email" placeholder="Contoh: raihanganteng@example.com" name="email"
-                        value="{{ old('email') }}">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password Anda</label>
-                    <input type="password" class="form-control @error('password')is-invalid
-                    @enderror"
-                        id="password" placeholder="Contoh: Min. 8 Karakter" name="password" value="{{ old('password') }}">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="role_id" class="form-label">Peran Akun\Role</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="role_id" id="role_id">
-                        @forelse ($roles as $role)
-                            @if (old('role_id') == $role->id)
-                                <option value="{{ $role->id }}" selected>{{ ucwords($role->nama_role) }}</option>
-                            @else
-                                <option value="{{ $role->id }}" selected>{{ ucwords($role->nama_role) }}</option>
-                            @endif
-                        @empty
-                            <option>Tidak ada data Peran</option>
-                        @endforelse
-                    </select>
                 </div>
                 <h3>Alamat</h3>
                 <div class="mb-3">
@@ -134,6 +100,17 @@
                         {{ $message }}
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                    <textarea class="form-control @error('deskripsi')is-invalid
+                    @enderror" id="deskripsi" rows="3"
+                        name="deskripsi">{{ Str::ucfirst(old('deskripsi')) }}</textarea>
+                    @error('deskripsi')
+                        {{ $message }}
+                    @enderror
+                </div>
+
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

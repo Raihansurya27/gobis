@@ -12,13 +12,13 @@
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Peran</label>
                     <input type="text" class="form-control @error('nama')is-invalid
-                    @enderror" id="nama" placeholder="Contoh: Muhammad Raihan Surya" name="nama_role" value="{{old('name',$roles->nama)}}">
+                    @enderror" id="nama" placeholder="Contoh: Muhammad Raihan Surya" name="nama_role" value="{{ucwords(old('name',$roles->nama))}}">
                     @error('nama')
                         {{$message}}
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>

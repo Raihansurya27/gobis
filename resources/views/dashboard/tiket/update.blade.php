@@ -1,68 +1,31 @@
 @extends('dashboard.layout.main')
 
 @section('container')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Update Data User</h1>
-    </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Update Data Terminal Bus</h1>
+</div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="{{ url('/user/' . $user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{url('/terminal/'.$terminal->id)}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
+                    <label for="nama" class="form-label">Nama Terminal Bus</label>
                     <input type="text" class="form-control @error('nama')is-invalid
                     @enderror"
-                        id="nama" placeholder="Contoh: Muhammad Raihan Surya" name="nama"
-                        value="{{ ucwords(old('nama', $user->nama)) }}">
+                        id="nama" placeholder="Contoh: Makanan Pembuka" name="nama" value="{{ ucwords(old('nama',$terminal->nama)) }}">
                     @error('nama')
                         {{ $message }}
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Anda</label>
-                    <input type="email" class="form-control @error('email')is-invalid
-                    @enderror"
-                        id="email" placeholder="Contoh: raihanganteng@example.com" name="email"
-                        value="{{ old('email', $user->email) }}">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password Anda</label>
-                    <input type="password" class="form-control @error('password')is-invalid
-                    @enderror"
-                        id="password" placeholder="Tolong, buat password sekali lagi atau baru. Min. 8 Karakter" name="password"
-                        value="{{ old('password') }}">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="role_id" class="form-label">Peran\Role Akun</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="role_id" id="role_id">
-                        <option selected>Pilih Peran Akun\Role</option>
-                        @forelse ($roles as $role)
-                            @if (old('role_id', $user->role_id) == $role->id)
-                                <option value="{{ $role->id }}" selected>{{ ucwords($role->nama_role) }}</option>
-                            @else
-                                <option value="{{ $role->id }}">{{ ucwords($role->nama_role) }}</option>
-                            @endif
-                        @empty
-                            <option>Tidak ada data Peran</option>
-                        @endforelse
-                    </select>
-                </div>
-
                 <h3>Alamat</h3>
-
                 <div class="mb-3">
-                    <label for="provinsi" class="form-label">Provinsi</label> <br>
+                    <label for="provinsi_id" class="form-label">Provinsi</label> <br>
                     <select class="form-select" aria-label="Default select example" name="provinsi_id" id="provinsi_id"
                         onchange="kabupaten()">
+                        <option value="pilih" selected>Pilih Provinsi</option>
                         @forelse ($provinsis as $provinsi)
-                            @if (old('provinsi_id', $user->kelurahan->kecamatan->kabupaten->provinsi->id) == $provinsi->id)
+                            @if (old('provinsi_id',$terminal->kelurahan->kecamatan->kabupaten->provinsi_id) == $provinsi->id)
                                 <option value="{{ $provinsi->id }}" selected>{{ ucwords($provinsi->nama) }}</option>
                             @else
                                 <option value="{{ $provinsi->id }}">{{ ucwords($provinsi->nama) }}</option>
@@ -73,12 +36,13 @@
                     </select>
                 </div>
 
-                <div class="mb-3" id="bag-kab">
+                <div class="mb-3">
                     <label for="kabupaten_id" class="form-label">Kabupaten</label> <br>
                     <select class="form-select" aria-label="Default select example" name="kabupaten_id" id="kabupaten_id"
                         onchange="kecamatan()">
+                        <option value="pilih" selected>Pilih Kabupaten</option>
                         @forelse ($kabupatens as $kabupaten)
-                            @if (old('kabupaten_id', $user->kelurahan->kecamatan->kabupaten->id) == $kabupaten->id)
+                            @if (old('kabupaten_id',$terminal->kelurahan->kecamatan->kabupaten_id) == $kabupaten->id)
                                 <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}" selected>
                                     {{ ucwords($kabupaten->nama) }}</option>
                             @else
@@ -91,12 +55,13 @@
                     </select>
                 </div>
 
-                <div class="mb-3" id="bag-kec">
+                <div class="mb-3">
                     <label for="kecamatan_id" class="form-label">Kecamatan</label> <br>
                     <select class="form-select" aria-label="Default select example" name="kecamatan_id" id="kecamatan_id"
                         onchange="kelurahan()">
+                        <option value="pilih" selected>Pilih Kecamatan</option>
                         @forelse ($kecamatans as $kecamatan)
-                            @if (old('kecamatan_id', $user->kelurahan->kecamatan->id) == $kecamatan->id)
+                            @if (old('kecamatan_id',$terminal->kelurahan->kecamatan_id) == $kecamatan->id)
                                 <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}" selected>
                                     {{ ucwords($kecamatan->nama) }}</option>
                             @else
@@ -109,11 +74,12 @@
                     </select>
                 </div>
 
-                <div class="mb-3" id="bag-kel">
+                <div class="mb-3">
                     <label for="kelurahan_id" class="form-label">Kelurahan</label> <br>
-                    <select class="form-select @error('kelurahan_id')is-invalid @enderror" aria-label="Default select example" name="kelurahan_id" id="kelurahan_id">
+                    <select class="form-select" aria-label="Default select example" name="kelurahan_id" id="kelurahan_id">
+                        <option value="pilih" selected>Pilih Kelurahan</option>
                         @forelse ($kelurahans as $kelurahan)
-                            @if (old('kelurahan_id', $user->kelurahan_id) == $kelurahan->id)
+                            @if (old('kelurahan_id',$terminal->kelurahan_id) == $kelurahan->id)
                                 <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}" selected>
                                     {{ ucwords($kelurahan->nama) }}</option>
                             @else
@@ -126,21 +92,26 @@
                     </select>
                 </div>
 
-                <div class="mb-1">
-                    @error('kelurahan_id')
-                    {{ $message }}
-                    @enderror
-                </div>
-
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Alamat</label>
-                    <textarea class="form-control @error('deskripsi')is-invalid
-                    @enderror" id="alamat"
-                        rows="3" name="alamat">{{ ucwords((old('alamat',$user->alamat))) }}</textarea>
+                    <textarea class="form-control @error('alamat')is-invalid
+                    @enderror" id="alamat" rows="3"
+                        name="alamat">{{ Str::ucfirst(old('alamat',$terminal->alamat)) }}</textarea>
                     @error('alamat')
                         {{ $message }}
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                    <textarea class="form-control @error('deskripsi')is-invalid
+                    @enderror" id="deskripsi" rows="3"
+                        name="deskripsi">{{ Str::ucfirst( old('deskripsi',$terminal->deskripsi) ) }}</textarea>
+                    @error('deskripsi')
+                        {{ $message }}
+                    @enderror
+                </div>
+
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
