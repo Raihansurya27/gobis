@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('tikets', function (Blueprint $table) {
             $table->id();
-            $table->ForeingId('pesanan_id');
+            $table->string('kode_tiket');
+            $table->ForeignId('pesanan_id');
             $table->timestamps();
         });
     }

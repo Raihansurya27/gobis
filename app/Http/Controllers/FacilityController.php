@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
+use App\Models\Facility;
 use Illuminate\Http\Request;
 
-class KelasController extends Controller
+class FacilityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('',['kelas'=>Kelas::latest()->paginate(8)]);
+        return view('dashboard.fasilitas.index',['facilities'=>Facility::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('dashboard.fasilitas.create');
     }
 
     /**
@@ -36,19 +36,19 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama_kelas'=>'required|unique:kelas',
+            'nama'=>'required|unique:facilities',
         ]);
-        Kelas::create($validatedData);
-        return redirect('/')->with('pesan','Data kelas bus baru berhasil ditambah');
+        Facility::create($validatedData);
+        return redirect('/facilities')->with('pesan','Data fasilitas bus berhasil ditambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelas $kelas)
+    public function show(Facility $facility)
     {
         //
     }
@@ -56,39 +56,39 @@ class KelasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kelas $kelas)
+    public function edit(Facility $facility)
     {
-        return view('',['kelas'=>$kelas]);
+        return view('dashboard.fasilitas.update',['facility'=>$facility]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kelas $kelas)
+    public function update(Request $request, Facility $facility)
     {
         $validatedData=$request->validate([
-            'nama_kelas'=>'required|unique:kelas',
+            'nama'=>'required|unique:facilities',
         ]);
-        Kelas::where('id',$kelas->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data kelas bus berhasil diupdate');
+        Facility::where('id',$facility->id)->update($validatedData);
+        return redirect('/facilities')->with('pesan','Data fasilitas bus berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy(Facility $facility)
     {
-        Kelas::destroy($kelas->id);
-        return redirect('/')->with('pesan','Data kelas bus berhasil dihapus');
+        Facility::destroy($facility->id);
+        return redirect('/facilities')->with('pesan','Data fasilitas bus berhasil dihapus');
     }
 }

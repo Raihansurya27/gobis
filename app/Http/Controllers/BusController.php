@@ -15,7 +15,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        return view('',['buses'=>Bus::latest()->paginate(8)]);
+        return view('dashboard.bus.index',['buses'=>Bus::latest()->paginate(8)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class BusController extends Controller
      */
     public function create()
     {
-        return view('',['kelas'=>Kelas::all()]);
+        return view('dashboard.bus.create',['kelas'=>Kelas::all()]);
     }
 
     /**
@@ -37,7 +37,7 @@ class BusController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama'=>'required',
+            'nama_bus'=>'required',
             'kelas_id'=>'required',
             'deskripsi'=>'required',
             'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
@@ -50,7 +50,7 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::create($validatedData);
-        return redirect('/')->with('pesan','Data bus baru berhasil ditambah');
+        return redirect('/bus')->with('pesan','Data bus baru berhasil ditambah');
     }
 
     /**
@@ -72,7 +72,7 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        return view('',['buses'=>$bus, 'kelas'=>Kelas::all()]);
+        return view('dashboard.bus.update',['buses'=>$bus, 'kelas'=>Kelas::all()]);
     }
 
     /**
@@ -98,7 +98,7 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::where('id',$bus->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data bus berhasil diupdate');
+        return redirect('/bus')->with('pesan','Data bus berhasil diupdate');
     }
 
     /**
@@ -110,6 +110,6 @@ class BusController extends Controller
     public function destroy(Bus $bus)
     {
         Bus::destroy($bus->id);
-        return redirect('/')->with('pesan','Data bus berhasil dihapus');
+        return redirect('/bus')->with('pesan','Data bus berhasil dihapus');
     }
 }

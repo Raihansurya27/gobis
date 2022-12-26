@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fasilitas;
+use App\Models\ClassBus;
 use Illuminate\Http\Request;
 
-class FasilitasController extends Controller
+class ClassBusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FasilitasController extends Controller
      */
     public function index()
     {
-        return view('',[''=>Fasilitas::latest()->paginate(8)]);
+        return view('dashboard.kelas.index',['class_buses'=>ClassBus::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class FasilitasController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('dashboard.kelas.create');
     }
 
     /**
@@ -36,19 +36,19 @@ class FasilitasController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:fasilitas',
+            'nama'=>'required|unique:class_buses',
         ]);
-        Fasilitas::create($validatedData);
-        return redirect('/')->with('pesan','Data fasilitas bus berhasil ditambah');
+        ClassBus::create($validatedData);
+        return redirect('/class-buses')->with('pesan','Data kelas bus baru berhasil ditambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Fasilitas  $fasilitas
+     * @param  \App\Models\ClassBus  $classBus
      * @return \Illuminate\Http\Response
      */
-    public function show(Fasilitas $fasilitas)
+    public function show(ClassBus $classBus)
     {
         //
     }
@@ -56,39 +56,39 @@ class FasilitasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Fasilitas  $fasilitas
+     * @param  \App\Models\ClassBus  $classBus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fasilitas $fasilitas)
+    public function edit(ClassBus $classBus)
     {
-        return view('',['fasilitas'=>$fasilitas]);
+        return view('dashboard.kelas.update',['class_bus'=>$classBus]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Fasilitas  $fasilitas
+     * @param  \App\Models\ClassBus  $classBus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fasilitas $fasilitas)
+    public function update(Request $request, ClassBus $classBus)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:fasilitas',
+            'nama'=>'required|unique:class_buses',
         ]);
-        Fasilitas::where('id',$fasilitas->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data fasilitas bus berhasil diupdate');
+        ClassBus::where('id',$classBus->id)->update($validatedData);
+        return redirect('/class-buses')->with('pesan','Data kelas bus berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Fasilitas  $fasilitas
+     * @param  \App\Models\ClassBus  $classBus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fasilitas $fasilitas)
+    public function destroy(ClassBus $classBus)
     {
-        Fasilitas::destroy($fasilitas->id);
-        return redirect('/')->with('pesan','Data fasilitas bus berhasil dihapus');
+        ClassBus::destroy($classBus->id);
+        return redirect('/class-buses')->with('pesan','Data kelas bus berhasil dihapus');
     }
 }
