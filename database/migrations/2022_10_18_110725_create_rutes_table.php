@@ -18,7 +18,6 @@ return new class extends Migration
             $table->ForeignId('awal_id');
             $table->ForeignId('tujuan_id');
             $table->ForeignId('bus_id');
-            // $table->double('harga');
             $table->timestamps();
         });
     }

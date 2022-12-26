@@ -65,6 +65,7 @@ class KecamatanController extends Controller
     public function edit(Kecamatan $kecamatan)
     {
         return view('dashboard.kecamatan.update',['kecamatan'=>$kecamatan,'kabupatens'=>Kabupaten::all(),'provinsis'=>Provinsi::all()]);
+        // dump($kecamatan);
     }
 
     /**

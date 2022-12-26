@@ -24,7 +24,7 @@
         @forelse ($roles as $role)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$role->nama_role}}</td>
+                <td>{{ucwords($role->nama)}}</td>
                 <td>
                     <a href="{{url('/role/'.$role->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{url('/role/'.$role->id)}}" class="d-inline" method="POST">

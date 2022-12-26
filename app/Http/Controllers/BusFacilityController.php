@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\BusFacility;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class BusFacilityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('dashboard.role.index',['roles'=>Role::latest()->paginate(8)]);
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('dashboard.role.create');
+        //
     }
 
     /**
@@ -35,20 +35,16 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData=$request->validate([
-            'nama'=>'required|unique:roles',
-        ]);
-        Role::create($validatedData);
-        return redirect('/role')->with('pesan','Data peran baru berhasil ditambah');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\BusFacility  $busFacility
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(BusFacility $busFacility)
     {
         //
     }
@@ -56,39 +52,34 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\BusFacility  $busFacility
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(BusFacility $busFacility)
     {
-        return view('dashboard.role.update',['roles'=>$role]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\BusFacility  $busFacility
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, BusFacility $busFacility)
     {
-        $validatedData=$request->validate([
-            'nama'=>'required|unique:roles',
-        ]);
-        Role::where('id',$role->id)->update($validatedData);
-        return redirect('/role')->with('pesan','Data peran berhasil diupdate');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\BusFacility  $busFacility
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(BusFacility $busFacility)
     {
-        Role::destroy($role->id);
-        return redirect('/role')->with('pesan','Data peran berhasil dihapus');
+        //
     }
 }

@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Data Komentar</h1>
+    <h1 class="h2">Data Fasilitas Bus</h1>
 </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
@@ -11,27 +11,23 @@
     @endif
 
     <p>
-        <a href="{{url('/komentar/create')}}" class=" btn btn-primary">Tambah Komentar Baru</a>
+        <a href="{{url('/facilities/create')}}" class=" btn btn-primary">Tambah Fasilitas Bus Baru</a>
     </p>
     <table class=" table table-borderless">
         <thead class=" table-dark">
             <tr>
                 <th>No.</th>
-                <th>Nama User</th>
-                <th>Keterangan</th>
-                <th>Isi Komentar</th>
+                <th>Nama Fasilitas</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-        @forelse ($komentars as $komentar)
+        @forelse ($facilities as $facility)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$komentar->user->name}}</td>
-                <td>{{$komentar->ket}}</td>
-                <td>{!!$komentar->isi!!}</td>
+                <td>{{ucwords($facility->nama)}}</td>
                 <td>
-                    <a href="{{url('/komentar/'.$komentar->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{url('/komentar/'.$komentar->id)}}" class="d-inline" method="POST">
+                    <a href="{{url('/facilities/'.$facility->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{url('/facilities/'.$facility->id)}}" class="d-inline" method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data ?')">Delete</button>
@@ -42,5 +38,5 @@
 
         @endforelse
     </table>
-    {{$komentars->links('pagination::bootstrap-5')}}
+    {{$facilities->links('pagination::bootstrap-5')}}
 @endsection

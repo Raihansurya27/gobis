@@ -11,7 +11,7 @@
     @endif
 
     <p>
-        <a href="{{url('/kelas/create')}}" class=" btn btn-primary">Tambah Kelas Bus Baru</a>
+        <a href="{{url('/class-buses/create')}}" class=" btn btn-primary">Tambah Kelas Bus Baru</a>
     </p>
     <table class=" table table-borderless">
         <thead class=" table-dark">
@@ -21,13 +21,13 @@
                 <th>Aksi</th>
             </tr>
         </thead>
-        @forelse ($kelases as $kelas)
+        @forelse ($class_buses as $class_bus)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ucwords($kelas->nama_kelas)}}</td>
+                <td>{{ucwords($class_bus->nama)}}</td>
                 <td>
-                    <a href="{{url('/kelas/'.$kelas->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{url('/kelas/'.$kelas->id)}}" class="d-inline" method="POST">
+                    <a href="{{url('/class-buses/'.$class_bus->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{url('/class-buses/'.$class_bus->id)}}" class="d-inline" method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data ?')">Delete</button>
@@ -38,5 +38,5 @@
 
         @endforelse
     </table>
-    {{$kelases->links('pagination::bootstrap-5')}}
+    {{$class_buses->links('pagination::bootstrap-5')}}
 @endsection

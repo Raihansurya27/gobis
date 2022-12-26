@@ -8,8 +8,14 @@ use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
-use App\Http\Controllers\KelasController;
-use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\ClassBusController;
+use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\BusController;
+use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\TiketController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\RuteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,8 +71,14 @@ Route::resource('provinsi', ProvinsiController::class);
 Route::resource('kabupaten', KabupatenController::class);
 Route::resource('kecamatan', KecamatanController::class);
 Route::resource('kelurahan', KelurahanController::class);
-Route::resource('kelas', KelasController::class);
-Route::resource('fasilitas', FasilitasController::class);
+Route::resource('class-buses', ClassBusController::class);
+Route::resource('facilities', FacilityController::class);
+Route::resource('terminal', TerminalController::class);
+Route::resource('rute', RuteController::class);
+Route::resource('buses', BusController::class);
+Route::resource('jadwal', JadwalController::class);
+Route::resource('tiket', TiketController::class);
+Route::resource('pesanan', PesananController::class);
 
 //dashboard
 Route::get('/', function () {

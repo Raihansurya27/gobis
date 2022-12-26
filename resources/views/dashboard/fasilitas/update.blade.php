@@ -2,26 +2,18 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Update Data Komentar</h1>
+    <h1 class="h2">Update Data Fasilitas Bus</h1>
 </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="{{url('/komentar/'.$komentars->id)}}" method="POST">
+            <form action="{{url('/facilities/'.$facility->id)}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="mb-3">
-                    <label for="ket" class="form-label">Keterangan</label>
-                    <input type="text" class="form-control @error('ket')is-invalid
-                    @enderror" id="ket" placeholder="Contoh: Makanannya dan tempatnya enak" name="ket" value="{{old('ket',$komentars->ket)}}">
-                    @error('ket')
-                        {{$message}}
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="isi" class="form-label">Deskripsi Komentar</label>
-                    <textarea class="form-control ckeditor @error('isi')is-invalid
-                    @enderror" id="isi" rows="3" name="isi">{{old('isi',$komentars->isi)}}</textarea>
-                    @error('isi')
+                    <label for="nama" class="form-label">Nama Fasilitas</label>
+                    <input type="text" class="form-control @error('nama')is-invalid
+                    @enderror" id="nama" placeholder="Contoh: Full AC" name="nama" value="{{old('nama',$facility->nama)}}">
+                    @error('nama')
                         {{$message}}
                     @enderror
                 </div>

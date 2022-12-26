@@ -8,7 +8,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{Request::is('bus') ? 'active' : ''}}" href="{{url('bus')}}">
+          <a class="nav-link {{Request::is('buses') ? 'active' : ''}}" href="{{url('bus')}}">
             <span data-feather="layers"></span>
             Bus
           </a>
@@ -38,7 +38,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('user/index') ? 'active' : ''}}" href="{{url('user')}}">
+            <a class="nav-link {{Request::is('user') ? 'active' : ''}}" href="{{url('user')}}">
               <span data-feather="user"></span>
               User
             </a>
@@ -80,13 +80,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('fasilitas') ? 'active' : ''}}" href="{{url('fasilitas')}}">
+            <a class="nav-link {{Request::is('facilities') ? 'active' : ''}}" href="{{url('facilities')}}">
               <span data-feather="home"></span>
               Fasilitas Bus
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('kelas') ? 'active' : ''}}" href="{{url('kelas')}}">
+            <a class="nav-link {{Request::is('class-buses') ? 'active' : ''}}" href="{{url('class-buses')}}">
               <span data-feather="home"></span>
               Kelas Bus
             </a>

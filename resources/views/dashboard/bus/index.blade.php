@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Data Peran/Role User</h1>
+    <h1 class="h2">Data Bus</h1>
 </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
@@ -11,7 +11,7 @@
     @endif
 
     <p>
-        <a href="{{url('/peran/create')}}" class=" btn btn-primary">Tambah Peran/Role Baru</a>
+        <a href="{{url('/bus/create')}}" class=" btn btn-primary">Tambah Peran/Role Baru</a>
     </p>
     <table class=" table table-borderless">
         <thead class=" table-dark">

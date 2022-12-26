@@ -5,13 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\Kelas;
+use App\Models\ClassBus;
 use App\Models\Role;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
-use App\Models\Fasilitas;
+use App\Models\Facility;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,20 +30,20 @@ class DatabaseSeeder extends Seeder
         // ]);
         User::factory(3)->create();
 
-        Kelas::create([
-            'nama_kelas' => 'ekonomi',
+        ClassBus::create([
+            'nama' => 'ekonomi',
         ]);
 
-        Kelas::create([
-            'nama_kelas' => 'eksekutif',
-        ]);
-
-        Role::create([
-            'nama_role' => 'admin',
+        ClassBus::create([
+            'nama' => 'eksekutif',
         ]);
 
         Role::create([
-            'nama_role' => 'pelanggan',
+            'nama' => 'admin',
+        ]);
+
+        Role::create([
+            'nama' => 'pelanggan',
         ]);
 
         Provinsi::create([
@@ -89,11 +89,11 @@ class DatabaseSeeder extends Seeder
             'kecamatan_id' => 2,
         ]);
 
-        Fasilitas::create([
+        Facility::create([
             'nama' => 'Full AC'
         ]);
 
-        Fasilitas::create([
+        Facility::create([
             'nama' => 'WiFi'
         ]);
 
