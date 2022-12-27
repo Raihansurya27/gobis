@@ -13,7 +13,6 @@
                     <label for="provinsi_id" class="form-label">Nama Provinsi</label> <br>
                     <select class="form-select" aria-label="Default select example" name="provinsi_id" id="provinsi_id"
                         onchange="kabupaten()">
-                        <option value="pilih" selected>Pilih Provinsi</option>
                         @forelse ($provinsis as $provinsi)
                             @if (old('provinsi_id',$kelurahan->kecamatan->kabupaten->provinsi_id) == $provinsi->id)
                                 <option value="{{ $provinsi->id }}" selected>{{ ucwords($provinsi->nama) }}</option>
@@ -29,7 +28,6 @@
                     <label for="kabupaten_id" class="form-label">Nama Kabupaten</label> <br>
                     <select class="form-select" aria-label="Default select example" name="kabupaten_id" id="kabupaten_id"
                         onchange="kecamatan()">
-                        <option value="pilih" selected>Pilih Kabupaten</option>
                         @forelse ($kabupatens as $kabupaten)
                             @if (old('kabupaten_id',$kelurahan->kecamatan->kabupaten_id) == $kabupaten->id)
                                 <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}" selected>
@@ -47,7 +45,6 @@
                     <label for="kecamatan_id" class="form-label">Nama Kecamatan</label> <br>
                     <select class="form-select" aria-label="Default select example" name="kecamatan_id" id="kecamatan_id"
                         onchange="kelurahan()">
-                        <option value="pilih" selected>Pilih Kecamatan</option>
                         @forelse ($kecamatans as $kecamatan)
                             @if (old('kecamatan_id',$kelurahan->kecamatan_id) == $kecamatan->id)
                                 <option value="{{ $kecamatan->id }}"  id="{{ $kecamatan->kabupaten_id }}" selected>

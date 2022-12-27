@@ -15,7 +15,7 @@ class TiketController extends Controller
      */
     public function index()
     {
-        return view('',['tiket'=>Bus::latest()->paginate(8)]);
+        return view('dashboard.tiket.index',['tiket'=>Tiket::latest()->paginate(8)]);
     }
 
     /**

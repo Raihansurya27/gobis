@@ -11,7 +11,7 @@
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Fasilitas</label>
                     <input type="text" class="form-control @error('ket')is-invalid
-                    @enderror" id="nama" placeholder="Contoh: Full AC" name="nama" value="{{old('nama')}}">
+                    @enderror" id="nama" placeholder="Contoh: Full AC" name="nama" value="{{ucwords(old('nama'))}}">
                     @error('nama')
                         {{$message}}
                     @enderror
