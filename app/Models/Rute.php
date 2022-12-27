@@ -17,4 +17,8 @@ class Rute extends Model
     public function tujuan(){
         return $this->belongsTo(Terminal::class);
     }
+
+    public function bus(){
+        return $this->belongsTo(Bus::class);
+    }
 }
