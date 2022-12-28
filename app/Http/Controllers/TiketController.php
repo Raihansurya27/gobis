@@ -15,7 +15,7 @@ class TiketController extends Controller
      */
     public function index()
     {
-        return view('dashboard.tiket.index',['tiket'=>Tiket::latest()->paginate(8)]);
+        return view('dashboard.tiket.index',['tikets'=>Tiket::latest()->paginate(8)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class TiketController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.tiket.create',['pesanans'=>Pesanan::all()]);
     }
 
     /**
@@ -36,7 +36,12 @@ class TiketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'kode_tiket'=>'required',
+            'pesanan_id'=>'required',
+        ]);
+        Tiket::create($validatedData);
+        return redirect('/tiket')->with('pesan','Data tiket baru berhasil ditambah');
     }
 
     /**
@@ -58,7 +63,7 @@ class TiketController extends Controller
      */
     public function edit(Tiket $tiket)
     {
-        //
+        return view('dashboard.tiket.update',['tiket'=>$tiket,'pesanans'=>Pesanan::all()]);
     }
 
     /**
@@ -70,7 +75,12 @@ class TiketController extends Controller
      */
     public function update(Request $request, Tiket $tiket)
     {
-        //
+        $validatedData=$request->validate([
+            'kode_tiket'=>'required',
+            'pesanan_id'=>'required',
+        ]);
+        Tiket::where('id',$tiket->id)->update($validatedData);
+        return redirect('/tiket')->with('pesan','Data tiket berhasil diupdate');
     }
 
     /**
@@ -81,6 +91,7 @@ class TiketController extends Controller
      */
     public function destroy(Tiket $tiket)
     {
-        //
+        Tiket::destroy($tiket->id);
+        return redirect('/tiket')->with('pesan','Data tiket berhasil dihapus');
     }
 }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_bus');
-            $table->ForeignId('kelas_id');
+            $table->string('nama');
+            $table->ForeignId('class_bus_id');
             $table->string('foto')->nullable();
             $table->longText('deskripsi')->nullable();
             $table->timestamps();

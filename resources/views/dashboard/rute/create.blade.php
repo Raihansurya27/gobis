@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Entri Data Peran/Role Baru</h1>
+        <h1 class="h2">Entri Data Rute Perjalanan Bus</h1>
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -87,7 +87,7 @@
 
                 <div class="mb-3" id="bag-ter-1" hidden="true">
                     <label for="terminal_id_1" class="form-label">Terminal</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="terminal_id" id="terminal_id_1"
+                    <select class="form-select" aria-label="Default select example" name="awal_id" id="terminal_id_1"
                         onchange="sama(1) ">
                         <option value="pilih" selected>Pilih Kelurahan</option>
                         @forelse ($terminals as $terminal)
@@ -182,7 +182,7 @@
 
                 <div class="mb-3" id="bag-ter-2" hidden="true">
                     <label for="terminal_id_2" class="form-label">Terminal</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="terminal_id"
+                    <select class="form-select" aria-label="Default select example" name="tujuan_id"
                         id="terminal_id_2">
                         <option value="pilih" selected>Pilih Terminal</option>
                         @forelse ($terminals as $terminal)
@@ -199,8 +199,29 @@
                     </select>
                 </div>
 
+                <h3>Nama Bus</h3>
+
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <label for="bus_id" class="form-label">Bus</label> <br>
+                    <select class="form-select" aria-label="Default select example" name="bus_id"
+                        id="bus_id">
+                        <option value="pilih" selected>Pilih Bus</option>
+                        @forelse ($buses as $bus)
+                            @if (old('bus_id') == $bus->id)
+                                <option value="{{ $bus->id }}" selected>
+                                    {{ ucwords($bus->nama) }}</option>
+                            @else
+                                <option value="{{ $bus->id }}">
+                                    {{ ucwords($bus->nama) }}</option>
+                            @endif
+                        @empty
+                            <option>Tidak ada data bus</option>
+                        @endforelse
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

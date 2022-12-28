@@ -31,7 +31,7 @@
                 <td>{{ ucwords($user->nama) }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ Str::limit($user->password, 5) }} </td>
-                <td>{{ ucwords($user->role->nama_role) }}</td>
+                <td>{{ ucwords($user->role->nama) }}</td>
                 <td id="pendek-{{ $loop->iteration }}">
                     {{ ucwords(Str::limit(implode(', ', [$user->alamat, $user->kelurahan->nama, $user->kelurahan->kecamatan->nama, $user->kelurahan->kecamatan->kabupaten->nama, $user->kelurahan->kecamatan->kabupaten->provinsi->nama]), 5)) }}<button
                         onclick="tampilkan({{ $loop->iteration }})"><span data-feather="arrow-down-right"></span>

@@ -16,7 +16,7 @@ class PesananController extends Controller
      */
     public function index()
     {
-        return view('',['pesanans'=>Pesanan::latest()->paginate(8)]);
+        return view('dashboard.pesanan.index',['pesanans'=>Pesanan::latest()->paginate(8)]);
     }
 
     /**
@@ -26,7 +26,7 @@ class PesananController extends Controller
      */
     public function create()
     {
-        return view('',['jadwals'=>Jadwal::all()]);
+        return view('dashboard.pesanan.create',['jadwals'=>Jadwal::all(),'users'=>User::all()]);
     }
 
     /**
@@ -41,10 +41,14 @@ class PesananController extends Controller
             'jadwal_id'=>'required',
             'tanggal_pesan'=>'required',
             'jumlah'=>'required',
+            'user_id'=>'required',
+            'status'=>'required',
+            'tanggal_beli'=>'',
+            'total'=>'',
         ]);
-        $validatedData['user_id'] = Auth::user()->id;
+        // $validatedData['user_id'] = Auth::user()->id;
         Pesanan::create($validatedData);
-        return redirect('/')->with('pesan','Data pesanan baru berhasil ditambah');
+        return redirect('/pesanan')->with('pesan','Data pesanan baru berhasil ditambah');
     }
 
     /**
@@ -66,7 +70,7 @@ class PesananController extends Controller
      */
     public function edit(Pesanan $pesanan)
     {
-        return view('',['pesanan'=>$pesanan,'jadwals'=>Jadwal::all()]);
+        return view('dashboard.pesanan.update',['pesanan'=>$pesanan,'jadwals'=>Jadwal::all(),'users'=>User::all()]);
     }
 
     /**
@@ -82,10 +86,14 @@ class PesananController extends Controller
             'jadwal_id'=>'required',
             'tanggal_pesan'=>'required',
             'jumlah'=>'required',
+            'user_id'=>'required',
+            'status'=>'required',
+            'tanggal_beli'=>'',
+            'total'=>'',
         ]);
-        $validatedData['user_id'] = Auth::user()->id;
+        // $validatedData['user_id'] = Auth::user()->id;
         Pesanan::where('id',$pesanan->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data pesanan berhasil diupdate');
+        return redirect('/pesanan')->with('pesan','Data pesanan berhasil diupdate');
     }
 
     /**
@@ -97,6 +105,6 @@ class PesananController extends Controller
     public function destroy(Pesanan $pesanan)
     {
         Pesanan::destroy($pesanan->id);
-        return redirect('/')->with('pesan','Data pesanan berhasil dihapus');
+        return redirect('/pesanan')->with('pesan','Data pesanan berhasil dihapus');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Rute;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
@@ -14,7 +15,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        return view();
+        return view('dashboard.jadwal.index',['jadwals'=>Jadwal::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +25,7 @@ class JadwalController extends Controller
      */
     public function create()
     {
-
+        return view('dashboard.jadwal.create',['rutes'=>Rute::all()]);
     }
 
     /**
@@ -35,7 +36,15 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'',
+            'rute_id'=>'required',
+            'keberangkatan'=>'required',
+            //Y-m-d H:i:s
+            'harga'=>'required|numeric',
+        ]);
+        Jadwal::create($validatedData);
+        return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan baru berhasil ditambah');
     }
 
     /**
@@ -57,7 +66,7 @@ class JadwalController extends Controller
      */
     public function edit(Jadwal $jadwal)
     {
-        //
+        return view('dashboard.jadwal.update',['jadwal'=>$jadwal,'rutes'=>Rute::all()]);
     }
 
     /**
@@ -69,7 +78,15 @@ class JadwalController extends Controller
      */
     public function update(Request $request, Jadwal $jadwal)
     {
-        //
+        $validatedData=$request->validate([
+            'nama'=>'',
+            'rute_id'=>'required',
+            'keberangkatan'=>'required',
+            //Y-m-d H:i:s
+            'harga'=>'required|numeric',
+        ]);
+        Jadwal::where('id',$jadwal->id)->update($validatedData);
+        return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan berhasil diupdate');
     }
 
     /**
@@ -80,6 +97,7 @@ class JadwalController extends Controller
      */
     public function destroy(Jadwal $jadwal)
     {
-        //
+        Jadwal::destroy($jadwal->id);
+        return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan berhasil dihapus');
     }
 }
