@@ -48,7 +48,6 @@ class RuteController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama'=>'required',
             'awal_id'=>'required',
             'tujuan_id'=>'required',
             'bus_id'=>'required',
@@ -76,7 +75,11 @@ class RuteController extends Controller
      */
     public function edit(Rute $rute)
     {
-        return view('dashboard.rute.update',['rute'=>$rute,'terminals'=>Terminal::all(),'buses'=>Bus::all()]);
+        return view('dashboard.rute.update',['rute'=>$rute,'terminals'=>Terminal::all(),'buses'=>Bus::all(),
+        'provinsis'=>Provinsi::all(),
+        'kabupatens'=>Kabupaten::all(),
+        'kecamatans'=>Kecamatan::all(),
+        'kelurahans'=>Kelurahan::all()]);
     }
 
     /**
@@ -89,7 +92,6 @@ class RuteController extends Controller
     public function update(Request $request, Rute $rute)
     {
         $validatedData=$request->validate([
-            'nama'=>'required',
             'awal_id'=>'required',
             'tujuan_id'=>'required',
             'bus_id'=>'required',

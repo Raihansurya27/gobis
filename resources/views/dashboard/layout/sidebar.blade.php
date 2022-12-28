@@ -8,7 +8,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{Request::is('buses') ? 'active' : ''}}" href="{{url('bus')}}">
+          <a class="nav-link {{Request::is('buses') ? 'active' : ''}}" href="{{url('buses')}}">
             <span data-feather="layers"></span>
             Bus
           </a>
@@ -56,7 +56,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{Request::is('jadwal') ? 'active' : ''}}" href="{{url('booking')}}">
+            <a class="nav-link {{Request::is('jadwal') ? 'active' : ''}}" href="{{url('jadwal')}}">
               <span data-feather="file"></span>
               Jadwal
             </a>

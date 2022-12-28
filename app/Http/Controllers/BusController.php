@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bus;
-use App\Models\Kelas;
+use App\Models\ClassBus;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
@@ -25,7 +25,7 @@ class BusController extends Controller
      */
     public function create()
     {
-        return view('dashboard.bus.create',['kelas'=>Kelas::all()]);
+        return view('dashboard.bus.create',['class_buses'=>ClassBus::all()]);
     }
 
     /**
@@ -37,8 +37,8 @@ class BusController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama_bus'=>'required',
-            'kelas_id'=>'required',
+            'nama'=>'required',
+            'class_bus_id'=>'required',
             'deskripsi'=>'required',
             'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
         ]);
@@ -50,7 +50,7 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::create($validatedData);
-        return redirect('/bus')->with('pesan','Data bus baru berhasil ditambah');
+        return redirect('/buses')->with('pesan','Data bus baru berhasil ditambah');
     }
 
     /**
@@ -72,7 +72,7 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        return view('dashboard.bus.update',['buses'=>$bus, 'kelas'=>Kelas::all()]);
+        return view('dashboard.bus.update',['bus'=>$bus, 'class_buses'=>ClassBus::all()]);
     }
 
     /**
@@ -86,7 +86,7 @@ class BusController extends Controller
     {
         $validatedData=$request->validate([
             'nama'=>'required',
-            'kelas_id'=>'required',
+            'class_bus_id'=>'required',
             'deskripsi'=>'required',
             'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
         ]);
@@ -98,7 +98,7 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::where('id',$bus->id)->update($validatedData);
-        return redirect('/bus')->with('pesan','Data bus berhasil diupdate');
+        return redirect('/buses')->with('pesan','Data bus berhasil diupdate');
     }
 
     /**
@@ -110,6 +110,6 @@ class BusController extends Controller
     public function destroy(Bus $bus)
     {
         Bus::destroy($bus->id);
-        return redirect('/bus')->with('pesan','Data bus berhasil dihapus');
+        return redirect('/buses')->with('pesan','Data bus berhasil dihapus');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data Terminal Bus</h1>
+        <h1 class="h2">Data Tiket Perjalanan</h1>
     </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
@@ -11,68 +11,34 @@
     @endif
 
     <p>
-        <a href="{{ url('/terminal/create') }}" class=" btn btn-primary">Tambah Terminal Bus Baru</a>
+        <a href="{{ url('/tiket/create') }}" class=" btn btn-primary">Tambah Tiket Perjalanan Baru</a>
     </p>
     <table class=" table table-borderless">
         <thead class=" table-dark">
             <tr>
                 <th>No.</th>
-                <th>Nama Terminal</th>
-                <th>Alamat</th>
-                <th>Deskripsi</th>
+                <th>Kode Tiket</th>
+                <th>Nama Pelanggan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-        @forelse ($terminals as $terminal)
+        @forelse ($tikets as $tiket)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ ucwords($terminal->nama) }}</td>
-                <td id="pendek-{{ $loop->iteration }}">
-                    {{ ucwords(Str::limit(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama]), 40)) }}
-                    <button onclick="tampilkan({{ $loop->iteration }})"> <span data-feather="arrow-down-right"></span>
-                    </button>
-                </td>
-                <td id="panjang-{{ $loop->iteration }}" hidden="true">
-                    {{ ucwords(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama])) }}
-                    <button onclick="sembunyikan({{ $loop->iteration }})"> <span data-feather="arrow-up-left"></span>
-                    </button>
-                </td>
-                <td>{{ Str::ucfirst($terminal->deskripsi) }}</td>
+                <td>{{ ucwords($tiket->kode_tiket) }}</td>
+                <td>{{ ucwords($tiket->pesanan->user->nama) }}</td>
                 <td>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <a href="{{ url('/terminal/' . $terminal->id . '/edit') }}"
-                                class="btn btn-warning btn-sm">Edit</a>
-                        </div>
-                        <div class="col-lg-4">
-                            <form action="{{ url('/terminal/' . $terminal->id) }}" class="d-inline" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Yakin menghapus data ?')">Delete</button>
-                            </form>
-                        </div>
-                    </div>
+                    <a href="{{ url('/tiket/' . $tiket->id . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url('/tiket/' . $tiket->id) }}" class="d-inline" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Yakin menghapus data ?')">Delete</button>
+                    </form>
                 </td>
             </tr>
         @empty
         @endforelse
     </table>
-    {{ $terminals->links('pagination::bootstrap-5') }}
+    {{ $tikets->links('pagination::bootstrap-5') }}
 @endsection
-
-<script type="text/javascript">
-    function tampilkan(id) {
-        var pendek = document.getElementById('pendek-' + id);
-        var panjang = document.getElementById('panjang-' + id);
-        pendek.hidden = true;
-        panjang.hidden = false;
-    }
-
-    function sembunyikan(id) {
-        var pendek = document.getElementById('pendek-' + id);
-        var panjang = document.getElementById('panjang-' + id);
-        panjang.hidden = true;
-        pendek.hidden = false;
-    }
-</script>
