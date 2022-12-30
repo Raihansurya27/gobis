@@ -90,6 +90,7 @@ label #close:hover{
 
 /* Register */
 
+
 .grid-container{
   display: grid;
   margin: auto;
@@ -99,6 +100,7 @@ label #close:hover{
   border : 2px solid white;
   border-radius: 5px 5px 5px 5px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  margin-bottom: 50px;
 }
 
 .grid-container .title{
@@ -128,20 +130,19 @@ label #close:hover{
   background-color: rgb(146, 155, 247);
   border-radius: 0px 0px 5px 0px;
 }
-
-.create-account{
-  margin: 50px 20px 20px 20px;
-  text-decoration: none;
-  color: white;
-}
-
-.create-account a{
+.col-2 h3{
   color: white;
   letter-spacing: 1px;
+  margin: 20px 0px 0px 20px;
+}
+
+.col-2 .alamat h3{
+  margin-top: 50px;
+  padding-top: 120px;
 }
 
 .kontent{
-  margin: 40px 20px 0px 20px;
+  margin: 0px 20px 0px 20px;
 }
 
 .col-25{
@@ -159,6 +160,17 @@ label #close:hover{
   color: white;
 }
 
+
+.col-75 select{
+  background-color: white;
+  border:none;
+  padding: 8px;
+  float: right;
+  width: 90%;
+  border-radius: 4px;
+
+}
+
 .col-75 textarea{
   float: right;
   width: 90%;
@@ -169,7 +181,7 @@ label #close:hover{
   background-color: rgb(109, 116, 185);
   color: white;
   letter-spacing: 1.5px;
-
+margin-top: 10px;
 }
 
 input{
@@ -225,7 +237,15 @@ input{
     color: white;
   }
 
+  .col-75 select{
+    width: 100%;
+
 }
+
+.col-2 .alamat h3{
+  margin-top: 100px;
+}
+
 
 @media (max-width:900px){
 

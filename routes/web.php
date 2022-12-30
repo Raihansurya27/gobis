@@ -60,6 +60,9 @@ Route::get('/caribus',function(){
     return view('caribus');
 });
 
+Route::get('/kontak',function(){
+    return view('kontak');
+});
 
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/register',[LoginController::class,'registerStore']);

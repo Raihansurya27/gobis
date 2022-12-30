@@ -97,7 +97,6 @@ label #close:hover{
   width: 100%;
   background-color: rgb(110, 121, 244);
   text-align: center;
-  position: fixed;
   bottom: 0;
 }
 
