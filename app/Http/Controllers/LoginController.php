@@ -47,7 +47,7 @@ class LoginController extends Controller
     }
 
     public function register(){
-        return view('register',[
+        return view('daftar',[
             'provinsis' => Provinsi::all(),
             'kabupatens' => Kabupaten::all(),
             'kecamatans' => Kecamatan::all(),
