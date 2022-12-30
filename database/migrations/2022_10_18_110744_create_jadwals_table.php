@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->nullable();
             $table->ForeignId('rute_id');
-            $table->timestamps('keberangkatan');
+            $table->timestamp('keberangkatan');
+            $table->double('harga');
             $table->timestamps();
         });
     }

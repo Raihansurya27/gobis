@@ -22,10 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'alamat',
-        'provinsi',
-        'kabupaten',
-        'kecamatan',
-        'kelurahan',
+        'kelurahan_id',
     ];
 
     /**
@@ -43,24 +40,9 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
     public function role(){
         return $this->belongsTo(Role::class);
-    }
-
-    public function provinsi(){
-        return $this->belongsTo(Provinsi::class);
-    }
-
-    public function kabupaten(){
-        return $this->belongsTo(Kabupaten::class);
-    }
-
-    public function kecamatan(){
-        return $this->belongsTo(Kecamatan::class);
     }
 
     public function kelurahan(){

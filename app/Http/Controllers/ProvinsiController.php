@@ -14,7 +14,7 @@ class ProvinsiController extends Controller
      */
     public function index()
     {
-        return view('',['provinsi'=>Provinsi::latest()->paginate(8)]);
+        return view('dashboard.provinsi.index',['provinsis'=>Provinsi::latest()->paginate(8)]);
     }
 
     /**
@@ -24,7 +24,7 @@ class ProvinsiController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('dashboard.provinsi.create');
     }
 
     /**
@@ -36,10 +36,10 @@ class ProvinsiController extends Controller
     public function store(Request $request)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:tipes',
+            'nama'=>'required|unique:provinsis',
         ]);
-        Jabatan::create($validatedData);
-        return redirect('/')->with('pesan','Data provinsi berhasil ditambah');
+        Provinsi::create($validatedData);
+        return redirect('/provinsi')->with('pesan','Data provinsi berhasil ditambah');
     }
 
     /**
@@ -61,7 +61,7 @@ class ProvinsiController extends Controller
      */
     public function edit(Provinsi $provinsi)
     {
-        return view('',['provinsi'=>$provinsi]);
+        return view('dashboard.provinsi.update',['provinsi'=>$provinsi]);
     }
 
     /**
@@ -74,10 +74,10 @@ class ProvinsiController extends Controller
     public function update(Request $request, Provinsi $provinsi)
     {
         $validatedData=$request->validate([
-            'nama'=>'required|unique:provinsi',
+            'nama'=>'required|unique:provinsis',
         ]);
         Provinsi::where('id',$provinsi->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data provinsi berhasil diupdate');
+        return redirect('/provinsi')->with('pesan','Data provinsi berhasil diupdate');
     }
 
     /**
@@ -89,6 +89,6 @@ class ProvinsiController extends Controller
     public function destroy(Provinsi $provinsi)
     {
         Provinsi::destroy($provinsi->id);
-        return redirect('/')->with('pesan','Data provinsi berhasil dihapus');
+        return redirect('/provinsi')->with('pesan','Data provinsi berhasil dihapus');
     }
 }

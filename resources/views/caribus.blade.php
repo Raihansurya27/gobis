@@ -20,7 +20,7 @@
     </div>
     <div class="nav">
       <ul>
-        <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : 'active' }}">Home</a></li>
+        <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">Home</a></li>
                 <li> <a href="{{ url('bis') }}" class="{{ Request::is('bis') ? 'active' : '' }}">Bis</a></li>
                 <li> <a href="{{ url('kontak') }}">Kontak</a></li>
                 <li> <a href="{{ url('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">Tentang Kami</a>

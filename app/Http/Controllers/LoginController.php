@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -17,24 +21,19 @@ class LoginController extends Controller
     public function authenticate(Request $request){
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'min:8'],
         ]);
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            if(auth()->user()->role->nama_role == 'admin'){
-                return redirect()->intended('dashboard');
-            }else{
-                return redirect()->intended('/home');
-            }
+            return redirect()->intended('/home');
         }
 
         // // return back()->withErrors([
         // //     'email' => 'The provided credentials do not match our records.',
         // // ])->onlyInput('email');
-        // return back()->with('errorLogin','Email or password Invalid !');
-        return redirect()->intended('home');
+        return back()->with('errorLogin','Email or password Invalid !');
     }
 
     public function logout(Request $request){
@@ -48,7 +47,12 @@ class LoginController extends Controller
     }
 
     public function register(){
-        return view('register');
+        return view('daftar',[
+            'provinsis' => Provinsi::all(),
+            'kabupatens' => Kabupaten::all(),
+            'kecamatans' => Kecamatan::all(),
+            'kelurahans' => Kelurahan::all()
+        ]);
     }
 
     public function registerStore(Request $request){
@@ -57,9 +61,6 @@ class LoginController extends Controller
             'email'=>'required|unique:users|email',
             'password'=>'required|min:8',
             'alamat'=>'required',
-            'provinsi_id'=>'required',
-            'kabupaten_id'=>'required',
-            'kecamatan_id'=>'required',
             'kelurahan_id'=>'required',
         ]);
         $validatedData['remember_token'] = Str::random(10);

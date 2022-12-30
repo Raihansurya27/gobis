@@ -15,7 +15,7 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        return view('',['kabupatens'=>Kabupaten::latest()->paginate(8)]);
+        return view('dashboard.kabupaten.index',['kabupatens'=>Kabupaten::latest()->paginate(8)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class KabupatenController extends Controller
      */
     public function create()
     {
-        return view('',['provinsis'=>Provinsi::all()]);
+        return view('dashboard.kabupaten.create',['provinsis'=>Provinsi::all()]);
     }
 
     /**
@@ -41,7 +41,7 @@ class KabupatenController extends Controller
             'provinsi_id'=>'required',
         ]);
         Kabupaten::create($validatedData);
-        return redirect('/')->with('pesan','Data kabupaten baru berhasil ditambah');
+        return redirect('/kabupaten')->with('pesan','Data kabupaten baru berhasil ditambah');
     }
 
     /**
@@ -63,7 +63,7 @@ class KabupatenController extends Controller
      */
     public function edit(Kabupaten $kabupaten)
     {
-        return view('',['kabupaten'=>$kabupaten,'provinsis'=>Provinsi::all()]);
+        return view('dashboard.kabupaten.update',['kabupaten'=>$kabupaten,'provinsis'=>Provinsi::all()]);
     }
 
     /**
@@ -80,7 +80,7 @@ class KabupatenController extends Controller
             'provinsi_id'=>'required'
         ]);
         Kabupaten::where('id',$kabupaten->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data kabupaten berhasil diupdate');
+        return redirect('/kabupaten')->with('pesan','Data kabupaten berhasil diupdate');
     }
 
     /**
@@ -92,6 +92,6 @@ class KabupatenController extends Controller
     public function destroy(Kabupaten $kabupaten)
     {
         Kabupaten::destroy($kabupaten->id);
-        return redirect('/')->with('pesan','Data kabupaten berhasil dihapus');
+        return redirect('/kabupaten')->with('pesan','Data kabupaten berhasil dihapus');
     }
 }

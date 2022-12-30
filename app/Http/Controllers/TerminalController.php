@@ -18,7 +18,7 @@ class TerminalController extends Controller
      */
     public function index()
     {
-        return view('',['terminals'=>Terminal::latest()->paginate(8)]);
+        return view('dashboard.terminal.index',['terminals'=>Terminal::latest()->paginate(8)]);
     }
 
     /**
@@ -28,7 +28,7 @@ class TerminalController extends Controller
      */
     public function create()
     {
-        return view('',['provinsis'=>Provinsi::all(),'kabupatens'=>Kabupaten::all(),'kecamatans'=>Kecamatan::all(),'kelurahans'=>Kelurahan::all()]);
+        return view('dashboard.terminal.create',['provinsis'=>Provinsi::all(),'kabupatens'=>Kabupaten::all(),'kecamatans'=>Kecamatan::all(),'kelurahans'=>Kelurahan::all()]);
     }
 
     /**
@@ -41,15 +41,12 @@ class TerminalController extends Controller
     {
         $validatedData=$request->validate([
             'nama'=>'required',
-            'provinsi_id'=>'required',
-            'kabupaten_id'=>'required',
-            'kecamatan_id'=>'required',
             'kelurahan_id'=>'required',
             'deskripsi'=>'required',
             'alamat'=>'required',
         ]);
         Terminal::create($validatedData);
-        return redirect('/')->with('pesan','Data terminal baru berhasil ditambah');
+        return redirect('/terminal')->with('pesan','Data terminal baru berhasil ditambah');
     }
 
     /**
@@ -71,7 +68,7 @@ class TerminalController extends Controller
      */
     public function edit(Terminal $terminal)
     {
-        return view('',['terminal'=>$terminal,'provinsis'=>Provinsi::all(),'kabupatens'=>Kabupaten::all(),'kecamatans'=>Kecamatan::all(),'kelurahans'=>Kelurahan::all()]);
+        return view('dashboard.terminal.update',['terminal'=>$terminal,'provinsis'=>Provinsi::all(),'kabupatens'=>Kabupaten::all(),'kecamatans'=>Kecamatan::all(),'kelurahans'=>Kelurahan::all()]);
     }
 
     /**
@@ -85,15 +82,12 @@ class TerminalController extends Controller
     {
         $validatedData=$request->validate([
             'nama'=>'required',
-            'provinsi_id'=>'required',
-            'kabupaten_id'=>'required',
-            'kecamatan_id'=>'required',
             'kelurahan_id'=>'required',
             'deskripsi'=>'required',
             'alamat'=>'required',
         ]);
         Terminal::where('id',$terminal->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data terminal berhasil diupdate');
+        return redirect('/terminal')->with('pesan','Data terminal berhasil diupdate');
     }
 
     /**
@@ -105,6 +99,6 @@ class TerminalController extends Controller
     public function destroy(Terminal $terminal)
     {
         Terminal::destroy($terminal->id);
-        return redirect('/')->with('pesan','Data terminal berhasil dihapus');
+        return redirect('/terminal')->with('pesan','Data terminal berhasil dihapus');
     }
 }

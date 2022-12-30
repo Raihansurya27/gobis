@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kecamatan;
 use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
 class KecamatanController extends Controller
@@ -15,7 +16,7 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        return view('',['kecamatans'=>Kecamatan::latest()->paginate(8)]);
+        return view('dashboard.kecamatan.index',['kecamatans'=>Kecamatan::latest()->paginate(8)]);
     }
 
     /**
@@ -25,7 +26,7 @@ class KecamatanController extends Controller
      */
     public function create()
     {
-        return view('',['kabupatens'=>Kabupaten::all()]);
+        return view('dashboard.kecamatan.create',['kabupatens'=>Kabupaten::all(),'provinsis'=>Provinsi::all()]);
     }
 
     /**
@@ -41,7 +42,7 @@ class KecamatanController extends Controller
             'kabupaten_id'=>'required',
         ]);
         Kecamatan::create($validatedData);
-        return redirect('/')->with('pesan','Data kecamatan baru berhasil ditambah');
+        return redirect('/kecamatan')->with('pesan','Data kecamatan baru berhasil ditambah');
     }
 
     /**
@@ -63,7 +64,8 @@ class KecamatanController extends Controller
      */
     public function edit(Kecamatan $kecamatan)
     {
-        return view('',['kecamatans'=>$kecamatan,'kabupatens'=>Kabupaten::all()]);
+        return view('dashboard.kecamatan.update',['kecamatan'=>$kecamatan,'kabupatens'=>Kabupaten::all(),'provinsis'=>Provinsi::all()]);
+        // dump($kecamatan);
     }
 
     /**
@@ -80,7 +82,7 @@ class KecamatanController extends Controller
             'kabupaten_id'=>'required'
         ]);
         Kecamatan::where('id',$kecamatan->id)->update($validatedData);
-        return redirect('/')->with('pesan','Data kecamatan berhasil diupdate');
+        return redirect('/kecamatan')->with('pesan','Data kecamatan berhasil diupdate');
     }
 
     /**
@@ -92,6 +94,6 @@ class KecamatanController extends Controller
     public function destroy(Kecamatan $kecamatan)
     {
         Kecamatan::destroy($kecamatan->id);
-        return redirect('/')->with('pesan','Data kecamatan berhasil dihapus');
+        return redirect('/kecamatan')->with('pesan','Data kecamatan berhasil dihapus');
     }
 }

@@ -10,7 +10,7 @@ class Bus extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function kelas(){
-        return $this->belongsTo(Kelas::class);
+    public function class_bus(){
+        return $this->belongsTo(ClassBus::class);
     }
 }
