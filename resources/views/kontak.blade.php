@@ -2,13 +2,12 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{asset('css/style_kontak.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>GO-BIS</title>
+    <title>Go-BIS</title>
 </head>
 
 <body>
@@ -25,7 +24,7 @@
             <ul>
                 <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">Home</a></li>
                 <li> <a href="{{ url('bis') }}" class="{{ Request::is('bis') ? 'active' : '' }}">Bis</a></li>
-                <li> <a href="{{ url('kontak') }}" class="{{ Request::is('kontak') ? 'active' : '' }}">Kontak</a>
+                <li> <a href="{{ url('kontak')}}" class="{{ Request::is('bis') ? 'active' : 'active' }}">Kontak</a></li>
                 <li> <a href="{{ url('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">Tentang Kami</a>
                 </li>
                 @auth
@@ -47,8 +46,17 @@
             </ul>
         </div>
     </div>
-    @yield('container')
-    <br>
+    <!-- header -->
+    <div class="header">
+
+        <div class="text">
+
+        <h2>Hubungi Kami</h2>
+      </div>
+    <!-- footer -->
+    <div class="footer">
+        <a href="#"><i class="fa-regular fa-copyright"></i> 2022 | GO-BIS</a>
+    </div>
 </body>
 
 </html>

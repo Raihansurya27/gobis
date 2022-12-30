@@ -77,13 +77,16 @@
                 </div>
                 <div class="kontent">
                     <div class="col-25">
-                        <p>Password</p>
+                        <p >Password</p>
                     </div>
                     <div class="col-75">
-                        <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                        <input  type="password" name="password" value="{{ old('password') }}" placeholder="Password">
                     </div>
                 </div>
-                <h3>Alamat</h3>
+                <div class="alamat">
+                  <h3 >Alamat</h3>
+                  
+                </div>
                 <div class="kontent">
                     <div class="col-25">
                         <p>Provinsi</p>
