@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bus_facilities', function (Blueprint $table) {
             $table->id();
             $table->ForeignId('bus_id');
-            $table->ForeignId('fasilitas_id');
+            $table->ForeignId('facility_id');
             $table->timestamps();
         });
     }

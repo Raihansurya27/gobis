@@ -50,8 +50,16 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <img src="" alt="Fotonya" style="width: 200px; height: 200px;" id="gambarCoba">
+                    <label class="form-label">Fasilitas</label>
+                    @forelse ($facilities as $facility)
+                        <input type="checkbox" name="facilities[]" id="" value="{{$facility->id}}" style="margin: 5px;">{{$facility->nama}}
+                    @empty
+
+                    @endforelse
                 </div>
+                {{-- <div class="mb-3">
+                    <img src="" alt="Fotonya" style="width: 200px; height: 200px;" id="gambarCoba">
+                </div> --}}
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

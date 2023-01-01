@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use App\Models\ClassBus;
+use App\Models\BusFacility;
+use App\Models\Facility;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
@@ -15,7 +17,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        return view('dashboard.bus.index',['buses'=>Bus::latest()->paginate(8)]);
+        return view('dashboard.bus.index',['buses'=>Bus::latest()->paginate(8),'facilities'=>Facility::all(),'bus_facilities'=>BusFacility::all()]);
     }
 
     /**
@@ -25,7 +27,7 @@ class BusController extends Controller
      */
     public function create()
     {
-        return view('dashboard.bus.create',['class_buses'=>ClassBus::all()]);
+        return view('dashboard.bus.create',['class_buses'=>ClassBus::all(),'facilities'=>Facility::all()]);
     }
 
     /**
@@ -50,6 +52,13 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::create($validatedData);
+        $latest_bus = Bus::latest()->value('id');
+        $facilities = $request->input('facilities');
+        foreach ($facilities as $facility_id) {
+            $FacilityData['bus_id'] = $latest_bus;
+            $FacilityData['facility_id'] = $facility_id;
+            BusFacility::create($FacilityData);
+        }
         return redirect('/buses')->with('pesan','Data bus baru berhasil ditambah');
     }
 
@@ -72,7 +81,10 @@ class BusController extends Controller
      */
     public function edit(Bus $bus)
     {
-        return view('dashboard.bus.update',['bus'=>$bus, 'class_buses'=>ClassBus::all()]);
+        return view('dashboard.bus.update',['bus'=>$bus,
+         'class_buses'=>ClassBus::all(),
+         'facilities'=>Facility::all(),
+         'bus_facilities'=>BusFacility::all()]);
     }
 
     /**
@@ -98,7 +110,26 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::where('id',$bus->id)->update($validatedData);
+        $bus_facilities = $request->input('facilities');
+        $jumlah = BusFacility::where('bus_id')->get();
+        if(count($jumlah) == 0){
+            foreach ($bus_facilities as $bus_facility) {
+                $facilityData['bus_id'] = $bus->id;
+                $facilityData['facility_id'] = $bus_facility;
+                BusFacility::create($facilityData);
+            }
+        }else{
+            if($bus_facilities){
+                $facilities = Facility::whereNotIn('id',$bus_facilities)->get();
+                foreach ($facilities as $facility) {
+                    BusFacility::where('bus_id',$bus->id)->where('facility_id',$facility->id)->delete();
+                }
+            }else{
+                BusFacility::destroy('bus_id',$bus->id);
+            }
+        }
         return redirect('/buses')->with('pesan','Data bus berhasil diupdate');
+
     }
 
     /**

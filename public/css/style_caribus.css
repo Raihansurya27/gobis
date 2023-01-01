@@ -184,6 +184,13 @@ hr{
   margin-bottom: 200px;
 }
 
+select {
+    width: 80%;
+    background-color: white;
+    min-height: 35px;
+    border-radius: 4px;
+}
+
 .kotak .label{
   color: white;
   text-align: center;
@@ -310,7 +317,7 @@ hr{
 }
 
 .listbus .kotakbus .isikotakbus .keberangkatan p{
-  margin-bottom: 20px;
+  margin: 10px;
 }
 
 
@@ -319,7 +326,7 @@ hr{
 }
 
 .listbus .kotakbus .isikotakbus .tujuan p{
-  margin-bottom: 20px;
+  margin: 10px;
 }
 
 .listbus .kotakbus .isikotakbus .harga{
@@ -527,6 +534,14 @@ hr{
   #check:checked ~ label #close{
     display: block;
     transition: .5s;
+  }
+
+  .fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
   }
 
 }
