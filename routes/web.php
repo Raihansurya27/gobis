@@ -16,6 +16,8 @@ use App\Http\Controllers\TiketController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RuteController;
+use App\Http\Controllers\CariBusController;
+use App\Models\Kabupaten;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,7 +43,7 @@ Route::get('/register',function(){
 });
 
 Route::get('/home',function(){
-    return view('home');
+    return view('home',['kabupatens'=>Kabupaten::all()]);
 });
 
 Route::get('/bis',function(){
@@ -82,6 +84,8 @@ Route::resource('buses', BusController::class);
 Route::resource('jadwal', JadwalController::class);
 Route::resource('tiket', TiketController::class);
 Route::resource('pesanan', PesananController::class);
+
+Route::get('cari',[CariBusController::class,'cariBus']);
 
 //dashboard
 Route::get('/', function () {

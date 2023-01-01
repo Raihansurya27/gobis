@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <link rel="stylesheet" href="{{asset('css/style_home.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/style_home.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -58,27 +58,64 @@
                 <h3>Cari Tiket Bus</h3>
             </div>
             <div class="form">
-                <div class="grid">
-                    <div class="col-1">
-                        <p>Dari</p>
-                        <input type="text" name="" value="" placeholder="Padang">
+                <form action="{{ url('/cari') }}" method="GET">
+                    @csrf
+                    <div class="grid">
+                        <div class="col-1">
+                            <p>Dari (Kota)</p>
+                            <select name="awal_id">
+                                @forelse ($kabupatens as $kabupaten)
+                                    @if (old('awal_id') == $kabupaten->id)
+                                        <option value="{{ $kabupaten->id }}" selected>
+                                            {{ ucwords($kabupaten->nama) }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $kabupaten->id }}">
+                                            {{ ucwords($kabupaten->nama) }}
+                                        </option>
+                                    @endif
+                                @empty
+                                    <option>Tidak ada data Kota</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <p>Ke (Kota)</p>
+                            <select name="tujuan_id">
+                                @forelse ($kabupatens as $kabupaten)
+                                    @if (old('awal_id') == $kabupaten->id)
+                                        <option value="{{ $kabupaten->id }}" selected>
+                                            {{ ucwords($kabupaten->nama) }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $kabupaten->id }}">
+                                            {{ ucwords($kabupaten->nama) }}
+                                        </option>
+                                    @endif
+                                @empty
+                                    <option>Tidak ada data Kota</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <p>Dari tanggal</p>
+                            <input type="date" name="dari" value="{{ old('dari') }}">
+                        </div>
+
+                        <div class="col-4">
+                            <p>Sampai tanggal</p>
+                            <input type="date" name="sampai" value="{{ old('sampai') }}">
+                        </div>
+
+                        {{-- <div class="col-4">
+                            <p>Jumlah Kursi</p>
+                            <input type="number" name="" value="">
+                        </div> --}}
+                        <div class="col-5">
+                            <button type="submit" name="button">Cari</button>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <p>ke</p>
-                        <input type="text" name="" value="" placeholder="Jakarta">
-                    </div>
-                    <div class="col-3">
-                        <p>Tanggal</p>
-                        <input type="date" name="" value="" placeholder="01/12/2022">
-                    </div>
-                    <div class="col-4">
-                        <p>Jumlah Kursi</p>
-                        <input type="number" name="" value="">
-                    </div>
-                    <div class="col-5">
-                        <a href="{{url('caribus')}}"> <button type="submit" name="button">Cari</button></a>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -117,13 +154,13 @@
     </div>
     <br>
     <!-- rutebus -->
-    <div class="rutebus">
+    {{-- <div class="rutebus">
         <div class="title">
             <h2>Rute Bus Favorit</h2>
         </div>
         <div class="pembungkus">
             <div class="card">
-                <img src="{{asset('img/headercard.png')}}" alt="">
+                <img src="{{ asset('img/headercard.png') }}" alt="">
                 <h3>Padang</h3>
                 <table id="rutebus">
                     <tr>
@@ -165,7 +202,7 @@
                 </table>
             </div>
             <div class="card">
-                <img src="{{asset('img/headercard2.png')}}" alt="">
+                <img src="{{ asset('img/headercard2.png') }}" alt="">
                 <h3>Jakarta</h3>
                 <table id="rutebus">
                     <tr>
@@ -207,7 +244,7 @@
                 </table>
             </div>
             <div class="card">
-                <img src="{{asset('img/headercard3.png')}}" alt="">
+                <img src="{{ asset('img/headercard3.png') }}" alt="">
                 <h3>Pekanbaru</h3>
                 <table id="rutebus">
                     <tr>
@@ -249,7 +286,7 @@
                 </table>
             </div>
             <div class="card">
-                <img src="{{asset('img/headercard.png')}}" alt="">
+                <img src="{{ asset('img/headercard.png') }}" alt="">
                 <h3>Padang</h3>
                 <table id="rutebus">
                     <tr>
@@ -291,7 +328,7 @@
                 </table>
             </div>
             <div class="card">
-                <img src="{{asset('img/headercard2.png')}}" alt="">
+                <img src="{{ asset('img/headercard2.png') }}" alt="">
                 <h3>Jakarta</h3>
                 <table id="rutebus">
                     <tr>
@@ -333,7 +370,7 @@
                 </table>
             </div>
             <div class="card">
-                <img src="{{asset('img/headercard3.png')}}" alt="">
+                <img src="{{ asset('img/headercard3.png') }}" alt="">
                 <h3>Pekanbaru</h3>
                 <table id="rutebus">
                     <tr>
@@ -376,9 +413,9 @@
             </div>
         </div>
         <div class="lainnya">
-            <a href="{{url('home/#cari')}}">Lihat Lebih banyak</a>
+            <a href="{{ url('home/#cari') }}">Lihat Lebih banyak</a>
         </div>
-    </div>
+    </div> --}}
     <!-- kebijakan kami -->
     <div class="kebijakan">
         <div class="title">
