@@ -17,6 +17,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RuteController;
 use App\Http\Controllers\CariBusController;
+use App\Http\Controllers\OrderController;
 use App\Models\Kabupaten;
 /*
 |--------------------------------------------------------------------------
@@ -120,3 +121,5 @@ Route::post('user', [UserController::class,'store']);
 Route::delete('user/{user}', [UserController::class,'destroy']);
 Route::get('user/{user}/edit', [UserController::class,'edit']);
 Route::put('user/{user}', [UserController::class,'update']);
+
+// bisnis
