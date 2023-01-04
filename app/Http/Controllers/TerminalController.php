@@ -101,4 +101,30 @@ class TerminalController extends Controller
         Terminal::destroy($terminal->id);
         return redirect('/terminal')->with('pesan','Data terminal berhasil dihapus');
     }
+
+    public function cariTerminal(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $terminals = Terminal::where('nama','like','%'.$cari.'%')
+            ->orWhereHas('kelurahan',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%')
+                ->orWhereHas('kecamatan',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%')
+                    ->orWhereHas('kabupaten',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhereHas('provinsi',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%');
+                        });
+                    });
+                });
+            })
+            ->orWhere('alamat','like','%'.$cari.'%')
+            ->orWhere('deskripsi','like','%'.$cari.'%')
+            ->latest()->paginate(8);
+            return view('dashboard.terminal.index',['terminals' => $terminals]);
+        }else{
+            return view('dashboard.terminal.index',['terminals' => Terminal::latest()->paginate(8)]);
+        }
+
+    }
 }

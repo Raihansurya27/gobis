@@ -22,7 +22,7 @@
                     <select class="form-select" aria-label="Default select example" name="jadwal_id" id="jadwal_id">
                         @forelse ($jadwals as $jadwal)
                         @if (old('jadwal_id') == $jadwal->id)
-                        <option value="{{ $jadwal->id }}" selected>{{ ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama), Jadwal keberangkatan : {{$jadwal->keberangkatan}} }}</option>
+                        <option value="{{ $jadwal->id }}" selected>{{ ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama)}}, Jadwal keberangkatan : {{$jadwal->keberangkatan}} }}</option>
                     @else
                         <option value="{{ $jadwal->id }}">{{ ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama) }}, Jadwal keberangkatan : {{$jadwal->keberangkatan}}</option>
                     @endif

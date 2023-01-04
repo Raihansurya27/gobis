@@ -13,6 +13,24 @@
     <p>
         <a href="{{url('/kecamatan/create')}}" class=" btn btn-primary">Tambah Rute Kecamatan Baru</a>
     </p>
+
+    <form action="{{ url('/cari-kecamatan') }}" method="GET">
+        @csrf
+        <div class="row mb-3">
+
+            <div class="col-8">
+                <input type="text" class="form-control" name="cari" placeholder="ex: Pauh">
+            </div>
+            <div class="col-1">
+                <button class=" btn btn-primary" type="submit">Cari</button>
+            </div>
+            <div class="col-1" style="margin-left: -40px">
+                <a href="{{url('kecamatan')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+            </div>
+        </div>
+    </form>
+
+
     <table class=" table table-borderless">
         <thead class=" table-dark">
             <tr>

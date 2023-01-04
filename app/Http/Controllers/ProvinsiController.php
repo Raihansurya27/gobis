@@ -91,4 +91,15 @@ class ProvinsiController extends Controller
         Provinsi::destroy($provinsi->id);
         return redirect('/provinsi')->with('pesan','Data provinsi berhasil dihapus');
     }
+
+    public function cariProvinsi(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $provinsis = Provinsi::where('nama','like','%'.$cari.'%')->latest()->paginate(8);
+            return view('dashboard.provinsi.index',['provinsis' => $provinsis]);
+        }else{
+            return view('dashboard.provinsi.index',['provinsis'=>Provinsi::latest()->paginate(8)]);
+        }
+
+    }
 }

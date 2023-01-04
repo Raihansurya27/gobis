@@ -107,4 +107,57 @@ class PesananController extends Controller
         Pesanan::destroy($pesanan->id);
         return redirect('/pesanan')->with('pesan','Data pesanan berhasil dihapus');
     }
+
+    public function cariPesanan(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $pesanans = Pesanan::whereHas('user',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%');
+            })
+            ->orWhereHas('jadwal',function($query) use($cari){
+                $query->whereHas('rute',function($query) use($cari){
+                    $query->whereHas('awal',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhere('alamat','like','%'.$cari.'%')
+                        ->orWhereHas('kelurahan',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('kecamatan',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%')
+                                ->orWhereHas('kabupaten',function($query) use($cari){
+                                    $query->where('nama','like','%'.$cari.'%')
+                                    ->orWhereHas('provinsi',function($query) use($cari){
+                                        $query->where('nama','like','%'.$cari.'%');
+                                    });
+                                });
+                            });
+                        });
+                    })
+                    ->orWhereHas('tujuan',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhere('alamat','like','%'.$cari.'%')
+                        ->orWhereHas('kelurahan',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('kecamatan',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%')
+                                ->orWhereHas('kabupaten',function($query) use($cari){
+                                    $query->where('nama','like','%'.$cari.'%')
+                                    ->orWhereHas('provinsi',function($query) use($cari){
+                                        $query->where('nama','like','%'.$cari.'%');
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            })
+            ->orWhere('status','like','%'.$cari.'%')
+            ->orWhere('jumlah','=',$cari)
+            ->orWhere('total','=',$cari)
+            ->latest()->paginate(8);
+            return view('dashboard.pesanan.index',['pesanans' => $pesanans]);
+        }else{
+            return view('dashboard.pesanan.index',['pesanans' => Pesanan::latest()->paginate(8)]);
+        }
+
+    }
 }

@@ -94,4 +94,18 @@ class KabupatenController extends Controller
         Kabupaten::destroy($kabupaten->id);
         return redirect('/kabupaten')->with('pesan','Data kabupaten berhasil dihapus');
     }
+
+
+    public function cariKabupaten(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $kabupatens = Kabupaten::where('nama','like','%'.$cari.'%')->orWhereHas('provinsi',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%');
+            })->latest()->paginate(8);
+            return view('dashboard.kabupaten.index',['kabupatens' => $kabupatens]);
+        }else{
+            return view('dashboard.kabupaten.index',['kabupatens'=>Kabupaten::latest()->paginate(8)]);
+        }
+
+    }
 }

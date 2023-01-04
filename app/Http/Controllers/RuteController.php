@@ -111,4 +111,48 @@ class RuteController extends Controller
         Rute::destroy($rute->id);
         return redirect('/rute')->with('pesan','Data rute berhasil dihapus');
     }
+
+    public function cariRute(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $rutes = Rute::whereHas('awal',function($query) use($cari){
+                $query->where('alamat','like','%'.$cari.'%')
+                ->orWhereHas('kelurahan',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%')
+                    ->orWhereHas('kecamatan',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhereHas('kabupaten',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('provinsi',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%');
+                            });
+                        });
+                    });
+                });
+            })
+            ->orWhereHas('tujuan',function($query) use($cari){
+                $query->where('alamat','like','%'.$cari.'$')
+                ->orWhereHas('kelurahan',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%')
+                    ->orWhereHas('kecamatan',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhereHas('kabupaten',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('provinsi',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%');
+                            });
+                        });
+                    });
+                });
+            })
+            ->orWhereHas('bus',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%');
+            })
+            ->latest()->paginate(8);
+            return view('dashboard.rute.index',['rutes' => $rutes]);
+        }else{
+            return view('dashboard.rute.index',['rutes'=>Rute::latest()->paginate(8)]);
+        }
+
+    }
 }

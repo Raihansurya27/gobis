@@ -122,4 +122,31 @@ class UserController extends Controller
         User::destroy($user->id);
         return redirect('/user')->with('pesan','Data pengguna berhasil dihapus');
     }
+
+    public function cariUser(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $users = User::where('nama','like','%'.$cari.'%')
+            ->orWhereHas('role',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%');
+            })->orWhere('email','like','%'.$cari.'%')
+            ->orWhere('alamat','like','%'.$cari.'%')
+            ->orWhereHas('kelurahan',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%')
+                ->orWhereHas('kecamatan',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%')
+                    ->orWhereHas('kabupaten',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhereHas('provinsi',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%');
+                        });
+                    });
+                });
+            })->latest()->paginate(8);
+            return view('dashboard.user.index',['users' => $users]);
+        }else{
+            return view('dashboard.user.index',['users'=>User::latest()->paginate(8)]);
+        }
+
+    }
 }

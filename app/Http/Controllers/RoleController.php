@@ -91,4 +91,21 @@ class RoleController extends Controller
         Role::destroy($role->id);
         return redirect('/role')->with('pesan','Data peran berhasil dihapus');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function cariRole(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $roles = Role::where('nama','like','%'.$cari.'%')->latest()->paginate(8);
+            return view('dashboard.role.index',['roles' => $roles]);
+        }else{
+            return view('dashboard.role.index',['roles'=>Role::latest()->paginate(8)]);
+        }
+
+    }
 }

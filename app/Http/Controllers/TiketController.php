@@ -94,4 +94,21 @@ class TiketController extends Controller
         Tiket::destroy($tiket->id);
         return redirect('/tiket')->with('pesan','Data tiket berhasil dihapus');
     }
+
+    public function cariTiket(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $tikets = Tiket::where('kode_tiket','like','%'.$cari.'%')
+            ->orWhereHas('pesanan',function($query) use($cari){
+                $query->whereHas('user',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%');
+                });
+            })
+            ->latest()->paginate(8);
+            return view('dashboard.tiket.index',['tikets' => $tikets]);
+        }else{
+            return view('dashboard.tiket.index',['tikets'=>Tiket::latest()->paginate(8)]);
+        }
+
+    }
 }

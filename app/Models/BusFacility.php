@@ -13,4 +13,8 @@ class BusFacility extends Model
     public function facility(){
         return $this->belongsTo(Facility::class);
     }
+
+    public function bus(){
+        return $this->belongsTo(Bus::class);
+    }
 }

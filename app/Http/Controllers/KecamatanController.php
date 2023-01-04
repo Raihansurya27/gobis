@@ -96,4 +96,23 @@ class KecamatanController extends Controller
         Kecamatan::destroy($kecamatan->id);
         return redirect('/kecamatan')->with('pesan','Data kecamatan berhasil dihapus');
     }
+
+    public function cariKecamatan(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $kecamatans = Kecamatan::where('nama','like','%'.$cari.'%')
+            ->orWhereHas('kabupaten',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%')
+                ->orWhereHas('provinsi',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%');
+                });
+            })
+            ->latest()->paginate(8);
+            return view('dashboard.kecamatan.index',['kecamatans' => $kecamatans]);
+        }else{
+            return view('dashboard.kecamatan.index',['kecamatans'=>Kecamatan::latest()->paginate(8)]);
+        }
+
+    }
+
 }

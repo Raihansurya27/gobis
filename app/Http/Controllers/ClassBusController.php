@@ -91,4 +91,15 @@ class ClassBusController extends Controller
         ClassBus::destroy($classBus->id);
         return redirect('/class-buses')->with('pesan','Data kelas bus berhasil dihapus');
     }
+
+    public function cariClass(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $classbuses = ClassBus::where('nama','like','%'.$cari.'%')->latest()->paginate(8);
+            return view('dashboard.kelas.index',['class_buses' => $classbuses]);
+        }else{
+            return view('dashboard.kelas.index',['class_buses' => ClassBus::latest()->paginate(8)]);
+        }
+
+    }
 }

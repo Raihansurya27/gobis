@@ -86,6 +86,20 @@ Route::resource('tiket', TiketController::class);
 Route::resource('pesanan', PesananController::class);
 
 Route::get('cari',[CariBusController::class,'cariBus']);
+Route::get('cari-role',[RoleController::class,'cariRole']);
+Route::get('cari-provinsi',[ProvinsiController::class,'cariProvinsi']);
+Route::get('cari-kabupaten',[KabupatenController::class,'cariKabupaten']);
+Route::get('cari-kecamatan',[KecamatanController::class,'cariKecamatan']);
+Route::get('cari-kelurahan',[KelurahanController::class,'cariKelurahan']);
+Route::get('cari-user',[UserController::class,'cariUser']);
+Route::get('cari-tiket',[TiketController::class,'cariTiket']);
+Route::get('cari-rute',[RuteController::class,'cariRute']);
+Route::get('cari-pesanan',[PesananController::class,'cariPesanan']);
+Route::get('cari-class',[ClassBusController::class,'cariClass']);
+Route::get('cari-jadwal',[JadwalController::class,'cariJadwal']);
+Route::get('cari-facilities',[FacilityController::class,'cariFacility']);
+Route::get('cari-buses',[BusController::class,'cariBus']);
+Route::get('cari-terminal',[TerminalController::class,'cariTerminal']);
 
 //dashboard
 Route::get('/', function () {
