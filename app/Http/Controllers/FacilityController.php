@@ -91,4 +91,15 @@ class FacilityController extends Controller
         Facility::destroy($facility->id);
         return redirect('/facilities')->with('pesan','Data fasilitas bus berhasil dihapus');
     }
+
+    public function cariFacility(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $facilities = Facility::where('nama','like','%'.$cari.'%')->latest()->paginate(8);
+            return view('dashboard.fasilitas.index',['facilities' => $facilities]);
+        }else{
+            return view('dashboard.fasilitas.index',['facilities' => Facility::latest()->paginate(8)]);
+        }
+
+    }
 }

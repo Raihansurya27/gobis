@@ -96,4 +96,25 @@ class KelurahanController extends Controller
         Kelurahan::destroy($kelurahan->id);
         return redirect('/kelurahan')->with('pesan','Data kelurahan berhasil dihapus');
     }
+
+    public function cariKelurahan(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $kelurahans = Kelurahan::where('nama','like','%'.$cari.'%')
+            ->orWhereHas('kecamatan',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%')
+                ->orWhereHas('kabupaten',function($query) use($cari){
+                    $query->where('nama','like','%'.$cari.'%')
+                    ->orWhereHas('provinsi',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%');
+                    });
+                });
+            })
+            ->latest()->paginate(8);
+            return view('dashboard.kelurahan.index',['kelurahans' => $kelurahans]);
+        }else{
+            return view('dashboard.kelurahan.index',['kelurahans'=>Kelurahan::latest()->paginate(8)]);
+        }
+
+    }
 }

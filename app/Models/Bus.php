@@ -13,4 +13,5 @@ class Bus extends Model
     public function class_bus(){
         return $this->belongsTo(ClassBus::class);
     }
+
 }

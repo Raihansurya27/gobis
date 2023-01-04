@@ -100,4 +100,50 @@ class JadwalController extends Controller
         Jadwal::destroy($jadwal->id);
         return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan berhasil dihapus');
     }
+
+    public function cariJadwal(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $jadwals = Jadwal::whereHas('rute',function($query) use($cari){
+                    $query->whereHas('awal',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhere('alamat','like','%'.$cari.'%')
+                        ->orWhereHas('kelurahan',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('kecamatan',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%')
+                                ->orWhereHas('kabupaten',function($query) use($cari){
+                                    $query->where('nama','like','%'.$cari.'%')
+                                    ->orWhereHas('provinsi',function($query) use($cari){
+                                        $query->where('nama','like','%'.$cari.'%');
+                                    });
+                                });
+                            });
+                        });
+                    })
+                    ->orWhereHas('tujuan',function($query) use($cari){
+                        $query->where('nama','like','%'.$cari.'%')
+                        ->orWhere('alamat','like','%'.$cari.'%')
+                        ->orWhereHas('kelurahan',function($query) use($cari){
+                            $query->where('nama','like','%'.$cari.'%')
+                            ->orWhereHas('kecamatan',function($query) use($cari){
+                                $query->where('nama','like','%'.$cari.'%')
+                                ->orWhereHas('kabupaten',function($query) use($cari){
+                                    $query->where('nama','like','%'.$cari.'%')
+                                    ->orWhereHas('provinsi',function($query) use($cari){
+                                        $query->where('nama','like','%'.$cari.'%');
+                                    });
+                                });
+                            });
+                        });
+                    });
+                })
+            ->orWhere('harga','=',$cari)
+            ->latest()->paginate(8);
+            return view('dashboard.jadwal.index',['jadwals' => $jadwals]);
+        }else{
+            return view('dashboard.jadwal.index',['jadwals' => Jadwal::latest()->paginate(8)]);
+        }
+
+    }
 }

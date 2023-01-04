@@ -143,4 +143,20 @@ class BusController extends Controller
         Bus::destroy($bus->id);
         return redirect('/buses')->with('pesan','Data bus berhasil dihapus');
     }
+
+    public function cariBus(Request $request){
+        if(!empty(trim($request->cari))){
+            $cari = $request['cari'];
+            $buses = Bus::where('nama','like','%'.$cari.'%')
+            ->orWhereHas('class_bus',function($query) use($cari){
+                $query->where('nama','like','%'.$cari.'%');
+            })
+            ->orWhere('deskripsi','like','%'.$cari.'%')
+            ->latest()->paginate(8);
+            return view('dashboard.bus.index',['buses' => $buses,'facilities'=>Facility::all(),'bus_facilities'=>BusFacility::all()]);
+        }else{
+            return view('dashboard.bus.index',['buses' => Bus::latest()->paginate(8),'facilities'=>Facility::all(),'bus_facilities'=>BusFacility::all()]);
+        }
+
+    }
 }
