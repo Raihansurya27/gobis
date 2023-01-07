@@ -131,3 +131,13 @@ Route::get('/tiket', function () {
 Route::get('/detailbus', function () {
     return view('detailbus');
 });
+
+// laporan
+Route::get('/laporan', function () {
+    return view('laporan');
+});
+
+// tiket setelah pemesanan
+Route::get('/tiket2', function () {
+    return view('tiket2');
+});
