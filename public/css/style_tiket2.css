@@ -1,0 +1,93 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+
+body{
+  background-color: rgb(135, 138, 142);
+}
+
+.container{
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 25px;
+  font-weight: bold;
+  letter-spacing: .2px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header .gobis {
+  display: flex;
+  align-items: center;
+}
+
+.header .tiket-bus{
+  margin-left: 5px;
+  font-size: 1.2em;
+}
+.gobis .garis {
+  font-size: 1.8em;
+  font-weight: normal;
+}
+.isi-2{
+  display: flex;
+  justify-content: space-between;
+}
+
+.isi-2 .dari{
+  flex-basis: 50%;
+}
+
+.isi-2 .tujuan{
+  flex-basis: 50%:
+}
+
+.dari .darii{
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.tujuan .tujuann{
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.dari .bus{
+  margin-top: 20px;
+}
+
+.tujuan .harga{
+  margin-top: 20px;
+}
+
+
+
+.gobis h1{
+  color:rgb(110, 121, 244);
+}
+
+.gobis p{
+  font-weight: bold;
+}
+
+.header .kode{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+hr{
+  margin-top: 20px;
+  border: 1px dashed black;
+
+}
