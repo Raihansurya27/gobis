@@ -19,6 +19,7 @@ use App\Http\Controllers\RuteController;
 use App\Http\Controllers\CariBusController;
 use App\Http\Controllers\OrderController;
 use App\Models\Kabupaten;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,13 +104,7 @@ Route::get('cari-buses',[BusController::class,'cariBus']);
 Route::get('cari-terminal',[TerminalController::class,'cariTerminal']);
 
 //dashboard
-Route::get('/', function () {
-    return view('dashboard.index');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+Route::get('/dashboard', [DashboardController::class,'index']);
 
 //role
 Route::resource('/role', RoleController::class);
