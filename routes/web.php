@@ -123,3 +123,7 @@ Route::get('user/{user}/edit', [UserController::class,'edit']);
 Route::put('user/{user}', [UserController::class,'update']);
 
 // bisnis
+// Tiket
+Route::get('/tiket', function () {
+    return view('tiket');
+});
