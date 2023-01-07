@@ -1,0 +1,344 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+
+body{
+  background-color: rgb(239, 233, 255);
+  width: 100%;
+  height: 100vh;
+}
+
+.navbar{
+  width: 100%;
+  height: 70px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.navbar .logo{
+  line-height: 70px;
+  margin-left: 80px;
+  color: rgb(110, 121, 244);
+  float: left;
+  cursor: pointer;
+}
+
+.logo h2{
+  letter-spacing: 2px;
+  font-size: 30px;
+}
+
+
+.nav ul{
+  display: flex;
+  float: right;
+  margin-right: 80px;
+  line-height: 70px;
+}
+
+.nav ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.nav ul li a{
+  text-decoration: none;
+  color:rgb(110, 121, 244);
+  padding: 8px 15px;
+  border-radius: 3px;
+  transition: .5s;
+  letter-spacing: 1px;
+}
+
+.nav ul li a:hover{
+  background-color: rgb(110, 121, 244);
+  color: white;
+}
+
+.nav .active{
+  background-color: rgb(110, 121, 244);
+  color: white;
+}
+
+label #dehaze,
+label #close{
+  float: right;
+  color: rgb(110, 121, 244);
+  margin-right: 40px;
+  font-size: 30px;
+  cursor: pointer;
+  line-height: 70px;
+  transition: .5s;
+  display: none;
+}
+
+label #dehaze:hover{
+  color: rgb(0, 43, 18);
+}
+
+label #close:hover{
+  color: rgb(0, 43, 18);
+
+}
+
+#check{
+  display: none;
+}
+
+/* tiket */
+.title {
+  text-align: center;
+  color: rgb(76, 76, 76);
+  font-size: 1.2em;
+  margin-top: 40px;
+}
+ .title h3{
+   font-size: 1.5em;
+ }
+
+hr{
+  width: 60%;
+  margin: auto;
+}
+
+.tiket{
+  width: 80%;
+  height: auto;
+  background-color: white;
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  margin-right:auto ;
+  margin-left: auto;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  margin-bottom: 50px;
+}
+
+.tiket .header{
+  display: flex;
+  justify-content: space-between;
+  padding-left:   30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(110, 121, 244);
+  color: white;
+  letter-spacing: 1px;
+  font-size: 1.2em;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.isi{
+  display: flex;
+  flex-direction: row;
+}
+
+.isi .gambar{
+  flex-basis: 40%;
+}
+
+.isi .gambar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.isi .isi1{
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  padding-bottom: 15px;
+  color: rgb(76, 76, 76);
+  letter-spacing: .5px;
+  padding-top: 10px;
+}
+
+.isi .isi1 .keberangkatan{
+  padding: 10px;
+}
+.isi .isi1 .dari{
+  padding: 10px;
+}
+
+.isi .isi1 .tujuan{
+  padding: 10px;
+}
+.isi .isi1 .jmlbangku{
+  padding: 10px;
+}
+
+.isi .isi2 {
+  flex-basis: 10%;
+  display: flex;
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  flex-direction: column;
+}
+
+.isi2 .harga{
+  padding: 10px;
+  flex-basis: 40%;
+  color: rgb(76, 76, 76);
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+}
+
+.isi2 .button{
+  padding: 10px;
+  flex-basis: 60%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.isi2 .button button{
+  border:none;
+  padding: 7px 25px;
+  font-size: 1em;
+  border-radius: 7px;
+  margin-left: 15px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.isi2 .button .batal {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
+.isi2 .button .batal:hover{
+  background-color: rgb(206, 0, 0);
+}
+
+.isi2 .button .ubah {
+  background-color: rgb(44, 58, 239);
+  color: white;
+}
+
+.isi2 .button .ubah:hover{
+  background-color: rgb(16, 30, 205);
+}
+
+.isi2 .button .bayar {
+  background-color: rgb(221, 63, 31);
+  color: white;
+}
+
+.isi2 .button .bayar:hover{
+  background-color: rgb(173, 51, 24);
+}
+
+/* end-tiket */
+
+@media (max-width:900px){
+
+/* tiket */
+.isi2 .button button{
+  margin-left: 0px;
+  margin: 5px;
+}
+
+.isi2 .button{
+  flex-basis: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.isi2 .harga{
+  padding: 10px;
+  flex-basis: 100%;
+  color: rgb(76, 76, 76);
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.isi .isi2 {
+  flex-direction: column;
+  flex-basis:100%;
+}
+
+.isi .isi1{
+  flex-direction: column;
+  flex-basis: 100%;
+}
+
+.isi .isi1 .keberangkatan{
+  flex-basis: 100%;
+  padding: 10px;
+}
+
+.isi .isi1 .tujuan{
+  flex-basis: 100%;
+  padding: 10px;
+}
+.isi .isi1 .jmlbangku{
+  flex-basis: 100%;
+  padding: 10px;
+}
+
+.isi{
+  display: flex;
+  flex-direction: column;
+}
+
+.isi .gambar{
+  flex-basis: 100%;
+}
+
+
+/* end-tiket */
+
+
+  label #dehaze{
+    display: flex;
+
+  }
+
+  .nav ul{
+    display: block;
+    z-index: 1;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    margin-right: 0px;
+    color: white;
+    top: 70px;
+    background: rgb(255,255,255,.8);
+    padding-top: 30px;
+    right: -100%;
+    transition: .5s;
+
+  }
+
+  .nav ul li{
+    display: block;
+    margin-left: 0px;
+  }
+
+  #check:checked ~ .nav ul{
+    right: 0;
+  }
+
+  #check:checked ~ label #dehaze{
+    display: none;
+    transition: .5s;
+  }
+
+  #check:checked ~ label #close{
+    display: block;
+    transition: .5s;
+  }
+
+
+}
