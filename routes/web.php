@@ -127,3 +127,7 @@ Route::put('user/{user}', [UserController::class,'update']);
 Route::get('/tiket', function () {
     return view('tiket');
 });
+// detailbus
+Route::get('/detailbus', function () {
+    return view('detailbus');
+});
