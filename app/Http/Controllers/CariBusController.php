@@ -20,23 +20,32 @@ class CariBusController extends Controller
             'dari'=>'required',
             'sampai'=>'required',
         ]);
-        $jadwals = Jadwal::with(['rute'=>function($query) use($validatedData){
-            $query->with(['awal'=>function($query) use($validatedData){
-                $query->with(['kelurahan'=>function($query) use($validatedData){
-                    $query->with(['kecamatan'=>function($query) use($validatedData){
-                        $query->where('kabupaten_id',$validatedData['awal_id']);
-                    }]);
-                }]);
-            },'tujuan'=>function($query) use($validatedData){
-                $query->with(['kelurahan'=>function($query) use($validatedData){
-                    $query->with(['kecamatan'=>function($query) use($validatedData){
-                        $query->where('kabupaten_id',$validatedData['tujuan_id']);
-                    }]);
-                }]);
-            }]);
-        }])
+        $jadwals = Jadwal::whereHas('rute',function($query) use($validatedData){
+            $query->whereHas('awal', function($query) use($validatedData){
+                $query->whereHas('kelurahan',function($query) use($validatedData){
+                    $query->whereHas('kecamatan',function($query) use($validatedData){
+                        $query->whereHas('kabupaten',function($query) use($validatedData){
+                            $query->where('nama','like','%'.$validatedData["awal_id"]."%");
+                        });
+                    });
+                });
+            });
+        })
+        ->whereHas('rute',function($query) use($validatedData){
+            $query->whereHas('tujuan', function($query) use($validatedData){
+                $query->whereHas('kelurahan',function($query) use($validatedData){
+                    $query->whereHas('kecamatan',function($query) use($validatedData){
+                        $query->whereHas('kabupaten',function($query) use($validatedData){
+                            $query->where('nama','like','%'.$validatedData["awal_id"]."%");
+                        });
+                    });
+                });
+            });
+        })
         ->whereDate('keberangkatan','>=',$validatedData['dari'])
         ->whereDate('keberangkatan','<=',$validatedData['sampai'])
+        ->whereDate('keberangkatan','>',now())
+        ->where('jumlah_bangku','>',0)
         ->get();
 
         // $jadwals = Jadwal::whereBetween('keberangkatan', [$validatedData['dari'], $validatedData['sampai']])->get();
@@ -48,10 +57,10 @@ class CariBusController extends Controller
         $dari = Carbon::parse($validatedData['dari'])->isoFormat("dddd, D MMMM Y");
         $sampai = Carbon::parse($validatedData['sampai'])->isoFormat("dddd, D MMMM Y");
 
-
+        // dd($jadwals);
         return view('cariBus',['jadwals'=>$jadwals,
-        'tujuan'=>Kabupaten::where('id',$validatedData['tujuan_id'])->get(),
-        'awal'=>Kabupaten::where('id',$validatedData['awal_id'])->get(),
+        'tujuan'=>Kabupaten::where('nama','like','%'.$validatedData['tujuan_id'].'%')->first(),
+        'awal'=>Kabupaten::where('nama','like','%'.$validatedData['awal_id'].'%')->first(),
         'berangkat' => "dari ".$dari." sampai ".$sampai,
         'kabupatens'=>Kabupaten::all(),
         'facilities'=>BusFacility::all()]);

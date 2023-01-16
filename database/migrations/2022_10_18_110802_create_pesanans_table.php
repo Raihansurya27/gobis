@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->ForeignId('jadwal_id');
             $table->ForeignId('user_id');
-            $table->timestamp('tanggal_pesan');
+            $table->timestamp('tanggal_pesan')->useCurrent();
             $table->timestamp('tanggal_beli')->nullable();
             $table->string('status')->default('dipesan');
             $table->integer('jumlah');

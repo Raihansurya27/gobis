@@ -58,6 +58,23 @@ body{
   color: white;
 }
 
+.nav ul li .logout {
+    text-decoration: none;
+    /* background:rgb(129, 138, 242); */
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    transition: .5s;
+    color: rgb(110, 121, 244);
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.nav ul li .logout:hover {
+    background-color: rgb(47, 62, 222);
+    color: white;
+}
+
 .nav .active{
   background-color: rgb(110, 121, 244);
   color: white;
@@ -152,7 +169,7 @@ hr{
   flex-basis: 50%;
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  padding: 15px;
   padding-bottom: 15px;
   color: rgb(76, 76, 76);
   letter-spacing: .5px;
@@ -176,19 +193,20 @@ hr{
 .isi .isi2 {
   flex-basis: 10%;
   display: flex;
-  padding: 25px;
+  padding: 15px;
   padding-top: 10px;
   padding-bottom: 15px;
   flex-direction: column;
 }
 
 .isi2 .harga{
-  padding: 10px;
+  padding: 5px;
   flex-basis: 40%;
   color: rgb(76, 76, 76);
   letter-spacing: 1px;
   display: flex;
   flex-direction: column;
+  font-size: 14px;
 }
 
 .isi2 .button{
@@ -252,7 +270,7 @@ hr{
 }
 
 .isi2 .harga{
-  padding: 10px;
+  padding: 5px;
   flex-basis: 100%;
   color: rgb(76, 76, 76);
   letter-spacing: 1px;

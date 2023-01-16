@@ -1,17 +1,17 @@
 @extends('dashboard.layout.main')
 
 @section('container')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Data Rute Perjalanan Bus</h1>
-</div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Data Rute Perjalanan Bus</h1>
+    </div>
     @if (session()->has('pesan'))
         <div class="alert alert-success" role="alert">
-            {{session('pesan')}}
+            {{ session('pesan') }}
         </div>
     @endif
 
     <p>
-        <a href="{{url('/rute/create')}}" class=" btn btn-primary">Tambah Rute Perjalanan Bus Baru</a>
+        <a href="{{ url('/rute/create') }}" class=" btn btn-primary">Tambah Rute Perjalanan Bus Baru</a>
     </p>
 
     <form action="{{ url('/cari-rute') }}" method="GET">
@@ -25,7 +25,10 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('rute')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{ url('rute') }}" class="btn btn-success" style="align-content: center"><span
+                        class="material-symbols-sharp">
+                        restart_alt
+                    </span></a>
             </div>
         </div>
     </form>
@@ -42,38 +45,88 @@
         </thead>
         @forelse ($rutes as $rute)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{ $loop->iteration }}</td>
                 <td id="pendekawal-{{ $loop->iteration }}">
-                    {{ ucwords(Str::limit(implode(', ', [$rute->awal->alamat, $rute->awal->kelurahan->nama, $rute->awal->kelurahan->kecamatan->nama, $rute->awal->kelurahan->kecamatan->kabupaten->nama, $rute->awal->kelurahan->kecamatan->kabupaten->provinsi->nama]), 10)) }} <button
-                        onclick="tampilkanawal({{ $loop->iteration }})"><span data-feather="arrow-down-right"></span>
+                    {{ ucwords(
+                        Str::limit(
+                            implode(', ', [
+                                $rute->awal->alamat,
+                                $rute->awal->kelurahan->nama,
+                                $rute->awal->kelurahan->kecamatan->nama,
+                                $rute->awal->kelurahan->kecamatan->kabupaten->nama,
+                                $rute->awal->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                            ]),
+                            10,
+                        ),
+                    ) }}
+                    <button onclick="tampilkanawal({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            open_in_full
+                        </span>
                     </button>
                 </td>
-                <td id="panjangawal-{{ $loop->iteration }}" hidden="true">{{ucwords(implode(', ', [$rute->awal->alamat, $rute->awal->kelurahan->nama, $rute->awal->kelurahan->kecamatan->nama, $rute->awal->kelurahan->kecamatan->kabupaten->nama, $rute->awal->kelurahan->kecamatan->kabupaten->provinsi->nama]))}} <button
-                        onclick="sembunyikanawal({{ $loop->iteration }})"><span data-feather="arrow-up-left"></span></button>
+                <td id="panjangawal-{{ $loop->iteration }}" hidden="true">
+                    {{ ucwords(
+                        implode(', ', [
+                            $rute->awal->alamat,
+                            $rute->awal->kelurahan->nama,
+                            $rute->awal->kelurahan->kecamatan->nama,
+                            $rute->awal->kelurahan->kecamatan->kabupaten->nama,
+                            $rute->awal->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                        ]),
+                    ) }}
+                    <button onclick="sembunyikanawal({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            close_fullscreen
+                        </span>
+                    </button>
                 </td>
                 <td id="pendektujuan-{{ $loop->iteration }}">
-                    {{ ucwords(Str::limit(implode(', ', [$rute->tujuan->alamat, $rute->tujuan->kelurahan->nama, $rute->tujuan->kelurahan->kecamatan->nama, $rute->tujuan->kelurahan->kecamatan->kabupaten->nama, $rute->tujuan->kelurahan->kecamatan->kabupaten->provinsi->nama]), 10)) }} <button
-                        onclick="tampilkantujuan({{ $loop->iteration }})"><span data-feather="arrow-down-right"></span>
+                    {{ ucwords(
+                        Str::limit(
+                            implode(', ', [
+                                $rute->tujuan->alamat,
+                                $rute->tujuan->kelurahan->nama,
+                                $rute->tujuan->kelurahan->kecamatan->nama,
+                                $rute->tujuan->kelurahan->kecamatan->kabupaten->nama,
+                                $rute->tujuan->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                            ]),
+                            10,
+                        ),
+                    ) }}
+                    <button onclick="tampilkantujuan({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            open_in_full
+                        </span>
                     </button>
                 </td>
-                <td id="panjangtujuan-{{ $loop->iteration }}" hidden="true">{{ucwords(implode(', ', [$rute->tujuan->alamat, $rute->tujuan->kelurahan->nama, $rute->tujuan->kelurahan->kecamatan->nama, $rute->tujuan->kelurahan->kecamatan->kabupaten->nama, $rute->tujuan->kelurahan->kecamatan->kabupaten->provinsi->nama]))}} <button
-                        onclick="sembunyikantujuan({{ $loop->iteration }})"><span data-feather="arrow-up-left"></span></button>
+                <td id="panjangtujuan-{{ $loop->iteration }}" hidden="true">
+                    {{ ucwords(
+                        implode(', ', [
+                            $rute->tujuan->alamat,
+                            $rute->tujuan->kelurahan->nama,
+                            $rute->tujuan->kelurahan->kecamatan->nama,
+                            $rute->tujuan->kelurahan->kecamatan->kabupaten->nama,
+                            $rute->tujuan->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                        ]),
+                    ) }}
+                    <button onclick="sembunyikantujuan({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            close_fullscreen
+                        </span>
+                    </button>
                 </td>
-                <td>{{ucwords($rute->bus->nama)}}</td>
+                <td>{{ ucwords($rute->bus->nama) }}</td>
                 <td>
-                    <a href="{{url('/rute/'.$rute->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{url('/rute/'.$rute->id)}}" class="d-inline" method="POST">
+                    <a href="{{ url('/rute/' . $rute->id . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url('/rute/' . $rute->id) }}" class="d-inline" method="POST">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data ?')">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Yakin menghapus data ?')">Delete</button>
                     </form>
                 </td>
             </tr>
         @empty
-
         @endforelse
     </table>
-    {{$rutes->links('pagination::bootstrap-5')}}
+    {{ $rutes->links('pagination::bootstrap-5') }}
 @endsection
 
 <script type="text/javascript">

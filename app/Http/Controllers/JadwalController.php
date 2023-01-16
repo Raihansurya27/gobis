@@ -43,6 +43,8 @@ class JadwalController extends Controller
             //Y-m-d H:i:s
             'harga'=>'required|numeric',
         ]);
+        $bangku = Rute::where('id',$validatedData['rute_id'])->get();
+        $validatedData['jumlah_bangku'] = $bangku[0]->bus->bangku;
         Jadwal::create($validatedData);
         return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan baru berhasil ditambah');
     }
@@ -85,6 +87,8 @@ class JadwalController extends Controller
             //Y-m-d H:i:s
             'harga'=>'required|numeric',
         ]);
+        $bangku = Rute::where('id',$validatedData['rute_id'])->get();
+        $validatedData['jumlah_bangku'] = $bangku[0]->bus->bangku;
         Jadwal::where('id',$jadwal->id)->update($validatedData);
         return redirect('/jadwal')->with('pesan','Data jadwal keberangkatan berhasil diupdate');
     }

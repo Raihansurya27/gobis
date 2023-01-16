@@ -36,18 +36,25 @@ body{
 }
 
 .isi .grafik{
-  width: 100%;
+  width: 50%;
   background-color: rgb(110, 121, 244);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: white;
+  margin:auto;
 }
+
+.isi .grafik img{
+    width: 100%;
+    height: 100%;
+  }
 
 hr{
   border: 2px solid rgb(82, 85, 91);
 }
 
 table{
-  width: 100%;
+  width: 75%;
+  margin: auto;
 }
 
 #customers td, #customers th {

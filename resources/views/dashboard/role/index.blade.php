@@ -1,6 +1,7 @@
 @extends('dashboard.layout.main')
 
 @section('container')
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Data Role</h1>
     </div>
@@ -25,7 +26,9 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('role')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{url('role')}}" class="btn btn-success" style="align-content: center"><span class="material-symbols-sharp">
+                    restart_alt
+                    </span></a>
             </div>
         </div>
     </form>

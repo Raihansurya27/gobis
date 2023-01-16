@@ -39,6 +39,7 @@ body{
 .gobis .garis {
   font-size: 1.8em;
   font-weight: normal;
+  margin-left: 5px;
 }
 .isi-2{
   display: flex;
@@ -50,7 +51,7 @@ body{
 }
 
 .isi-2 .tujuan{
-  flex-basis: 50%:
+  flex-basis: 50%;
 }
 
 .dari .darii{

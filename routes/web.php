@@ -18,7 +18,8 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\RuteController;
 use App\Http\Controllers\CariBusController;
 use App\Http\Controllers\OrderController;
-use App\Models\Kabupaten;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,31 +41,16 @@ Route::get('/login',function(){
 });
 
 Route::get('/register',function(){
-    return view('register');
+    return view('daftar');
 });
 
-Route::get('/home',function(){
-    return view('home',['kabupatens'=>Kabupaten::all()]);
+Route::get('/',function(){
+    return view('home');
 });
 
-Route::get('/bis',function(){
-    return view('caribus');
-});
 
 Route::get('/about',function(){
     return view('about');
-});
-
-Route::get('/loginbaru',function(){
-    return view('loginbaru');
-});
-
-Route::get('/caribus',function(){
-    return view('caribus');
-});
-
-Route::get('/kontak',function(){
-    return view('kontak');
 });
 
 Route::get('/register',[LoginController::class,'register'])->name('register');
@@ -73,8 +59,8 @@ Route::get('/login',[LoginController::class,'login'])->name('login')->middleware
 Route::post('/login',[LoginController::class,'authenticate']);
 Route::post('/logout',[LoginController::class,'logout']);
 
-Route::resource('provinsi', ProvinsiController::class);
-Route::resource('kabupaten', KabupatenController::class);
+Route::resource('provinsi', ProvinsiController::class)->middleware('auth');
+Route::resource('kabupaten', KabupatenController::class)->middleware('auth');
 Route::resource('kecamatan', KecamatanController::class);
 Route::resource('kelurahan', KelurahanController::class);
 Route::resource('class-buses', ClassBusController::class);
@@ -86,58 +72,38 @@ Route::resource('jadwal', JadwalController::class);
 Route::resource('tiket', TiketController::class);
 Route::resource('pesanan', PesananController::class);
 
-Route::get('cari',[CariBusController::class,'cariBus']);
-Route::get('cari-role',[RoleController::class,'cariRole']);
-Route::get('cari-provinsi',[ProvinsiController::class,'cariProvinsi']);
-Route::get('cari-kabupaten',[KabupatenController::class,'cariKabupaten']);
-Route::get('cari-kecamatan',[KecamatanController::class,'cariKecamatan']);
-Route::get('cari-kelurahan',[KelurahanController::class,'cariKelurahan']);
-Route::get('cari-user',[UserController::class,'cariUser']);
-Route::get('cari-tiket',[TiketController::class,'cariTiket']);
-Route::get('cari-rute',[RuteController::class,'cariRute']);
-Route::get('cari-pesanan',[PesananController::class,'cariPesanan']);
-Route::get('cari-class',[ClassBusController::class,'cariClass']);
-Route::get('cari-jadwal',[JadwalController::class,'cariJadwal']);
-Route::get('cari-facilities',[FacilityController::class,'cariFacility']);
-Route::get('cari-buses',[BusController::class,'cariBus']);
-Route::get('cari-terminal',[TerminalController::class,'cariTerminal']);
+Route::get('cari',[CariBusController::class,'cariBus'])->middleware('auth');
+Route::get('cari-role',[RoleController::class,'cariRole'])->middleware('auth');
+Route::get('cari-provinsi',[ProvinsiController::class,'cariProvinsi'])->middleware('auth');
+Route::get('cari-kabupaten',[KabupatenController::class,'cariKabupaten'])->middleware('auth');
+Route::get('cari-kecamatan',[KecamatanController::class,'cariKecamatan'])->middleware('auth');
+Route::get('cari-kelurahan',[KelurahanController::class,'cariKelurahan'])->middleware('auth');
+Route::get('cari-user',[UserController::class,'cariUser'])->middleware('auth');
+Route::get('cari-tiket',[TiketController::class,'cariTiket'])->middleware('auth');
+Route::get('cari-rute',[RuteController::class,'cariRute'])->middleware('auth');
+Route::get('cari-pesanan',[PesananController::class,'cariPesanan'])->middleware('auth');
+Route::get('cari-class',[ClassBusController::class,'cariClass'])->middleware('auth');
+Route::get('cari-jadwal',[JadwalController::class,'cariJadwal'])->middleware('auth');
+Route::get('cari-facilities',[FacilityController::class,'cariFacility'])->middleware('auth');
+Route::get('cari-buses',[BusController::class,'cariBus'])->middleware('auth');
+Route::get('cari-terminal',[TerminalController::class,'cariTerminal'])->middleware('auth');
 
 //dashboard
-Route::get('/', function () {
-    return view('dashboard.index');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+Route::get('/dashboard', [DashboardController::class,'index'])->middleware('auth');
+Route::get('download-pdf',[DashboardController::class,'download'])->middleware('auth');
 
 //role
-Route::resource('/role', RoleController::class);
+Route::resource('/role', RoleController::class)->middleware('auth');
 
 //user
-Route::get('user', [UserController::class,'index']);
-Route::get('user/create', [UserController::class,'create']);
-Route::post('user', [UserController::class,'store']);
-Route::delete('user/{user}', [UserController::class,'destroy']);
-Route::get('user/{user}/edit', [UserController::class,'edit']);
-Route::put('user/{user}', [UserController::class,'update']);
+Route::get('user', [UserController::class,'index'])->middleware('auth');
+Route::get('user/create', [UserController::class,'create'])->middleware('auth');
+Route::post('user', [UserController::class,'store'])->middleware('auth');
+Route::delete('user/{user}', [UserController::class,'destroy'])->middleware('auth');
+Route::get('user/{user}/edit', [UserController::class,'edit'])->middleware('auth');
+Route::put('user/{user}', [UserController::class,'update'])->middleware('auth');
 
 // bisnis
-// Tiket
-Route::get('/tiket', function () {
-    return view('tiket');
-});
-// detailbus
-Route::get('/detailbus', function () {
-    return view('detailbus');
-});
-
-// laporan
-Route::get('/laporan', function () {
-    return view('laporan');
-});
-
-// tiket setelah pemesanan
-Route::get('/tiket2', function () {
-    return view('tiket2');
-});
+Route::resource('order', OrderController::class)->middleware('auth');
+Route::get('tiketku/{id}',[OrderController::class,'tampilTiket'])->middleware('auth');
+Route::put('bayar/{id}',[OrderController::class,'bayar']);

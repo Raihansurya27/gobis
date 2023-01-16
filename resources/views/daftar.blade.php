@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('/img/icon-web.png') }}" rel="icon">
     <title>GO-BIS</title>
 </head>
 
@@ -23,27 +24,14 @@
         </div>
         <div class="nav">
             <ul>
-                <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">Home</a></li>
-                <li> <a href="{{ url('bis') }}" class="{{ Request::is('bis') ? 'active' : '' }}">Bis</a></li>
-                <li> <a href="#">Kontak</a></li>
+                <li> <a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a></li>
+                <li> <a href="{{ url('/#pesan') }}" class="{{ Request::is('/#pesan') ? 'active' : '' }}">Cara Pesan</a>
+                </li>
                 <li> <a href="{{ url('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">Tentang Kami</a>
                 </li>
-                @auth
-                    <li>Hai, Rehan</li>
-                    {{-- @empty(auth()->user()->picture)
-                <img src="{{asset('img/noprofile.png')}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
-                @else
-                <img src="{{asset('img/profil/'.auth()->user()->picture)}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
-                @endempty --}}
-                    <form action="{{ url('/logout') }}" method="POST">
-                        @csrf
-                        <button>Logout</button>
-                    </form>
-                @else
-                    <li> <a href="{{ url('register') }}" class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
-                    </li>
-                    <li> <a href="{{ url('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
-                @endauth
+                <li> <a href="{{ url('register') }}" class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
+                </li>
+                <li> <a href="{{ url('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
             </ul>
         </div>
     </div>
@@ -64,7 +52,8 @@
                         <p>Nama Lengkap</p>
                     </div>
                     <div class="col-75">
-                        <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Nama Lengkap">
+                        <input type="text" name="nama" value="{{ ucwords(old('nama')) }}"
+                            placeholder="Nama Lengkap">
                     </div>
                 </div>
                 <div class="kontent">
@@ -77,15 +66,15 @@
                 </div>
                 <div class="kontent">
                     <div class="col-25">
-                        <p >Password</p>
+                        <p>Password</p>
                     </div>
                     <div class="col-75">
-                        <input  type="password" name="password" value="{{ old('password') }}" placeholder="Password">
+                        <input type="password" name="password" value="{{ old('password') }}" placeholder="Password">
                     </div>
                 </div>
                 <div class="alamat">
-                  <h3 >Alamat</h3>
-                  
+                    <h3>Alamat</h3>
+
                 </div>
                 <div class="kontent">
                     <div class="col-25">
@@ -96,9 +85,10 @@
                             <option value="pilih" selected>Pilih Provinsi</option>
                             @forelse ($provinsis as $provinsi)
                                 @if (old('provinsi_id') == $provinsi->id)
-                                    <option value="{{ $provinsi->id }}" selected>{{ $provinsi->nama }}</option>
+                                    <option value="{{ $provinsi->id }}" selected>{{ ucwords($provinsi->nama) }}
+                                    </option>
                                 @else
-                                    <option value="{{ $provinsi->id }}">{{ $provinsi->nama }}</option>
+                                    <option value="{{ $provinsi->id }}">{{ ucwords($provinsi->nama) }}</option>
                                 @endif
                             @empty
                                 <option>Tidak ada data Provinsi</option>
@@ -116,10 +106,10 @@
                             @forelse ($kabupatens as $kabupaten)
                                 @if (old('kabupaten_id') == $kabupaten->id)
                                     <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}" selected>
-                                        {{ $kabupaten->nama }}</option>
+                                        {{ ucwords($kabupaten->nama) }}</option>
                                 @else
                                     <option value="{{ $kabupaten->id }}" id="{{ $kabupaten->provinsi_id }}">
-                                        {{ $kabupaten->nama }}</option>
+                                        {{ ucwords($kabupaten->nama) }}</option>
                                 @endif
                             @empty
                                 <option>Tidak ada data Kabupaten</option>
@@ -138,10 +128,10 @@
                                 @if (old('kecamatan_id') == $kecamatan->id)
                                     <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}"
                                         selected>
-                                        {{ $kecamatan->nama }}</option>
+                                        {{ ucwords($kecamatan->nama) }}</option>
                                 @else
                                     <option value="{{ $kecamatan->id }}" id="{{ $kecamatan->kabupaten_id }}">
-                                        {{ $kecamatan->nama }}</option>
+                                        {{ ucwords($kecamatan->nama) }}</option>
                                 @endif
                             @empty
                                 <option>Tidak ada data Kecamatan</option>
@@ -160,10 +150,10 @@
                                 @if (old('kelurahan_id') == $kelurahan->id)
                                     <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}"
                                         selected>
-                                        {{ $kelurahan->nama }}</option>
+                                        {{ ucwords($kelurahan->nama) }}</option>
                                 @else
                                     <option value="{{ $kelurahan->id }}" id="{{ $kelurahan->kecamatan_id }}">
-                                        {{ $kelurahan->nama }}</option>
+                                        {{ ucwords($kelurahan->nama) }}</option>
                                 @endif
                             @empty
                                 <option>Tidak ada data Kelurahan</option>
@@ -176,7 +166,7 @@
                         <p>Alamat</p>
                     </div>
                     <div class="col-75">
-                        <textarea class="@error('deskripsi')is-invalid @enderror" id="alamat" rows="3" name="alamat">{{ old('alamat') }}</textarea>
+                        <textarea class="@error('deskripsi')is-invalid @enderror" id="alamat" rows="3" name="alamat">{{ Str::ucfirst(old('alamat')) }}</textarea>
                     </div>
                 </div>
                 <div class="daftar">

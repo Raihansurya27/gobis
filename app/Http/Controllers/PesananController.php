@@ -6,6 +6,7 @@ use App\Models\Pesanan;
 use App\Models\User;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PesananController extends Controller
 {
@@ -41,13 +42,15 @@ class PesananController extends Controller
             'jadwal_id'=>'required',
             'tanggal_pesan'=>'required',
             'jumlah'=>'required',
-            'user_id'=>'required',
             'status'=>'required',
             'tanggal_beli'=>'',
             'total'=>'',
         ]);
-        // $validatedData['user_id'] = Auth::user()->id;
+        $validatedData['user_id'] = Auth::user()->id;
         Pesanan::create($validatedData);
+        $jumlah_bangku = Jadwal::find($validatedData['jadwal_id']);
+        $jumlah_bangku->jumlah_bangku = $jumlah_bangku->jumlah_bangku - $validatedData['jumlah'];
+        $jumlah_bangku->save();
         return redirect('/pesanan')->with('pesan','Data pesanan baru berhasil ditambah');
     }
 
@@ -86,13 +89,28 @@ class PesananController extends Controller
             'jadwal_id'=>'required',
             'tanggal_pesan'=>'required',
             'jumlah'=>'required',
-            'user_id'=>'required',
             'status'=>'required',
             'tanggal_beli'=>'',
             'total'=>'',
         ]);
-        // $validatedData['user_id'] = Auth::user()->id;
-        Pesanan::where('id',$pesanan->id)->update($validatedData);
+        $validatedData['user_id'] = Auth::user()->id;
+        $pesanan = Pesanan::find($id);
+        $jadwal = Jadwal::find($pesanan->jadwal_id);
+        $jadwal->jumlah_bangku = $jadwal->jumlah_bangku + $pesanan->jumlah;
+
+        if($validatedData['jumlah'] > $jadwal->jumlah_bangku){
+            return back()->with('pesan','Jumlah bangku yang dimasukkan tidak sesuai dengan jumlah bangku yang tersisa');
+            // return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+            if($validatedData['jumlah'] <= 0){
+                return back()->with('pesan','Masukkan jumlah bangku dengan benar');
+            }else{
+                $jadwal->jumlah_bangku = $jadwal->jumlah_bangku - $validatedData['jumlah'];
+                $validatedData['total'] = ($validatedData['jumlah'] * $jadwal->harga);
+                $jadwal->save();
+                Pesanan::where('id',$pesanan->id)->update($validatedData);
+            }
+        }
         return redirect('/pesanan')->with('pesan','Data pesanan berhasil diupdate');
     }
 
@@ -104,6 +122,10 @@ class PesananController extends Controller
      */
     public function destroy(Pesanan $pesanan)
     {
+        $pesanan = Pesanan::find($id);
+        $jadwal = Jadwal::find($pesanan->jadwal_id);
+        $jadwal->jumlah_bangku = $jadwal->jumlah_bangku + $pesanan->jumlah;
+        $jadwal->save();
         Pesanan::destroy($pesanan->id);
         return redirect('/pesanan')->with('pesan','Data pesanan berhasil dihapus');
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->ForeignId('rute_id');
             $table->timestamp('keberangkatan');
             $table->double('harga');
+            $table->integer('jumlah_bangku');
             $table->timestamps();
         });
     }

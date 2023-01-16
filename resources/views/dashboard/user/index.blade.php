@@ -25,7 +25,10 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('user')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{ url('user') }}" class="btn btn-success" style="align-content: center"><span
+                        class="material-symbols-sharp">
+                        restart_alt
+                    </span></a>
             </div>
         </div>
     </form>
@@ -50,14 +53,37 @@
                 <td>{{ Str::limit($user->password, 5) }} </td>
                 <td>{{ ucwords($user->role->nama) }}</td>
                 <td id="pendek-{{ $loop->iteration }}">
-                    {{ ucwords(Str::limit(implode(', ', [$user->alamat, $user->kelurahan->nama, $user->kelurahan->kecamatan->nama, $user->kelurahan->kecamatan->kabupaten->nama, $user->kelurahan->kecamatan->kabupaten->provinsi->nama]), 5)) }} <button
-                        onclick="tampilkan({{ $loop->iteration }})"><span data-feather="arrow-down-right"></span>
+                    {{ ucwords(
+                        Str::limit(
+                            implode(', ', [
+                                $user->alamat,
+                                $user->kelurahan->nama,
+                                $user->kelurahan->kecamatan->nama,
+                                $user->kelurahan->kecamatan->kabupaten->nama,
+                                $user->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                            ]),
+                            5,
+                        ),
+                    ) }}
+                    <button onclick="tampilkan({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            open_in_full
+                        </span>
                     </button>
                 </td>
-                <td id="panjang-{{ $loop->iteration }}" hidden="true">{{ucwords(implode(', ', [$user->alamat,
-                    $user->kelurahan->nama, $user->kelurahan->kecamatan->nama, $user->kelurahan->kecamatan->kabupaten->nama,
-                    $user->kelurahan->kecamatan->kabupaten->provinsi->nama]))}} <button
-                        onclick="sembunyikan({{ $loop->iteration }})"><span data-feather="arrow-up-left"></span></button>
+                <td id="panjang-{{ $loop->iteration }}" hidden="true">
+                    {{ ucwords(
+                        implode(', ', [
+                            $user->alamat,
+                            $user->kelurahan->nama,
+                            $user->kelurahan->kecamatan->nama,
+                            $user->kelurahan->kecamatan->kabupaten->nama,
+                            $user->kelurahan->kecamatan->kabupaten->provinsi->nama,
+                        ]),
+                    ) }}
+                    <button onclick="sembunyikan({{ $loop->iteration }})"><span class="material-symbols-outlined">
+                            close_fullscreen
+                        </span>
+                    </button>
                 </td>
                 <td>
                     <div class="row">

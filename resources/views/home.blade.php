@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<?php use App\Models\Pesanan; ?>
 
 <head>
     <link rel="stylesheet" href="{{ asset('css/style_home.css') }}">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('/img/icon-web.png') }}" rel="icon">
     <title>Go-BIS</title>
 </head>
 
@@ -22,24 +24,39 @@
         </div>
         <div class="nav">
             <ul>
-                <li> <a href="{{ url('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">Home</a></li>
-                <li> <a href="{{ url('bis') }}" class="{{ Request::is('bis') ? 'active' : '' }}">Bis</a></li>
-                <li> <a href="#">Kontak</a></li>
+                <li> <a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}">Home</a></li>
+                <li> <a href="{{ url('/#pesan') }}" class="{{ Request::is('/#pesan') ? 'active' : '' }}">Cara Pesan</a>
+                </li>
                 <li> <a href="{{ url('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">Tentang Kami</a>
                 </li>
                 @auth
-                    <li>Hai, Rehan</li>
-                    {{-- @empty(auth()->user()->picture)
-                    <img src="{{asset('img/noprofile.png')}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
-                    @else
-                    <img src="{{asset('img/profil/'.auth()->user()->picture)}}" alt="{{auth()->user()->name}}" class="d-flex justify-content-center" style="width: 30px; height: 30px;">
-                    @endempty --}}
-                    <form action="{{ url('/logout') }}" method="POST">
-                        @csrf
-                        <button>Logout</button>
-                    </form>
+                    <?php $notif = Pesanan::where('user_id', auth()->user()->id)
+                        ->where('status', 'dipesan')
+                        ->get(); ?>
+                    <li> <a href="{{ url('order') }}" class="{{ Request::is('order') ? 'active' : '' }}">Tiket Anda
+                            @if (count($notif) > 0)
+                                ({{ count($notif) }})
+                            @endif
+                        </a>
+                    </li>
+                    @if (ucwords(auth()->user()->role->nama) == 'Admin')
+                        <li> <a href="{{ url('dashboard') }}"
+                                class="{{ Request::is('dashboard') ? 'active' : '' }}">Dashboard
+                            </a>
+                        </li>
+                    @endif
+                    <li>
+                        <p style="margin-right: 5px; color: #6e79f4;">{{ ucwords(auth()->user()->nama) }}</p>
+                    </li> |
+                    <li>
+                        <form action="{{ url('/logout') }}" method="POST">
+                            @csrf
+                            <button name="button" class="logout">Logout</button>
+                        </form>
+                    </li>
                 @else
-                    <li> <a href="{{ url('register') }}" class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
+                    <li> <a href="{{ url('register') }}"
+                            class="{{ Request::is('register') ? 'active' : '' }}">Register</a>
                     </li>
                     <li> <a href="{{ url('login') }}" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
                 @endauth
@@ -63,39 +80,11 @@
                     <div class="grid">
                         <div class="col-1">
                             <p>Dari (Kota)</p>
-                            <select name="awal_id">
-                                @forelse ($kabupatens as $kabupaten)
-                                    @if (old('awal_id') == $kabupaten->id)
-                                        <option value="{{ $kabupaten->id }}" selected>
-                                            {{ ucwords($kabupaten->nama) }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $kabupaten->id }}">
-                                            {{ ucwords($kabupaten->nama) }}
-                                        </option>
-                                    @endif
-                                @empty
-                                    <option>Tidak ada data Kota</option>
-                                @endforelse
-                            </select>
+                            <input type="text" name="awal_id" id="awal_id" value="{{ old('awal_id') }}">
                         </div>
                         <div class="col-2">
                             <p>Ke (Kota)</p>
-                            <select name="tujuan_id">
-                                @forelse ($kabupatens as $kabupaten)
-                                    @if (old('awal_id') == $kabupaten->id)
-                                        <option value="{{ $kabupaten->id }}" selected>
-                                            {{ ucwords($kabupaten->nama) }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $kabupaten->id }}">
-                                            {{ ucwords($kabupaten->nama) }}
-                                        </option>
-                                    @endif
-                                @empty
-                                    <option>Tidak ada data Kota</option>
-                                @endforelse
-                            </select>
+                            <input type="text" name="tujuan_id" id="tujuan_id" value="{{ old('tujuan_id') }}">
                         </div>
                         <div class="col-3">
                             <p>Dari tanggal</p>
@@ -119,8 +108,6 @@
             </div>
         </div>
     </div>
-    <br>
-    <br>
     <br>
     <br>
     <br>
@@ -416,6 +403,51 @@
             <a href="{{ url('home/#cari') }}">Lihat Lebih banyak</a>
         </div>
     </div> --}}
+
+    <!-- Cara Pesan Tiket Bus -->
+    <div class="fasilitas" id="pesan">
+        <div class="title">
+            <h2>Cara Pesan Tiket Bus di Go-Bis</h2>
+        </div>
+        {{-- <div class="ikon">
+            <div class="isi">
+                <i class="fa-solid fa-plug"></i>
+                <p>Colokan Listrik pada masing-masing kursi bus</p>
+            </div>
+            <div class="isi">
+                <i class="fa-solid fa-burger"></i>
+                <p>Makanan ringan untuk setiap penumpang bus</p>
+            </div>
+            <div class="isi">
+                <i class="fa-solid fa-toilet"></i>
+                <p>Tersedia toilet yang bersih</p>
+            </div>
+            <div class="isi">
+                <i class="fa-solid fa-chair"></i>
+                <p>Tempat duduk yang berkualitas dan nyaman</p>
+            </div>
+            <div class="isi">
+                <i class="fa-solid fa-fan"></i>
+                <p>Dilengkapi AC dingin di setiap bangku bus</p>
+            </div>
+        </div> --}}
+        <div class="card">
+            <div class="text" style="align-items: center">
+                <p>1. Daftar/Buat akun dahulu sebelum memesan tiket</p>
+                {{-- <img src="{{asset('img/bus.jpg')}}" style="height: 200px;"> --}}
+                <p>2. Kemudian akan diarahkan untuk login</p>
+                <p>3. Setelah login, anda akan diarahkan ke halaman home dan carilah destinasi awal, tujuan, dan estimasi keberangkatan bisnya, lalu tekan cari</p>
+                <p>4. Pencarian anda akan muncul dengan berbagai informasinya (jika tidak ada tiketnya berarti tidak ada jadwalnya)</p>
+                <p>5. Setelah menemukan jadwal yang pas, tekan pesan sekarang untuk pesan tiket</p>
+                <p>6. Masukkan jumlah bangku yang ingin dipesan, lalu tekan pesan</p>
+                <p>7. Anda akan diarahkan ke halaman tiket untuk menyelesaikan pembayaran. Anda juga bisa melakukan pembatalan atau perubahan tiket</p>
+                <p>8. Setelah membayar tiket, anda bisa menampilkan atau print tiketnya. tiket bus bisa anda gunakan</p>
+                <p>9. Semoga perjalanan anda menyenangkan</p>
+            </div>
+        </div>
+    </div>
+    <br>
+
     <!-- kebijakan kami -->
     <div class="kebijakan">
         <div class="title">

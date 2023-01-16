@@ -25,7 +25,9 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('class-buses')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{url('class-buses')}}" class="btn btn-success" style="align-content: center"><span class="material-symbols-sharp">
+                    restart_alt
+                </span></a>
             </div>
         </div>
     </form>

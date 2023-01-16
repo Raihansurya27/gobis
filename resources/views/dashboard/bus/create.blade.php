@@ -32,6 +32,15 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="bangku" class="form-label">Jumlah Bangku</label>
+                    <input type="number" class="form-control @error('bangku')is-invalid
+                    @enderror"
+                        id="bangku" placeholder="Contoh: 20" name="bangku" value="{{ old('bangku') }}">
+                    @error('bangku')
+                        {{ $message }}
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="deskripsi" class="form-label">Deskripsi Bus</label>
                     <textarea class="form-control @error('deskripsi')is-invalid
                     @enderror" id="deskripsi" rows="3"

@@ -27,7 +27,11 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended('/home');
+            if(ucwords(Auth::user()->role->nama) == "Admin"){
+                return redirect()->intended('/dashboard');
+            }else{
+                return redirect()->intended('/');
+            }
         }
 
         // // return back()->withErrors([
@@ -43,7 +47,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/home');
+        return redirect('/login');
     }
 
     public function register(){

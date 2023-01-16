@@ -25,7 +25,9 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('jadwal')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{url('jadwal')}}" class="btn btn-success" style="align-content: center"><span class="material-symbols-sharp">
+                    restart_alt
+                </span></a>
             </div>
         </div>
     </form>
@@ -34,9 +36,10 @@
         <thead class=" table-dark">
             <tr>
                 <th>No.</th>
-                <th>Nama Jadwal Keberangkatan</th>
+                <th>Nama Bus</th>
                 <th>Rute Perjalanan</th>
                 <th>Jadwal Keberangkatan</th>
+                <th>Jumlah Bangku</th>
                 <th>Harga</th>
                 <th>Aksi</th>
             </tr>
@@ -44,9 +47,10 @@
         @forelse ($jadwals as $jadwal)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{ucwords($jadwal->nama)}}</td>
+                <td>{{ucwords($jadwal->rute->bus->nama)}}</td>
                 <td>{{ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama)}}</td>
                 <td>{{$jadwal->keberangkatan}}</td>
+                <td>{{ $jadwal->jumlah_bangku }} bangku</td>
                 <td>Rp. {{number_format($jadwal->harga,2,",",".")}}</td>
                 <td>
                     <a href="{{url('/jadwal/'.$jadwal->id.'/edit')}}" class="btn btn-warning btn-sm">Edit</a>

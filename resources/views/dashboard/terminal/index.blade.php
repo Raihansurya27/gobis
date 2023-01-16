@@ -25,7 +25,10 @@
                 <button class=" btn btn-primary" type="submit">Cari</button>
             </div>
             <div class="col-1" style="margin-left: -40px">
-                <a href="{{url('terminal')}}" class="btn btn-outline-primary" style="align-content: center"><span data-feather="refresh-ccw"></span></a>
+                <a href="{{ url('terminal') }}" class="btn btn-success" style="align-content: center"><span
+                        class="material-symbols-sharp">
+                        restart_alt
+                    </span></a>
             </div>
         </div>
     </form>
@@ -46,12 +49,16 @@
                 <td>{{ ucwords($terminal->nama) }}</td>
                 <td id="pendek-{{ $loop->iteration }}">
                     {{ ucwords(Str::limit(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama]), 40)) }}
-                    <button onclick="tampilkan({{ $loop->iteration }})"> <span data-feather="arrow-down-right"></span>
+                    <button onclick="tampilkan({{ $loop->iteration }})"> <span class="material-symbols-outlined">
+                            open_in_full
+                        </span>
                     </button>
                 </td>
                 <td id="panjang-{{ $loop->iteration }}" hidden="true">
                     {{ ucwords(implode(', ', [$terminal->alamat, $terminal->kelurahan->nama, $terminal->kelurahan->kecamatan->nama, $terminal->kelurahan->kecamatan->kabupaten->nama, $terminal->kelurahan->kecamatan->kabupaten->provinsi->nama])) }}
-                    <button onclick="sembunyikan({{ $loop->iteration }})"> <span data-feather="arrow-up-left"></span>
+                    <button onclick="sembunyikan({{ $loop->iteration }})"> <span class="material-symbols-outlined">
+                            close_fullscreen
+                        </span>
                     </button>
                 </td>
                 <td>{{ Str::ucfirst($terminal->deskripsi) }}</td>
@@ -76,20 +83,20 @@
         @endforelse
     </table>
     {{ $terminals->links('pagination::bootstrap-5') }}
+
+    <script type="text/javascript">
+        function tampilkan(id) {
+            var pendek = document.getElementById('pendek-' + id);
+            var panjang = document.getElementById('panjang-' + id);
+            pendek.hidden = true;
+            panjang.hidden = false;
+        }
+
+        function sembunyikan(id) {
+            var pendek = document.getElementById('pendek-' + id);
+            var panjang = document.getElementById('panjang-' + id);
+            panjang.hidden = true;
+            pendek.hidden = false;
+        }
+    </script>F
 @endsection
-
-<script type="text/javascript">
-    function tampilkan(id) {
-        var pendek = document.getElementById('pendek-' + id);
-        var panjang = document.getElementById('panjang-' + id);
-        pendek.hidden = true;
-        panjang.hidden = false;
-    }
-
-    function sembunyikan(id) {
-        var pendek = document.getElementById('pendek-' + id);
-        var panjang = document.getElementById('panjang-' + id);
-        panjang.hidden = true;
-        pendek.hidden = false;
-    }
-</script>

@@ -20,11 +20,11 @@
                 <div class="mb-3">
                     <label for="jadwal_id" class="form-label">Rute Perjalanan</label> <br>
                     <select class="form-select" aria-label="Default select example" name="jadwal_id" id="jadwal_id">
-                        @forelse ($jadwals as $jadwal)
-                        @if (old('jadwal_id') == $jadwal->id)
-                        <option value="{{ $jadwal->id }}" selected>{{ ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama)}}, Jadwal keberangkatan : {{$jadwal->keberangkatan}} }}</option>
+                        @forelse ($rutes as $rute)
+                        @if (old('rute_id',$jadwal->rute_id) == $rute->id)
+                        <option value="{{ $rute->id }}" selected>{{ ucwords($rute->awal->nama.' -> '.$rute->tujuan->nama)}}</option>
                     @else
-                        <option value="{{ $jadwal->id }}">{{ ucwords($jadwal->rute->awal->nama.' -> '.$jadwal->rute->tujuan->nama) }}, Jadwal keberangkatan : {{$jadwal->keberangkatan}}</option>
+                        <option value="{{ $rute->id }}">{{ ucwords($rute->awal->nama.' -> '.$rute->tujuan->nama) }}</option>
                     @endif
                         @empty
                             <option>Tidak ada data jadwal perjalanan</option>
@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="keberangkatan" class="form-label">Jadwal Keberangkatan</label>
+                    <label for="keberangkatan" class="form-label">Tanggal Keberangkatan</label>
                     <input type="datetime-local" class="form-control @error('ket')is-invalid
                     @enderror" id="keberangkatan" name="keberangkatan" value="{{ucwords(old('keberangkatan',$jadwal->keberangkatan))}}">
                     @error('keberangkatan')

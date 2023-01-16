@@ -59,6 +59,23 @@ body{
   color: white;
 }
 
+.nav ul li .logout {
+    text-decoration: none;
+    /* background:rgb(129, 138, 242); */
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    transition: .5s;
+    color: rgb(110, 121, 244);
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.nav ul li .logout:hover {
+    background-color: rgb(47, 62, 222);
+    color: white;
+}
+
 .nav .active{
   background-color: rgb(110, 121, 244);
   color: white;

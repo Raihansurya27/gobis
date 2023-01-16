@@ -42,6 +42,7 @@ class BusController extends Controller
             'nama'=>'required',
             'class_bus_id'=>'required',
             'deskripsi'=>'required',
+            'bangku'=>'required|numeric',
             'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
         ]);
         if(!empty($request->foto)){
@@ -100,6 +101,7 @@ class BusController extends Controller
             'nama'=>'required',
             'class_bus_id'=>'required',
             'deskripsi'=>'required',
+            'bangku'=>'required|numeric',
             'foto'=>'image|mimes:jpeg,svg,png,jpg|max:4096'
         ]);
         if(!empty($request->foto)){
@@ -110,23 +112,12 @@ class BusController extends Controller
             $validatedData['foto'] = null;
         }
         Bus::where('id',$bus->id)->update($validatedData);
-        $bus_facilities = $request->input('facilities');
-        $jumlah = BusFacility::where('bus_id')->get();
-        if(count($jumlah) == 0){
-            foreach ($bus_facilities as $bus_facility) {
-                $facilityData['bus_id'] = $bus->id;
-                $facilityData['facility_id'] = $bus_facility;
-                BusFacility::create($facilityData);
-            }
-        }else{
-            if($bus_facilities){
-                $facilities = Facility::whereNotIn('id',$bus_facilities)->get();
-                foreach ($facilities as $facility) {
-                    BusFacility::where('bus_id',$bus->id)->where('facility_id',$facility->id)->delete();
-                }
-            }else{
-                BusFacility::destroy('bus_id',$bus->id);
-            }
+        BusFacility::where('bus_id',$bus->id)->delete();
+        $facilities = $request->input('facilities');
+        foreach ($facilities as $facility_id) {
+            $FacilityData['bus_id'] = $bus->id;
+            $FacilityData['facility_id'] = $facility_id;
+            BusFacility::create($FacilityData);
         }
         return redirect('/buses')->with('pesan','Data bus berhasil diupdate');
 

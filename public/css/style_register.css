@@ -1,316 +1,339 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-  background-color: rgb(110, 121, 244);
-  width: 100%;
-  height: 100vh;
+body {
+    background-color: rgb(110, 121, 244);
+    width: 100%;
+    height: 100vh;
 }
 
-.navbar{
-  width: 100%;
-  height: 70px;
-  background-color: rgb(255, 255, 255);
+.navbar {
+    width: 100%;
+    height: 70px;
+    background-color: rgb(255, 255, 255);
+    /* position: fixed; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
-.navbar .logo{
-  line-height: 70px;
-  margin-left: 80px;
-  color: rgb(110, 121, 244);
-  float: left;
-  cursor: pointer;
+.navbar .logo {
+    line-height: 70px;
+    margin-left: 80px;
+    color: rgb(110, 121, 244);
+    float: left;
+    cursor: pointer;
 }
 
-.logo h2{
-  letter-spacing: 2px;
-  font-size: 30px;
+.logo h2 {
+    letter-spacing: 2px;
+    font-size: 30px;
 }
 
 
-.nav ul{
-  display: flex;
-  float: right;
-  margin-right: 80px;
-  line-height: 70px;
+.nav ul {
+    display: flex;
+    float: right;
+    margin-right: 80px;
+    line-height: 70px;
 }
 
 .nav ul li {
-  list-style: none;
-  margin-left: 10px;
+    list-style: none;
+    margin-left: 10px;
 }
 
-.nav ul li a{
-  text-decoration: none;
-  color:rgb(110, 121, 244);
-  padding: 8px 15px;
-  border-radius: 3px;
-  transition: .5s;
-  letter-spacing: 1px;
+.nav ul li a {
+    text-decoration: none;
+    color: rgb(110, 121, 244);
+    padding: 8px 15px;
+    border-radius: 3px;
+    transition: .5s;
+    letter-spacing: 1px;
 }
 
-.nav ul li a:hover{
-  background-color: rgb(110, 121, 244);
-  color: white;
+.nav ul li a:hover {
+    background-color: rgb(110, 121, 244);
+    color: white;
 }
 
-.nav .active{
-  background-color: rgb(110, 121, 244);
-  color: white;
+.nav ul li .logout {
+    text-decoration: none;
+    /* background:rgb(129, 138, 242); */
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    transition: .5s;
+    color: rgb(110, 121, 244);
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.nav ul li .logout:hover {
+    background-color: rgb(47, 62, 222);
+    color: white;
+}
+
+.nav .active {
+    background-color: rgb(110, 121, 244);
+    color: white;
 }
 
 label #dehaze,
-label #close{
-  float: right;
-  color: rgb(110, 121, 244);
-  margin-right: 40px;
-  font-size: 30px;
-  cursor: pointer;
-  line-height: 70px;
-  transition: .5s;
-  display: none;
+label #close {
+    float: right;
+    color: rgb(110, 121, 244);
+    margin-right: 40px;
+    font-size: 30px;
+    cursor: pointer;
+    line-height: 70px;
+    transition: .5s;
+    display: none;
 }
 
-label #dehaze:hover{
-  color: rgb(0, 43, 18);
+label #dehaze:hover {
+    color: rgb(0, 43, 18);
 }
 
-label #close:hover{
-  color: rgb(0, 43, 18);
+label #close:hover {
+    color: rgb(0, 43, 18);
 
 }
 
-#check{
-  display: none;
+#check {
+    display: none;
 }
 
 /* Register */
 
 
-.grid-container{
-  display: grid;
-  margin: auto;
-  grid-template-columns:2fr 2fr;
-  margin-top: 60px;
-  width: 80%;
-  border : 2px solid white;
-  border-radius: 5px 5px 5px 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  margin-bottom: 50px;
+.grid-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 2fr 2fr;
+    margin-top: 60px;
+    width: 80%;
+    border: 2px solid white;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    margin-bottom: 50px;
 }
 
-.grid-container .title{
-  grid-area: :title;
-  grid-column: 1/4;
-  background-color: white;
-  color: rgb(110, 121, 244);
-  text-align: center;
-  padding: 8px 0px;
-  letter-spacing: 1px;
+.grid-container .title {
+    grid-area: :title;
+    grid-column: 1/4;
+    background-color: white;
+    color: rgb(110, 121, 244);
+    text-align: center;
+    padding: 8px 0px;
+    letter-spacing: 1px;
 }
 
 .col-1 {
-  grid-area: col-1;
-  grid-column: 1/2;
-  width: 100%;
+    grid-area: col-1;
+    grid-column: 1/2;
+    width: 100%;
 }
 
-.col-1 img{
-  width: 100%;
-  height: 100%;
-  border-radius: 0px 0px 0px 5px;
+.col-1 img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0px 0px 0px 5px;
 }
+
 .col-2 {
-  grid-area: col-2;
-  grid-column: 2/4;
-  background-color: rgb(146, 155, 247);
-  border-radius: 0px 0px 5px 0px;
-}
-.col-2 h3{
-  color: white;
-  letter-spacing: 1px;
-  margin: 20px 0px 0px 20px;
+    grid-area: col-2;
+    grid-column: 2/4;
+    background-color: rgb(146, 155, 247);
+    border-radius: 0px 0px 5px 0px;
 }
 
-.col-2 .alamat h3{
-  margin-top: 50px;
-  padding-top: 120px;
+.col-2 h3 {
+    color: white;
+    letter-spacing: 1px;
+    margin: 20px 0px 0px 20px;
 }
 
-.kontent{
-  margin: 0px 20px 0px 20px;
+.col-2 .alamat h3 {
+    margin-top: 50px;
+    padding-top: 120px;
 }
 
-.col-25{
-  float: left;
-  width: 30%;
-  letter-spacing: 1px;
-  margin-top: 15px;
-  color: white;
+.kontent {
+    margin: 0px 20px 0px 20px;
 }
 
-.col-75{
-  float: left;
-  margin-top: 10px;
-  width: 70%;
-  color: white;
-}
-
-
-.col-75 select{
-  background-color: white;
-  border:none;
-  padding: 8px;
-  float: right;
-  width: 90%;
-  border-radius: 4px;
-
-}
-
-.col-75 textarea{
-  float: right;
-  width: 90%;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  resize: vertical;
-  background-color: rgb(109, 116, 185);
-  color: white;
-  letter-spacing: 1.5px;
-margin-top: 10px;
-}
-
-input{
-  float: right;
-  width: 90%;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  resize: vertical;
-  background-color: rgb(109, 116, 185);
-  color: white;
-  letter-spacing: 1.5px;
-
-}
-
-::placeholder{
-  color: white;
-  opacity: .5;
-}
-
-.daftar button{
-  padding: 8px 15px;
-  color : white;
-  background-color: rgb(42, 96, 245);
-  letter-spacing: 1px;
-  margin-top: 20px;
-  float: right;
-  border-radius: 5px;
-  text-decoration: none;
-  cursor: pointer;
-  border:none;
-  margin-bottom: 20px;
-  margin-right: 20px;
-}
-
-.daftar button:hover{
-  background-color: rgb(28, 64, 163);
-}
-
-@media (max-width:1250px){
-  .col-25{
+.col-25 {
     float: left;
-    width: 42%;
+    width: 30%;
     letter-spacing: 1px;
     margin-top: 15px;
     color: white;
-  }
+}
 
-  .col-75{
+.col-75 {
     float: left;
     margin-top: 10px;
-    width: 58%;
+    width: 70%;
     color: white;
-  }
-
-  .col-75 select{
-    width: 100%;
-
-}
-
-.col-2 .alamat h3{
-  margin-top: 100px;
 }
 
 
-@media (max-width:900px){
+.col-75 select {
+    background-color: white;
+    border: none;
+    padding: 8px;
+    float: right;
+    width: 90%;
+    border-radius: 4px;
 
-  .col-25,.col-75,input{
-    width: 100%;
-    margin-top: 0px;
-  }
+}
 
-  .col-75 textarea{
-    width: 100%;
-    margin-top: 0;
-  }
-
-
-  .col-25{
-    margin-top: 5px;
-  }
-
-  .col-1{
-    display: none;
-  }
-
-  .col-2{
-    grid-column: 1/4;
-  }
-  label #dehaze{
-    display: flex;
-
-  }
-
-  .nav ul{
-    display: block;
-    z-index: 1;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    margin-right: 0px;
+.col-75 textarea {
+    float: right;
+    width: 90%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: rgb(109, 116, 185);
     color: white;
-    top: 70px;
-    background: rgb(255,255,255,.8);
-    padding-top: 30px;
-    right: -100%;
-    transition: .5s;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+}
 
-  }
-
-  .nav ul li{
-    display: block;
-    margin-left: 0px;
-  }
-
-  #check:checked ~ .nav ul{
-    right: 0;
-  }
-
-  #check:checked ~ label #dehaze{
-    display: none;
-    transition: .5s;
-  }
-
-  #check:checked ~ label #close{
-    display: block;
-    transition: .5s;
-  }
-
+input {
+    float: right;
+    width: 90%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: rgb(109, 116, 185);
+    color: white;
+    letter-spacing: 1.5px;
 
 }
+
+::placeholder {
+    color: white;
+    opacity: .5;
+}
+
+.daftar button {
+    padding: 8px 15px;
+    color: white;
+    background-color: rgb(42, 96, 245);
+    letter-spacing: 1px;
+    margin-top: 20px;
+    float: right;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.daftar button:hover {
+    background-color: rgb(28, 64, 163);
+}
+
+@media (max-width:1250px) {
+    .col-25 {
+        float: left;
+        width: 42%;
+        letter-spacing: 1px;
+        margin-top: 15px;
+        color: white;
+    }
+
+    .col-75 {
+        float: left;
+        margin-top: 10px;
+        width: 58%;
+        color: white;
+    }
+
+    .col-75 select {
+        width: 100%;
+
+    }
+
+    .col-2 .alamat h3 {
+        margin-top: 100px;
+    }
+
+
+    @media (max-width:900px) {
+
+        .col-25,
+        .col-75,
+        input {
+            width: 100%;
+            margin-top: 0px;
+        }
+
+        .col-75 textarea {
+            width: 100%;
+            margin-top: 0;
+        }
+
+
+        .col-25 {
+            margin-top: 5px;
+        }
+
+        .col-1 {
+            display: none;
+        }
+
+        .col-2 {
+            grid-column: 1/4;
+        }
+
+        label #dehaze {
+            display: flex;
+
+        }
+
+        .nav ul {
+            display: block;
+            z-index: 1;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            margin-right: 0px;
+            color: white;
+            top: 70px;
+            background: rgb(255, 255, 255, .8);
+            padding-top: 30px;
+            right: -100%;
+            transition: .5s;
+
+        }
+
+        .nav ul li {
+            display: block;
+            margin-left: 0px;
+        }
+
+        #check:checked~.nav ul {
+            right: 0;
+        }
+
+        #check:checked~label #dehaze {
+            display: none;
+            transition: .5s;
+        }
+
+        #check:checked~label #close {
+            display: block;
+            transition: .5s;
+        }
+
+
+    }

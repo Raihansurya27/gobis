@@ -11,17 +11,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="user_id" class="form-label">Nama Pelanggan</label> <br>
-                    <select class="form-select" aria-label="Default select example" name="user_id" id="user_id">
-                        @forelse ($users as $user)
-                            @if (old('user_id',$pesanan->user_id) == $user->id)
-                                <option value="{{ $user->id }}" selected>{{ ucwords($user->nama) }}</option>
-                            @else
-                                <option value="{{ $user->id }}">{{ ucwords($user->nama) }}</option>
-                            @endif
-                        @empty
-                            <option>Tidak ada data pelanggan</option>
-                        @endforelse
-                    </select>
+                    <input class="form-control" type="text" name="nama" id="nama" disabled="true" value="{{$pesanan->user->nama}}">
                 </div>
                 <div class="mb-3">
                     <label for="jadwal_id" class="form-label">Rute Perjalanan</label> <br>

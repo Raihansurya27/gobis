@@ -19,6 +19,7 @@ return new class extends Migration
             $table->ForeignId('class_bus_id');
             $table->string('foto')->nullable();
             $table->longText('deskripsi')->nullable();
+            $table->integer('bangku');
             $table->timestamps();
         });
     }
